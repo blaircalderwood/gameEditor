@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Game Editor</title>
+
+    <link rel="stylesheet" href="../jQuery/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="../jQuery/jqm-icon-pack-fa.css">
+    <link rel="stylesheet" href="../spriteEditor/UIStyles.css">
+    <link rel="stylesheet" href="../jQuery/jquery-ui.structure.min.css">
+    <link rel="stylesheet" href="../jQuery/jquery-ui.theme.min.css">
+    <link rel="stylesheet" href="../jQuery/jquery-ui.min.css">
+    <link rel="stylesheet" href="../jQuery/addEventsTheme.min.css">
+
+    <script src="../jQuery/jquery-2.1.1.min.js"></script>
+    <script src="../jQuery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../jQuery/jquery-ui.min.js"></script>
+
+    <script src="../generalFunctions.js"></script>
+
+    <script src="Interface.js"></script>
+    <script src="canvasElementPrototypes.js"></script>
+
+</head>
+<body onmousemove="mouseMoveListener(event)" onmousedown="mouseDownListener(event)" onmouseup="mouseUpListener(event)"
+      onload="loadInterface()">
+
+<div id="menuDiv" style="background-color: dimgray;
+    position: absolute; top: 0; left: 0; width: 100%; height: 2%; font-size: smaller">
+    <a id="fileMenuButton" style="color: white" onclick="showTopMenu(showFileMenu, 'fileMenu')"
+       onmouseover="if(menuShown)showFileMenu();">File</a>
+    <a id="editMenuButton" style="color: white" onclick="showTopMenu(showEditMenu, 'editMenu')"
+       onmouseover="if(menuShown)showEditMenu()">Edit</a>
+    <a style="color: white">Window</a>
+</div>
+
+<div id="iconMenuDiv">
+
+    <div data-role="controlgroup" data-type="horizontal" data-mini="true" class="icon-left">
+        <a data-role="button" id="runGameButton"
+           onclick="compile()" data-icon="play" title="Compile and run the game">Run</a>
+        <a data-role="button" id="newElementButton" onclick="showWidget($('#drawDiv'))" data-icon="plus">New Element</a>
+    </div>
+
+</div>
+
+<div id="eventsMenuDiv" class="sideMenu" style="left: 0; overflow-x: auto">
+
+    <div style="height: 90%; width: 100%; overflow-x: auto">
+        <ul data-role="listview" id="eventsList" data-filter="true" data-filter-placeholder="Search Events">
+
+            <li><a style="font-size: small" title="Mouse Click Rotate Element 0">On Mouse Click Rotate Element 0</a>
+            </li>
+
+        </ul>
+    </div>
+
+    <ul data-role="listview" style="position: absolute; bottom: 2%; width: 100%;">
+        <li data-icon="plus"><a onclick="showEventsPage()">ADD NEW EVENT</a></li>
+    </ul>
+
+</div>
+
+<div id="rightMenuDiv" class="sideMenu" style="left: 86%;">
+
+    <div class="rightMenuItem">
+        <ul data-role="listview" id="elementList" data-filter="true"
+            data-filter-placeholder="Search Elements" data-mini="true"></ul>
+    </div>
+    <div class="rightMenuItem">
+        <ul data-role="listview" id="settingsList" data-filter="true"
+            data-filter-placeholder="Search Settings" data-mini="true">
+
+            <li><label for="worldGravSetX">World Gravity X</label><input type="number" id="worldGravSetX"
+                                                                         data-mini="true"
+                                                                         onchange="worldGravity.horizontal = this.value"></li>
+            <li><label for="worldGravSetY">World Gravity Y</label><input type="number" id="worldGravSetY"
+                                                                         data-mini="true"
+                                                                         onchange="worldGravity.vertical = this.value"></li>
+
+        </ul>
+    </div>
+
+</div>
+
+<canvas id="backgroundCanvas" style="position: absolute; top: 7%; left: 14%; width: 72%; height: 93%;"></canvas>
+<canvas id="mainCanvas" style="position: absolute; top: 17%; left: 17%; z-index: 10;"></canvas>
+
+<div id="behaviourDiv">
+    <img src="../Images/Plus%20Image.png" height="90%" class="behaviourIcon">
+</div>
+
+<div id="drawDiv" class="ui-widget-content UIWindow">
+    <div align="right" id="drawHeader" class="ui-widget-header UIHeader">
+        <button class="closeButton" onclick="confirmCloseWindow()">Delete and Close</button>
+    </div>
+    <iframe id="drawingIFrame" width="99%" height="94%" src="../spriteEditor/canvasDrawing.html"
+            class="ui-widget-content"></iframe>
+</div>
+
+<div id="eventCreatorDiv" class="ui-widget-content UIWindow">
+    <div align="right" id="eventHeader" class="ui-widget-header UIHeader">
+        <button class="closeButton" onclick="confirmCloseWindow()">Delete and Close</button>
+    </div>
+
+    <div class="ui-grid-a" data-role="content">
+        <div class="ui-block-a">
+            <ul data-role="listview" id="addEventElement" data-filter="true"
+                data-filter-placeholder="Search Game Elements" data-theme="a" style="overflow-x: auto;">
+                <li><a>No game elements to display</a></li>
+            </ul>
+        </div>
+
+        <div class="ui-block-b">
+            <ul data-role="listview" id="addEventTask" data-filter="true"
+                data-filter-placeholder="Search Element Tasks" data-theme="b" style="overflow-x: auto">
+                <li><a>Select an element to continue</a></li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+    <div data-role="footer" class="ui-widget-header" align="right">
+        <button>Next Page</button>
+    </div>
+
+</div>
+
+</body>
+
+<div id="confirmDialog" title="Save sprite"><p>Would you like to save the sprite for use in the project?</p></div>
+
+</html>
