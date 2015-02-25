@@ -1,0 +1,120 @@
+.UIWindow{
+    z-index: 100;
+    position: absolute;
+    left: 25%;
+    top: 25%;
+    width: 50%;
+    height: 50%;
+    border: double;
+    border-color: #005599;
+    border-width: 4px;
+    display: none;
+}
+
+.UIHeader{
+
+    width: 100%;
+    height: 5%;
+    color: #005599;
+
+}
+
+.ui-widget-header{
+    background-color: #005599;
+}
+
+.ui-btn-active{
+    background: inherit;
+    font: inherit;
+    text-shadow: inherit;
+    color: inherit;
+}
+
+#menuDiv{
+
+    background-image: url("../Images/topMenuTexture.png");
+    background-repeat: repeat-x;
+
+}
+
+.sideMenu{
+
+    background-color: slategray;
+    position: absolute;
+    width: 14%;
+    height: 93%;
+    top: 7%;
+
+}
+
+#iconMenuDiv{
+
+    position: absolute;
+    top: 2%;
+    left: 0;
+    height: 5%;
+    right: 0;
+    z-index: 1;
+
+    /* IE10 Consumer Preview */
+    background-image: -ms-linear-gradient(top, #0088BB 0%, #005982 100%);
+
+    /* Mozilla Firefox */
+    background-image: -moz-linear-gradient(top, #0088BB 0%, #005982 100%);
+
+    /* Opera */
+    background-image: -o-linear-gradient(top, #0088BB 0%, #005982 100%);
+
+    /* Webkit (Safari/Chrome 10) */
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #0088BB), color-stop(1, #005982));
+
+    /* Webkit (Chrome 11+) */
+    background-image: -webkit-linear-gradient(top, #0088BB 0%, #005982 100%);
+
+    /* W3C Markup, IE10 Release Preview */
+    background-image: linear-gradient(to bottom, #0088BB 0%, #005982 100%);">
+
+}
+
+#behaviourDiv{
+
+    position: fixed;
+    bottom: -25%; left: 25%;
+    height: 12%;
+    width: 50%;
+    z-index: 100;
+    box-shadow: 10px 10px 5px #454545;
+
+    /* IE10 Consumer Preview */
+    background-image: -ms-linear-gradient(top, #CD5C5C 0%, #CD2B12 100%);
+
+    /* Mozilla Firefox */
+    background-image: -moz-linear-gradient(top, #CD5C5C 0%, #CD2B12 100%);
+
+    /* Opera */
+    background-image: -o-linear-gradient(top, #CD5C5C 0%, #CD2B12 100%);
+
+    /* Webkit (Safari/Chrome 10) */
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #CD5C5C), color-stop(1, #CD2B12));
+
+    /* Webkit (Chrome 11+) */
+    background-image: -webkit-linear-gradient(top, #CD5C5C 0%, #CD2B12 100%);
+
+    /* W3C Markup, IE10 Release Preview */
+    background-image: linear-gradient(to bottom, #CD5C5C 0%, #CD2B12 100%);
+
+}
+
+.behaviourIcon{
+
+    padding: 1%;
+
+}
+
+.rightMenuItem{
+
+    height: 50%;
+    width: 100%;
+    overflow-x: auto
+
+}

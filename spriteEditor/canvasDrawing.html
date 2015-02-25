@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Draw Stuff</title>
+
+    <link rel="stylesheet" href="../jQuery/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="../jQuery/jqm-icon-pack-fa.css">
+    <link rel="stylesheet" href="UIStyles.css">
+    <link rel="stylesheet" href="../jQuery/jquery-ui.structure.min.css">
+    <link rel="stylesheet" href="../jQuery/jquery-ui.theme.min.css">
+    <link rel="stylesheet" href="../jQuery/jquery-ui.min.css">
+
+    <script src="../jQuery/jquery-2.1.1.min.js"></script>
+    <script src="../jQuery/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../jQuery/jquery-ui.min.js"></script>
+
+    <script src="drawingCanvas.js"></script>
+    <script src="jscolor.js"></script>
+
+</head>
+
+<input type="file" id="imageUpload" accept="image/*" style="display: none" onchange="fileUpload(this)">
+
+<body onload="canvasLoad()">
+
+<div data-role="page" id="drawingPage" style="background-color: #0088bb">
+
+    <div data-role="header" id="canvasHeader" data-position="fixed">
+
+        <div data-role="navbar" id="navbarStuff" class="ui-state-persist">
+
+            <ul>
+                <li><label for="colourPicker">Colour</label>
+                    <input class="color {required:false, pickerMode:'HVS'}" onchange="changeColour()" id="colourPicker"
+                           value="#000000"></li>
+                <li><label for="lineWidthPicker">Line Width</label>
+                    <input id="lineWidthPicker" type="number" min="1" value="1" style="vertical-align: middle"></li>
+                <li><label for="fontSizePicker">Font Size</label>
+                    <input id="fontSizePicker" type="number" min="1" value="1" style="vertical-align: middle"></li>
+                <li><label for="dimensionsPickerWidth">Document Width</label>
+                    <input id="dimensionsPickerWidth" type="number" min="1" value="1" onchange="changeDimensions()" style="vertical-align: middle">
+                </li>
+                <li><label for="dimensionsPickerHeight">Document Height</label>
+                    <input id="dimensionsPickerHeight" type="number" min="1" value="1" onchange="changeDimensions()" style="vertical-align: middle">
+                </li>
+            </ul>
+        </div>
+
+        <div data-role="controlgroup" data-type="horizontal">
+
+            <a data-role="button" id="undoButton"
+               onclick="undo(undoQueue, redoQueue)" data-icon="arrow-circle-left">Undo</a>
+
+            <a data-role="button" id="redoButton"
+               onclick="undo(redoQueue, undoQueue)" data-icon="arrow-circle-right">Redo</a>
+
+            <a data-role="button" id="saveButton"
+               onclick="saveDrawing()" data-icon="save">Save</a>
+
+            <a data-role="button" id="uploadButton"
+               data-icon="folder" onclick="$('#imageUpload').click()">Upload Image</a>
+
+            <a data-role="button" id="selectButton" onclick="dragEnabled()"
+               data-icon="square-o">Select</a>
+
+            <a data-role="button" id="paintButton" onclick="selected = new Selected(paint, paint);"
+               data-icon="pencil">Paint</a>
+
+            <a data-role="button" id="rectButton"
+               onclick="selected = new Selected(saveCoords, previewShape, rectUp)" data-icon="square">Square</a>
+
+            <a data-role="button" id="circleButton"
+               onclick="selected = new Selected(saveCoords, previewShape, circUp)" data-icon="circle">Circle</a>
+
+            <a data-role="button" id="textButton"
+               onclick="selected = new Selected()" data-icon="font">Text</a>
+
+            <a data-role="button" id="lineButton"
+               onclick="selected = new Selected()" data-icon="minus">Line</a>
+
+        </div>
+    </div>
+
+    <div data-role="content" id="contentDiv" style="position: relative; text-align: center; transform: translate(-50%, -50%);">
+        <canvas id="drawingCanvas" onmousedown="putMouseDown()" onmouseup="mouseUp()" onmousemove="mouseMove(event)"
+                width="200px" height="200px" style="padding: 0; background-color: #ffffff; top: 0; left: 0"></canvas>
+
+    </div>
+
+</div>
+
+</body>
+
+
+</html>
