@@ -10,6 +10,13 @@ var fileRead;
 
 //Constructor Functions
 
+/** Creates a new keyboard key binding which will execute the target function when pressed
+ *
+ * @param control
+ * @param targetFunction
+ * @constructor
+ */
+
 function ControlBinding(control, targetFunction) {
 
     control = control.toUpperCase();
@@ -28,6 +35,23 @@ function newControl(control, targetFunction) {
     return ({control: control, targetFunction: targetFunction});
 
 }
+
+/** Creates an in-game button which can be clicked by an end user
+ *
+ * @param x
+ * @param y
+ * @param width
+ * @param height
+ * @param zIndex
+ * @param targetCanvas
+ * @param targetFunction
+ * @param text
+ * @param bgColour
+ * @param fontType
+ * @param fontSize
+ * @param fontColour
+ * @constructor
+ */
 
 function Button(x, y, width, height, zIndex, targetCanvas, targetFunction, text, bgColour, fontType, fontSize, fontColour) {
 
@@ -69,6 +93,18 @@ function Button(x, y, width, height, zIndex, targetCanvas, targetFunction, text,
 
 }
 
+/** Alters the game background to display an image or colour
+ *
+ * @param x
+ * @param y
+ * @param width
+ * @param height
+ * @param zIndex
+ * @param img
+ * @param colour
+ * @constructor
+ */
+
 function Background(x, y, width, height, zIndex, img, colour) {
 
     this.x = x;
@@ -86,6 +122,16 @@ function Background(x, y, width, height, zIndex, img, colour) {
 
 }
 
+/** Creates a new in-game element which can be altered programatically
+ *
+ * @param DOMElement
+ * @param x
+ * @param y
+ * @param width
+ * @param height
+ * @constructor
+ */
+
 function CanvasElement(DOMElement, x, y, width, height) {
 
     this.canvas = document.getElementById(DOMElement);
@@ -96,6 +142,10 @@ function CanvasElement(DOMElement, x, y, width, height) {
     this.canvas.height = height;
 
 }
+
+/** Called when the document is loaded
+ *
+ */
 
 window.onload = function () {
 
@@ -112,6 +162,10 @@ window.onload = function () {
 
 };
 
+/** Starts the execution of the game engine
+ *
+ */
+
 function startEngine() {
 
     if (imagesLoaded) {
@@ -124,6 +178,10 @@ function startEngine() {
 
 }
 
+/** Loads all required canvases from DOM for future manipulation
+ *
+ */
+
 function setUpCanvases() {
 
     physicsCanvas = new CanvasElement("physicsCanvas", 0, 0, $(window).width(), $(window).height());
@@ -135,12 +193,20 @@ function setUpCanvases() {
 
 }
 
+/** Removes everything drawn to a canvas
+ *
+ */
+
 CanvasElement.prototype.clearCanvas = function () {
 
     this.context.fillStyle = "white";
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
 };
+
+/** Called every frame to redraw any altered canvas elements and check for any event listener changes
+ *
+ */
 
 var redraw = function () {
 
@@ -197,6 +263,10 @@ var redraw = function () {
 
 };
 
+/** Called every frame to run the in game physics
+ *
+ */
+
 function physicsLoop() {
 
     var tm = new Date().getTime();
@@ -212,6 +282,11 @@ function physicsLoop() {
     lastFrame = tm;
 
 }
+
+/** Redraw a canvas element
+ *
+ * @param el
+ */
 
 function redrawSprite(el) {
 
@@ -237,6 +312,10 @@ function redrawSprite(el) {
 
 }
 
+/** Redraw all backgrounds
+ *
+ */
+
 function redrawBackgrounds() {
 
     for (var i = 0; i < backgroundsArray.length; i++) {
@@ -251,6 +330,10 @@ function redrawBackgrounds() {
     }
 
 }
+
+/** Redraw all buttons
+ *
+ */
 
 function redrawButtons() {
 
@@ -273,6 +356,12 @@ function redrawButtons() {
 //Other functions
 
 //Font checker inspired by http://www.kirupa.com/html5/detect_whether_font_is_installed.htm
+/** Check if a chosen font is available for use on the client's device
+ *
+ * @param fontName
+ * @returns {boolean}
+ */
+
 function doesFontExist(fontName) {
 
     var testCanvas = document.createElement("canvas");
@@ -292,6 +381,11 @@ function doesFontExist(fontName) {
 
 }
 
+/** Load all required images
+ *
+ * @returns {boolean}
+ */
+
 function imagesLoaded() {
 
     return true;
@@ -302,22 +396,27 @@ function imagesLoaded() {
 
         //spriteArray[i].img.onload = function () {
 
-            counter++;
-            if (counter == spriteArray.length) {
-                console.log("ALL IMAGES LOADED");
-                return true;
-            }
+        counter++;
+        if (counter == spriteArray.length) {
+            console.log("ALL IMAGES LOADED");
+            return true;
+        }
 
         //}
 
     }
 }
 
-function readImage(targetImage){
+/** Load any data url images
+ *
+ * @param targetImage
+ */
+
+function readImage(targetImage) {
 
     fileRead = new FileReader();
     fileRead.readAsDataURL(targetImage);
-    fileRead.onload = function(){
+    fileRead.onload = function () {
 
         var tempImage = new Image();
         tempImage.src = fileRead.result;
@@ -328,7 +427,12 @@ function readImage(targetImage){
 
 }
 
-function showImage(){
+/** Show data url image
+ *
+ * @returns {Image}
+ */
+
+function showImage() {
 
     console.log(fileRead.result);
 
@@ -340,6 +444,11 @@ function showImage(){
 }
 
 //Mouse and keyboard Functions
+
+/** Called every time the mouse is moved
+ *
+ * @param e
+ */
 
 var mouseMoveListener = function (e) {
 
@@ -353,12 +462,17 @@ var mouseMoveListener = function (e) {
 
 };
 
-function createMouseJoint(){
+function createMouseJoint() {
 
     var e = Event;
 
 
 }
+
+/** Execute all associated functions when a particular event happens
+ *
+ * @param listeningFunction
+ */
 
 function listen(listeningFunction) {
 
@@ -367,11 +481,18 @@ function listen(listeningFunction) {
             listeningFunction.functions[i].apply(listeningFunction.functions[i].bodyObject, listeningFunction.functions[i].parameterArray);
         }
     }
-    else{
+    else {
         listeningFunction.functions = [];
     }
 
 }
+
+/** Add an event to an in game object. This event will execute a given function when certain criteria is satisfied (e.g. a mouse click)
+ *
+ * @param targetFunction
+ * @param listener
+ * @param parameterArray
+ */
 
 Body.prototype.addEvent = function (targetFunction, listener, parameterArray) {
 
@@ -393,13 +514,36 @@ Body.prototype.addEvent = function (targetFunction, listener, parameterArray) {
 };
 
 //TO DO: Support for shift, enter etc.
+
+/** Add an event that is trigger when a keyboard key is pressed
+ *
+ * @param key
+ * @param targetFunction
+ * @param parameterArray
+ */
+
 Body.prototype.addKeyDownEvent = function (key, targetFunction, parameterArray) {
     controlArray.push(addKey.apply(this, [key, targetFunction, parameterArray]));
 };
 
+/** Add an event that is triggered when a keybaord key is released
+ *
+ * @param key
+ * @param targetFunction
+ * @param parameterArray
+ */
+
 Body.prototype.addKeyUpEvent = function (key, targetFunction, parameterArray) {
     controlReleasedArray.push(addKey.apply(this, [key, targetFunction, parameterArray]));
 };
+
+/** Add a keyboard key for later event trigger purposes
+ *
+ * @param key
+ * @param targetFunction
+ * @param parameterArray
+ * @returns {{}}
+ */
 
 function addKey(key, targetFunction, parameterArray) {
 
@@ -428,6 +572,11 @@ function addKey(key, targetFunction, parameterArray) {
 
 }
 
+/** When a key is pressed push it to an array for later event testing
+ *
+ * @param e
+ */
+
 document.onkeydown = function (e) {
 
     if (pressedKeysArray.indexOf(e.keyCode) == -1) {
@@ -436,14 +585,27 @@ document.onkeydown = function (e) {
 
 };
 
+/** Remove key from event testing array when is it released
+ *
+ * @param e
+ */
+
 document.onkeyup = function (e) {
     pressedKeysArray.splice(pressedKeysArray.indexOf(e.keyCode), 1);
     releasedKeysArray.push(e.keyCode);
 };
 
+/** Check which keys are currently being pressed
+ *
+ */
+
 function checkPressedKeys() {
     checkKeys(pressedKeysArray, controlArray);
 }
+
+/** Check which keys have just been released
+ *
+ */
 
 function checkReleasedKeys() {
 
@@ -451,6 +613,12 @@ function checkReleasedKeys() {
     releasedKeysArray = [];
 
 }
+
+/** Check which keys are currently pressed or have just been released against the list of keys with events attached to them.
+ *
+ * @param actualKeys
+ * @param keysToCheck
+ */
 
 function checkKeys(actualKeys, keysToCheck) {
 
@@ -476,49 +644,59 @@ function checkKeys(actualKeys, keysToCheck) {
 
 //String functions
 
+/** Returns an ASCII value when given a keyboard key
+ *
+ * @returns {number}
+ */
+
 String.prototype.toASCII = function () {
     return this.toUpperCase().charCodeAt(0);
 };
 
 //Number Functions
 
+/** Returns the tangent between two objects
+ *
+ * @param object1
+ * @param object2
+ * @returns {number}
+ */
+
 function tanAngle(object1, object2) {
 
-    var tanAngle = Math.atan2(object1.x - object2.x, object2.y - object1.y) - (Math.PI / 3);
-    /*if (tanAngle < 0) {
-     if (object1.y < object2.y) {
-     tanAngle = ((3 * Math.PI) / 2) - Math.abs(tanAngle);
-     }
-     else {
-     tanAngle = ((3 * Math.PI) / 2) + tanAngle;
-     }
-     }*/
-    return tanAngle;
+    return Math.atan2(object1.x - object2.x, object2.y - object1.y) - (Math.PI / 3);
+
 }
+
+/** Check if a given object is currently within the bounds of the canvas
+ *
+ * @param targetCanvas
+ * @returns {boolean}
+ */
 
 Body.prototype.inBounds = function (targetCanvas) {
 
     /*var xLeft = this.body.GetWorldCenter().x - this.body.GetRadius();
-    var xRight = this.body.GetWorldCenter().x + this.body.GetRadius();
-    var yLeft = this.body.GetWorldCenter().y - this.body.GetRadius();
-    var yRight = this.body.GetWorldCenter().y + this.body.GetRadius();*/
+     var xRight = this.body.GetWorldCenter().x + this.body.GetRadius();
+     var yLeft = this.body.GetWorldCenter().y - this.body.GetRadius();
+     var yRight = this.body.GetWorldCenter().y + this.body.GetRadius();*/
 
     var boundsCheck = false;
-    if(this.body.GetWorldCenter().x >= 0 && this.body.GetWorldCenter().x <= targetCanvas.width &&
-        this.body.GetWorldCenter().y >= 0 && this.body.GetWorldCenter().y <= targetCanvas.height){
+    if (this.body.GetWorldCenter().x >= 0 && this.body.GetWorldCenter().x <= targetCanvas.width &&
+        this.body.GetWorldCenter().y >= 0 && this.body.GetWorldCenter().y <= targetCanvas.height) {
         boundsCheck = true;
     }
 
     /*if (this.width && this.height) {
-        if ((xLeft >= 0) && (xRight <= targetCanvas.width) && (yLeft >= 0) && (yRight <= targetCanvas.height)) {
-            boundsCheck = true;
-        }
-    }
-    else if ((this.GetWorldCenter().x >= 0) && (this.GetWorldCenter().x <= targetCanvas.width) && (this.GetWorldCenter().y >= 0) && (this.GetWorldCenter().y <= targetCanvas.height)) {
-        boundsCheck = true;
-    }
+     if ((xLeft >= 0) && (xRight <= targetCanvas.width) && (yLeft >= 0) && (yRight <= targetCanvas.height)) {
+     boundsCheck = true;
+     }
+     }
+     else if ((this.GetWorldCenter().x >= 0) && (this.GetWorldCenter().x <= targetCanvas.width) && (this.GetWorldCenter().y >= 0) && (this.GetWorldCenter().y <= targetCanvas.height)) {
+     boundsCheck = true;
+     }
 
-    console.log(boundsCheck);*/
+     console.log(boundsCheck);*/
     return boundsCheck;
 
 };
