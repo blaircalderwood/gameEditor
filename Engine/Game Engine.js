@@ -151,15 +151,14 @@ window.onload = function () {
 
     setUpCanvases();
 
-    if (physicsEnabled) {
-        physics = window.physics = new Physics(physicsCanvas.canvas);
-    }
+    if (physicsEnabled) physics = window.physics = new Physics(physicsCanvas.canvas);
 
     //engineReady(physics);
 
     var tempText = localStorage.getItem('compiledText');
     eval(tempText);
 
+    imagesLoaded();
 };
 
 /** Starts the execution of the game engine
@@ -168,9 +167,7 @@ window.onload = function () {
 
 function startEngine() {
 
-    if (imagesLoaded) {
-        requestAnimationFrame(redraw);
-    }
+    requestAnimationFrame(redraw);
 
     createMouseJoint();
 
@@ -388,25 +385,46 @@ function doesFontExist(fontName) {
 
 function imagesLoaded() {
 
-    return true;
-
     var counter = 0;
+    var newImage = [];
 
     for (var i = 0; i < spriteArray.length; i++) {
 
-        //spriteArray[i].img.onload = function () {
+        newImage[i] = spriteArray[i].details.image;
 
-        counter++;
-        if (counter == spriteArray.length) {
-            console.log("ALL IMAGES LOADED");
-            return true;
+        //generalFunctions.loadImages(finishedImageLoad, null, newImage);
+
+        finishedImageLoad("blabla", newImage);
+        spriteArray[i].details.image.onload = function () {
+
+            counter++;
+            if (counter >= spriteArray.length - 1) {
+                console.log("ALL IMAGES LOADED");
+                return true;
+            }
+
         }
-
-        //}
 
     }
 }
 
+function finishedImageLoad(blabla, images) {
+
+    for (var i = 0; i < images.length; i++) {
+
+        //spriteArray[i].details.image = images[i];
+
+        spriteArray[i].details.image = new Image();
+        spriteArray[i].details.image.src = images[i];
+
+        spriteArray[0].details.image.onload = function () {
+            console.log(spriteArray[i].details.image);
+            startEngine();
+        }(i);
+
+    }
+
+}
 /** Load any data url images
  *
  * @param targetImage

@@ -17,14 +17,14 @@ var gravity = new b2Vec2(0, 0);
  * @type {Function}
  */
 
-var Physics = window.Physics = function(element, scale){
+var Physics = window.Physics = function (element, scale) {
 
     this.world = new b2World(gravity, true);
     this.element = element;
     this.context = element.getContext("2d");
     this.scale = scale || 20;
     this.dtRemaining = 0;
-    this.stepAmount = 1/60;
+    this.stepAmount = 1 / 60;
 
 };
 
@@ -33,16 +33,16 @@ var Physics = window.Physics = function(element, scale){
  * @param dt
  */
 
-Physics.prototype.step = function(dt){
+Physics.prototype.step = function (dt) {
 
     this.dtRemaining += dt;
 
-    while(this.dtRemaining > this.stepAmount){
+    while (this.dtRemaining > this.stepAmount) {
         this.dtRemaining -= this.stepAmount;
         this.world.Step(this.stepAmount, 8, 3);
     }
 
-    if(this.debugDraw){
+    if (this.debugDraw) {
         this.world.DrawDebugData();
     }
     else {
@@ -58,9 +58,7 @@ Physics.prototype.step = function(dt){
 
             var body = object.GetUserData();
 
-            if (body) {
-                body.draw(this.context);
-            }
+            if (body) body.draw(this.context);
 
             object = object.GetNext();
 
@@ -77,7 +75,7 @@ Physics.prototype.step = function(dt){
  * @param callback
  */
 
-Physics.prototype.click = function(callback) {
+Physics.prototype.click = function (callback) {
     var self = this;
 
     function handleClick(e) {
@@ -87,7 +85,7 @@ Physics.prototype.click = function(callback) {
             y: (e.offsetY || e.layerY) / self.scale
         };
 
-        self.world.QueryPoint(function(fixture) {
+        self.world.QueryPoint(function (fixture) {
             console.log(fixture);
             callback(fixture.GetBody(),
                 fixture,
@@ -95,8 +93,8 @@ Physics.prototype.click = function(callback) {
         }, point);
     }
 
-    this.element.addEventListener("mousedown",handleClick);
-    this.element.addEventListener("touchstart",handleClick);
+    this.element.addEventListener("mousedown", handleClick);
+    this.element.addEventListener("touchstart", handleClick);
 
 };
 
@@ -104,11 +102,11 @@ Physics.prototype.click = function(callback) {
  *
  */
 
-Physics.prototype.collision = function(){
+Physics.prototype.collision = function () {
 
     this.listener = new Box2D.Dynamics.b2ContactListener();
 
-    this.listener.BeginContact = function(contact){
+    this.listener.BeginContact = function (contact) {
 
     }
 };
@@ -117,7 +115,7 @@ Physics.prototype.collision = function(){
  *
  */
 
-Physics.prototype.debug = function() {
+Physics.prototype.debug = function () {
 
     this.debugDraw = new b2DebugDraw();
     this.debugDraw.SetSprite(this.context);
@@ -137,13 +135,13 @@ Physics.prototype.debug = function() {
  * @type {Function}
  */
 
-var Body = window.Body = function(physics, details){
+var Body = window.Body = function (physics, details) {
 
     this.details = details = details || {};
 
     this.definition = new b2BodyDef();
 
-    for(var k in this.definitionDefaults){
+    for (var k in this.definitionDefaults) {
         this.definition[k] = details[k] || this.definitionDefaults[k];
     }
 
@@ -156,13 +154,13 @@ var Body = window.Body = function(physics, details){
 
     this.fixtureDef = new b2FixtureDef();
 
-    for(var l in this.fixtureDefaults){
+    for (var l in this.fixtureDefaults) {
         this.fixtureDef[l] = details[l] || this.fixtureDefaults[l];
     }
 
     details.shape = details.shape || this.defaults.shape;
 
-    switch (details.shape){
+    switch (details.shape) {
 
         case "circle":
             details.radius = details.radius || this.defaults.radius;
@@ -190,7 +188,10 @@ var Body = window.Body = function(physics, details){
 
     this.body.CreateFixture(this.fixtureDef);
 
-    this.definition.anchorPoint = details.anchorPoint || {x: this.body.GetWorldCenter().x, y: this.body.GetWorldCenter().y};
+    this.definition.anchorPoint = details.anchorPoint || {
+        x: this.body.GetWorldCenter().x,
+        y: this.body.GetWorldCenter().y
+    };
 
 };
 
@@ -201,14 +202,14 @@ var Body = window.Body = function(physics, details){
  * @constructor
  */
 
-Body.prototype.SetAirFriction = function(friction, angularDamping){
+Body.prototype.SetAirFriction = function (friction, angularDamping) {
 
-    if(friction) {
+    if (friction) {
         this.body.GetLinearVelocity().x *= friction;
         this.body.GetLinearVelocity().y *= friction;
     }
 
-    if(angularDamping) {
+    if (angularDamping) {
         this.body.SetAngularVelocity(this.body.GetAngularVelocity() * angularDamping);
     }
 
@@ -220,16 +221,16 @@ Body.prototype.SetAirFriction = function(friction, angularDamping){
  * @constructor
  */
 
-Body.prototype.SetMovementThreshold = function(threshold){
+Body.prototype.SetMovementThreshold = function (threshold) {
 
-    if(!this.oldVel){
-        this.oldVel = {x:0, y:0};
+    if (!this.oldVel) {
+        this.oldVel = {x: 0, y: 0};
     }
 
     var linearX = Math.abs(this.body.GetLinearVelocity().x);
     var linearY = Math.abs(this.body.GetLinearVelocity().y);
 
-    if(linearX < threshold && linearX < Math.abs(this.oldVel.x) && linearY < threshold && linearY < Math.abs(this.oldVel.y)){
+    if (linearX < threshold && linearX < Math.abs(this.oldVel.x) && linearY < threshold && linearY < Math.abs(this.oldVel.y)) {
         this.body.SetLinearVelocity(new b2Vec2(0, 0));
     }
 
@@ -244,15 +245,15 @@ Body.prototype.SetMovementThreshold = function(threshold){
  * @constructor
  */
 
-Body.prototype.SetAngularThreshold = function(threshold){
+Body.prototype.SetAngularThreshold = function (threshold) {
 
-    if(!this.oldAngleVel){
+    if (!this.oldAngleVel) {
         this.oldAngleVel = 0;
     }
 
     var angleVel = Math.abs(this.body.GetAngularVelocity());
 
-    if(angleVel < threshold && angleVel < Math.abs(this.oldAngleVel)){
+    if (angleVel < threshold && angleVel < Math.abs(this.oldAngleVel)) {
         this.body.SetAngularVelocity(0);
     }
 
@@ -265,7 +266,7 @@ Body.prototype.SetAngularThreshold = function(threshold){
  * @param velocity
  */
 
-Body.prototype.moveLeft = function(velocity){
+Body.prototype.moveLeft = function (velocity) {
     this.body.SetLinearVelocity(new b2Vec2(-velocity, 0));
 };
 
@@ -274,7 +275,7 @@ Body.prototype.moveLeft = function(velocity){
  * @param velocity
  */
 
-Body.prototype.moveRight = function(velocity){
+Body.prototype.moveRight = function (velocity) {
     this.body.SetLinearVelocity(new b2Vec2(velocity, 0));
 };
 
@@ -283,7 +284,7 @@ Body.prototype.moveRight = function(velocity){
  * @param velocity
  */
 
-Body.prototype.moveUp = function(velocity){
+Body.prototype.moveUp = function (velocity) {
     this.body.SetLinearVelocity(new b2Vec2(0, -velocity));
 };
 
@@ -292,7 +293,7 @@ Body.prototype.moveUp = function(velocity){
  * @param velocity
  */
 
-Body.prototype.moveDown = function(velocity){
+Body.prototype.moveDown = function (velocity) {
     this.body.SetLinearVelocity(new b2Vec2(0, velocity));
 };
 
@@ -301,10 +302,10 @@ Body.prototype.moveDown = function(velocity){
  * @param target
  */
 
-Body.prototype.rotateTowardsPoint = function(target){
+Body.prototype.rotateTowardsPoint = function (target) {
 
     this.body.SetAngle(tanAngle({x: target.x, y: target.y},
-    {x: this.body.GetWorldCenter().x * physics.scale, y: this.body.GetWorldCenter().y * physics.scale}));
+        {x: this.body.GetWorldCenter().x * physics.scale, y: this.body.GetWorldCenter().y * physics.scale}));
 
 };
 
@@ -314,19 +315,19 @@ Body.prototype.rotateTowardsPoint = function(target){
  * @param speed
  */
 
-Body.prototype.moveTowardsPoint = function(target, speed) {
+Body.prototype.moveTowardsPoint = function (target, speed) {
 
 
     if (target.inBounds(physicsCanvas.canvas) == true && target.inBounds(physicsCanvas.canvas) == true) {
 
-    var vecLength = Math.sqrt((target.x * this.body.GetWorldCenter().x) + (target.x * this.body.GetWorldCenter().y));
+        var vecLength = Math.sqrt((target.x * this.body.GetWorldCenter().x) + (target.x * this.body.GetWorldCenter().y));
 
-    this.body.ApplyImpulse({
-        x: ((target.x - this.body.GetPosition().x * physics.scale) / vecLength * speed),
-        y: ((target.y - this.body.GetPosition().y * physics.scale) / vecLength * speed)
-    }, this.body.GetWorldCenter());
+        this.body.ApplyImpulse({
+            x: ((target.x - this.body.GetPosition().x * physics.scale) / vecLength * speed),
+            y: ((target.y - this.body.GetPosition().y * physics.scale) / vecLength * speed)
+        }, this.body.GetWorldCenter());
 
-}
+    }
 
 };
 
@@ -335,7 +336,7 @@ Body.prototype.moveTowardsPoint = function(target, speed) {
  * @param friction
  */
 
-Body.prototype.setTopDownFriction = function(friction){
+Body.prototype.setTopDownFriction = function (friction) {
     this.body.SetLinearDamping(friction);
 };
 
@@ -378,7 +379,7 @@ Body.prototype.definitionDefaults = {
  * @param context
  */
 
-Body.prototype.draw = function(context){
+Body.prototype.draw = function (context) {
 
     var position = this.body.GetPosition();
     var angle = this.body.GetAngle();
@@ -388,10 +389,10 @@ Body.prototype.draw = function(context){
     context.translate(position.x, position.y);
     context.rotate(angle);
 
-    if(this.details.color){
+    if (this.details.color) {
         context.fillStyle = this.details.color;
 
-        switch(this.details.shape){
+        switch (this.details.shape) {
             case "circle":
                 context.beginPath();
                 context.arc(0, 0, this.details.radius, 0, Math.PI * 2);
@@ -403,7 +404,7 @@ Body.prototype.draw = function(context){
                 context.beginPath();
                 context.moveTo(points[0].x, points[0].y);
 
-                for(var i = 1; i < points.length; i ++){
+                for (var i = 1; i < points.length; i++) {
                     context.lineTo(points[i].x, points[i].y);
                 }
 
@@ -411,7 +412,7 @@ Body.prototype.draw = function(context){
                 break;
 
             case "block":
-                context.fillRect(-this.details.width / 2, - this.details.height / 2, this.details.width, this.details.height);
+                context.fillRect(-this.details.width / 2, -this.details.height / 2, this.details.width, this.details.height);
                 break;
 
             default:
@@ -421,17 +422,19 @@ Body.prototype.draw = function(context){
         }
     }
 
-    if(this.details.image){
+    if (this.details.image) {
 
-        console.log(this);
-        var sprite = new Image();
-        sprite.src = this.details.image;
-        sprite.width = this.details.width;
-        sprite.height = this.details.height;
+        context.drawImage(this.details.image, -this.details.width / 2, -this.details.height / 2,
+            this.details.width,
+            this.details.height);
 
-        sprite.onload = function() {
-            context.drawImage(sprite, -sprite.width / 2, -sprite.height / 2, sprite.width, sprite.height);
-        }
+        /*sprite.onload = function() {
+
+         console.log("WORKING");
+         context.drawImage(sprite, -sprite.width / 2, -sprite.height / 2, sprite.width, sprite.height);
+
+
+         }*/
 
     }
 
@@ -443,7 +446,7 @@ Body.prototype.draw = function(context){
  *
  */
 
-Body.prototype.bounceOffWalls = function(){
+Body.prototype.bounceOffWalls = function () {
 
     new Body(physics, {type: "static", x: 0, y: 0, height: 50, width: 2});
     new Body(physics, {type: "static", x: 51, y: 0, height: 50, width: 2});
@@ -459,17 +462,17 @@ Body.prototype.bounceOffWalls = function(){
  * @param destroyOnCollision
  */
 
-Body.prototype.bulletBehaviour = function(velocity, angleInRads, destroyOnCollision){
+Body.prototype.bulletBehaviour = function (velocity, angleInRads, destroyOnCollision) {
 
     this.body.SetAngle(angleInRads);
     this.body.SetLinearVelocity(velocity);
 
-    if(destroyOnCollision){
+    if (destroyOnCollision) {
 
         //this.collision();
         /*this.listener.BeginContact = function(contact){
-            destroyArray.push(this);
-        }*/
+         destroyArray.push(this);
+         }*/
 
     }
 };
@@ -487,9 +490,9 @@ Body.prototype.addBehaviour = function (behaviourFunction, parameter1, parameter
     var parameters = [];
     var behaviour = {};
 
-    if(parameter1){
+    if (parameter1) {
         parameters.push(parameter1);
-        if(parameter2) {
+        if (parameter2) {
             parameters.push(parameter2);
             if (parameter3) {
                 parameters.push(parameter3);
@@ -520,22 +523,22 @@ Body.prototype.removeBehaviour = function (behaviourFunction) {
 /** Execute any object behaviours
  *
  */
-Body.prototype.executeBehaviours = function(){
+Body.prototype.executeBehaviours = function () {
 
-    for(var i = 0; i <this.behaviours.length; i++){
+    for (var i = 0; i < this.behaviours.length; i++) {
 
         this.targetFunction = this.behaviours[i].targetFunction;
 
-        if(this.behaviours[i].parameters.length >= 3) {
+        if (this.behaviours[i].parameters.length >= 3) {
             this.targetFunction(this.behaviours[i].parameters[0], this.behaviours[i].parameters[1], this.behaviours[i].parameters[2]);
         }
-        else if(this.behaviours[i].parameters.length == 2){
+        else if (this.behaviours[i].parameters.length == 2) {
             this.targetFunction(this.behaviours[i].parameters[0], this.behaviours[i].parameters[1]);
         }
-        else if(this.behaviours[i].parameters.length == 1){
+        else if (this.behaviours[i].parameters.length == 1) {
             this.targetFunction(this.behaviours[i].parameters[0]);
         }
-        else{
+        else {
             this.targetFunction();
         }
     }

@@ -47,14 +47,15 @@ generalFunctions.loadImages = function(callback, callbackParamArray, images) {
         var image = new Image();
         image.src = images[i];
 
-        image.onload = (function () {
+        image.onload = function () {
 
             finishedImages.push(image);
 
             if (finishedImages.length >= images.length) {
                 callbackParamArray.push(finishedImages);
+                if(callback)execCallback(callback, callbackParamArray);
             }
-        })(image)
+        }(image);
 
     }
 
