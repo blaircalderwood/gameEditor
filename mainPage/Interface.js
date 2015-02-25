@@ -384,7 +384,7 @@ function loadCanvasDrawing() {
 
         var tempImage = new Image();
         tempImage.src = data;
-
+        console.log(tempImage);
         tempImage.onload = function () {
             canvasElements.push(new CanvasElement(mainCanvas.width / 2, mainCanvas.height / 2,
                 tempImage.width, tempImage.height, mainCanvas, tempImage, null, true, true));
@@ -432,10 +432,13 @@ function confirmCloseWindow() {
 
 function compile() {
 
+    var canImage;
+
     compileText = "var firstBody;" +
     "physics.world.SetGravity(new b2Vec2(" + worldGravity.horizontal + ", " + worldGravity.vertical + "));";
 
     for (var i = 0; i < canvasElements.length; i++) {
+
         compileText += "firstBody = new Body(physics, {" +
         "shape: 'circle'," +
         "radius: " + (canvasElements[i].width / 2) + "/ physics.scale," +
@@ -443,8 +446,8 @@ function compile() {
         "y: " + (canvasElements[i].y + (canvasElements[i].height / 2)) + "/ physics.scale," +
         "width: " + canvasElements[i].width + "/ physics.scale," +
         "height: " + canvasElements[i].height + "/ physics.scale," +
-            //"image: " + canvasElements[i].image + "});" +
-        "image: 'exampleImage.png'});" +
+        "image: '" + canvasElements[i].image.src + "'});" +
+        //"image: 'exampleImage.png'});" +
         "spriteArray.push(firstBody);";
 
     }

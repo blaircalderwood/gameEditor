@@ -252,7 +252,7 @@ var redraw = function () {
 
     if (physicsEnabled) {
         physicsLoop();
-        physics.debug();
+        //physics.debug();
     }
     checkPressedKeys();
     checkReleasedKeys();

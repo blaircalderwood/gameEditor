@@ -10,6 +10,13 @@ var b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
 var b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
 var gravity = new b2Vec2(0, 0);
 
+// Physics set up functions are based on the tutorial found at http://buildnewgames.com/box2dweb/
+
+/** Create a new physics instance to run all physics related code
+ *
+ * @type {Function}
+ */
+
 var Physics = window.Physics = function(element, scale){
 
     this.world = new b2World(gravity, true);
@@ -20,6 +27,11 @@ var Physics = window.Physics = function(element, scale){
     this.stepAmount = 1/60;
 
 };
+
+/** Called every frame to execute all relevant physics events
+ *
+ * @param dt
+ */
 
 Physics.prototype.step = function(dt){
 
@@ -60,6 +72,11 @@ Physics.prototype.step = function(dt){
 
 };
 
+/** Get point in game world when canvas is clicked
+ *
+ * @param callback
+ */
+
 Physics.prototype.click = function(callback) {
     var self = this;
 
@@ -83,15 +100,22 @@ Physics.prototype.click = function(callback) {
 
 };
 
+/** Execute function upon collision with another object
+ *
+ */
+
 Physics.prototype.collision = function(){
 
     this.listener = new Box2D.Dynamics.b2ContactListener();
 
     this.listener.BeginContact = function(contact){
 
-        console.log("Poop and stuff");
     }
 };
+
+/** Show debug graphics
+ *
+ */
 
 Physics.prototype.debug = function() {
 
@@ -107,6 +131,11 @@ Physics.prototype.debug = function() {
 };
 
 //Body Protos
+
+/** Set up new body element for physics manipulation
+ *
+ * @type {Function}
+ */
 
 var Body = window.Body = function(physics, details){
 
@@ -165,6 +194,13 @@ var Body = window.Body = function(physics, details){
 
 };
 
+/** Set friction for use in top down games
+ *
+ * @param friction
+ * @param angularDamping
+ * @constructor
+ */
+
 Body.prototype.SetAirFriction = function(friction, angularDamping){
 
     if(friction) {
@@ -177,6 +213,12 @@ Body.prototype.SetAirFriction = function(friction, angularDamping){
     }
 
 };
+
+/** Set maximum object speed
+ *
+ * @param threshold
+ * @constructor
+ */
 
 Body.prototype.SetMovementThreshold = function(threshold){
 
@@ -196,6 +238,12 @@ Body.prototype.SetMovementThreshold = function(threshold){
 
 };
 
+/** Set maximum object rotation
+ *
+ * @param threshold
+ * @constructor
+ */
+
 Body.prototype.SetAngularThreshold = function(threshold){
 
     if(!this.oldAngleVel){
@@ -212,21 +260,46 @@ Body.prototype.SetAngularThreshold = function(threshold){
 
 };
 
+/** Move an object left
+ *
+ * @param velocity
+ */
+
 Body.prototype.moveLeft = function(velocity){
     this.body.SetLinearVelocity(new b2Vec2(-velocity, 0));
 };
+
+/** Move an object right
+ *
+ * @param velocity
+ */
 
 Body.prototype.moveRight = function(velocity){
     this.body.SetLinearVelocity(new b2Vec2(velocity, 0));
 };
 
+/** Move an object upwards
+ *
+ * @param velocity
+ */
+
 Body.prototype.moveUp = function(velocity){
     this.body.SetLinearVelocity(new b2Vec2(0, -velocity));
 };
 
+/** Move an object downwards
+ *
+ * @param velocity
+ */
+
 Body.prototype.moveDown = function(velocity){
     this.body.SetLinearVelocity(new b2Vec2(0, velocity));
 };
+
+/** Rotate towards another object
+ *
+ * @param target
+ */
 
 Body.prototype.rotateTowardsPoint = function(target){
 
@@ -234,6 +307,12 @@ Body.prototype.rotateTowardsPoint = function(target){
     {x: this.body.GetWorldCenter().x * physics.scale, y: this.body.GetWorldCenter().y * physics.scale}));
 
 };
+
+/** Move towards another object
+ *
+ * @param target
+ * @param speed
+ */
 
 Body.prototype.moveTowardsPoint = function(target, speed) {
 
@@ -251,9 +330,19 @@ Body.prototype.moveTowardsPoint = function(target, speed) {
 
 };
 
+/** Set friction for top down games
+ *
+ * @param friction
+ */
+
 Body.prototype.setTopDownFriction = function(friction){
     this.body.SetLinearDamping(friction);
 };
+
+/** Default body prototype values for use if no detail is given
+ *
+ * @type {{shape: string, width: number, height: number, radius: number}}
+ */
 
 Body.prototype.defaults = {
 
@@ -283,6 +372,11 @@ Body.prototype.definitionDefaults = {
     fixedRotation: false
 
 };
+
+/** Draw a given physics body on screen
+ *
+ * @param context
+ */
 
 Body.prototype.draw = function(context){
 
@@ -329,6 +423,7 @@ Body.prototype.draw = function(context){
 
     if(this.details.image){
 
+        console.log(this);
         var sprite = new Image();
         sprite.src = this.details.image;
         sprite.width = this.details.width;
@@ -344,6 +439,10 @@ Body.prototype.draw = function(context){
 
 };
 
+/** Bounce an object of in game walls
+ *
+ */
+
 Body.prototype.bounceOffWalls = function(){
 
     new Body(physics, {type: "static", x: 0, y: 0, height: 50, width: 2});
@@ -352,6 +451,13 @@ Body.prototype.bounceOffWalls = function(){
     new Body(physics, {type: "static", x: 0, y: 25, height: 2, width: 120});
 
 };
+
+/** Give an object a bullet behaviour for higher accuracy collision checking
+ *
+ * @param velocity
+ * @param angleInRads
+ * @param destroyOnCollision
+ */
 
 Body.prototype.bulletBehaviour = function(velocity, angleInRads, destroyOnCollision){
 
@@ -367,6 +473,14 @@ Body.prototype.bulletBehaviour = function(velocity, angleInRads, destroyOnCollis
 
     }
 };
+
+/** Add a behaviour (e.g. turret) to a given object
+ *
+ * @param behaviourFunction
+ * @param parameter1
+ * @param parameter2
+ * @param parameter3
+ */
 
 Body.prototype.addBehaviour = function (behaviourFunction, parameter1, parameter2, parameter3) {
 
@@ -389,6 +503,11 @@ Body.prototype.addBehaviour = function (behaviourFunction, parameter1, parameter
 
 };
 
+/** Remove a behaviour from a given object
+ *
+ * @param behaviourFunction
+ */
+
 Body.prototype.removeBehaviour = function (behaviourFunction) {
 
     var indexNo = this.behaviours.indexOf(behaviourFunction);
@@ -398,6 +517,9 @@ Body.prototype.removeBehaviour = function (behaviourFunction) {
 
 };
 
+/** Execute any object behaviours
+ *
+ */
 Body.prototype.executeBehaviours = function(){
 
     for(var i = 0; i <this.behaviours.length; i++){
