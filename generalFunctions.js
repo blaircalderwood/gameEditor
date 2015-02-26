@@ -17,7 +17,6 @@ generalFunctions.createList = function(array, JQMListElement, callback, callback
 
             (function(el){
                 listItem.onclick = function(){
-                    console.log(el);
                     if(array[el].elementClicked)array[el].elementClicked();
                     else console.log("Create List - Element does not have clicked function");
                 };

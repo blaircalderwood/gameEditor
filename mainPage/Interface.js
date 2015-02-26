@@ -384,7 +384,7 @@ function loadCanvasDrawing() {
 
         var tempImage = new Image();
         tempImage.src = data;
-        console.log(tempImage);
+
         tempImage.onload = function () {
             canvasElements.push(new CanvasElement(mainCanvas.width / 2, mainCanvas.height / 2,
                 tempImage.width, tempImage.height, mainCanvas, tempImage, null, true, true));
@@ -482,8 +482,13 @@ function showExecutorEvents(){
 
 }
 
-function showExecutorPage(){
+function showExecutorPage(eventTargets){
 
+    $("#addEventElement").empty();
+    $("#addEventTask").empty();
+
+    generalFunctions.createList(eventTargets, $("#addEventElement"));
+    console.log(eventTargets);
 
 }
 
@@ -516,12 +521,13 @@ function showTargetEvents() {
     for (var i = 0; i < this.availableEvents.length; i ++){
 
         this.availableEvents[i].elementClicked = function(){
+
             eventElementsList(showExecutorEvents, showExecutorPage, false);
+
         };
 
     }
 
-    console.log(this.availableEvents);
     generalFunctions.createList(this.availableEvents, $("#addEventTask"));
 
 }
