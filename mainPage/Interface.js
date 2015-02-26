@@ -468,21 +468,33 @@ function addNewEvent() {
 
 }
 
-function showEventsPage() {
-
-    var eventTargets = [];
-    eventTargets.push(mouse, keyboard);
-    for (var j = 0; j < eventTargets.length; j++)eventTargets[j].elementClicked = showTargetEvents;
-
-    for (var i = 0; i < canvasElements.length; i++){
-        eventTargets.push(canvasElements[i]);
-    }
-    for(var k = 2; k <eventTargets.length; k ++)eventTargets[k].elementClicked = showTargetEvents;
-
+function showEventsPage(eventTargets) {
+    
     generalFunctions.createList(eventTargets, $("#addEventElement"));
 
     showWidget($('#eventCreatorDiv'));
 
+}
+
+function showNextEvents(){
+
+    
+
+}
+
+function eventElementsList(onClickFunction, callback){
+
+    var targetList = [];
+    targetList.push(mouse, keyboard);
+    for (var j = 0; j < targetList.length; j++)targetList[j].elementClicked = onClickFunction;
+
+    for (var i = 0; i < canvasElements.length; i++){
+        targetList.push(canvasElements[i]);
+    }
+    for(var k = 2; k <targetList.length; k ++)targetList[k].elementClicked = onClickFunction;
+    
+    if(callback)callback(targetList);
+    
 }
 
 function showDrawPage() {

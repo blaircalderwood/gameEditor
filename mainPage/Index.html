@@ -56,7 +56,7 @@
     </div>
 
     <ul data-role="listview" style="position: absolute; bottom: 2%; width: 100%;">
-        <li data-icon="plus"><a onclick="showEventsPage()">ADD NEW EVENT</a></li>
+        <li data-icon="plus"><a onclick="eventElementsList(showTargetEvents, showEventsPage)">ADD NEW EVENT</a></li>
     </ul>
 
 </div>
@@ -123,7 +123,7 @@
     </div>
 
     <div data-role="footer" class="ui-widget-header" align="right">
-        <button>Next Page</button>
+        <button id="nextEventPage" onclick="showNextEvents()">Next Page</button>
     </div>
 
 </div>
