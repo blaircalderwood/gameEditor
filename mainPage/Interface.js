@@ -476,17 +476,27 @@ function showEventsPage(eventTargets) {
 
 }
 
-function showNextEvents(){
+function showExecutorEvents(){
 
-    
+    console.log("Executor has been clicked");
 
 }
 
-function eventElementsList(onClickFunction, callback){
+function showExecutorPage(){
+
+
+}
+
+function eventElementsList(onClickFunction, callback, genericElements){
 
     var targetList = [];
-    targetList.push(mouse, keyboard);
-    for (var j = 0; j < targetList.length; j++)targetList[j].elementClicked = onClickFunction;
+
+    if (genericElements) {
+
+        targetList.push(mouse, keyboard);
+        for (var j = 0; j < targetList.length; j++)targetList[j].elementClicked = onClickFunction;
+
+    }
 
     for (var i = 0; i < canvasElements.length; i++){
         targetList.push(canvasElements[i]);
@@ -502,6 +512,16 @@ function showDrawPage() {
 }
 
 function showTargetEvents() {
+
+    for (var i = 0; i < this.availableEvents.length; i ++){
+
+        this.availableEvents[i].elementClicked = function(){
+            eventElementsList(showExecutorEvents, showExecutorPage, false);
+        };
+
+    }
+
     console.log(this.availableEvents);
     generalFunctions.createList(this.availableEvents, $("#addEventTask"));
+
 }
