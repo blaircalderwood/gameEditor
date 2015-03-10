@@ -13,7 +13,8 @@ function CanvasElement(x, y, width, height, targetCanvas, image, elementName, dr
     this.highlightRect = -1;
     this.behaviours = behaviours;
     this.events = events;
-    this.executorEvents = [{elementName: "Rotate", engineFunction: {}}, {elementName: "Move Left", engineFunction: {}}];
+    this.executorEvents = [{elementName: "Rotate", engineFunction: "rotate"}, {elementName: "Move Left", engineFunction: "moveLeft"}];
+    this.addedEvents = [];
 
 }
 
