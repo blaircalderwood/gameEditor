@@ -8,15 +8,15 @@ var backgroundCanvas, mainCanvas,
         oldY: 0,
         events: [],
         elementName: "Mouse",
-        availableEvents: [{elementName: "Left Mouse Down", targetFunction: ""}, {elementName: "Left Mouse Up", targetFunction: ""}]
+        listenerEvents: [{elementName: "Left Mouse Down", targetFunction: ""}, {elementName: "Left Mouse Up", targetFunction: ""}]
     },
-    keyboard = {events: [], elementName: "Keyboard", availableEvents: [{elementName: "Key Down", targetFunction: ""}, {elementName: "Key Up", targetFunction: ""}]},
+    keyboard = {events: [], elementName: "Keyboard", listenerEvents: [{elementName: "Key Down", targetFunction: ""}, {elementName: "Key Up", targetFunction: ""}]},
     dragInterval, clickedElement,
     behaviourBarPos = -1,
     behaviours = {}, behaviourArray = [], plusImage, topMenu = "", menuShown = false,
     rightMenu, shownWindow,
     worldGravity = {horizontal: 0, vertical: 0.9},
-    behavioursShown;
+    behavioursShown, eventCompiler = {eventListener: {}, eventExecutor: {}};
 
 var compileText = "";
 
@@ -522,81 +522,6 @@ function compile() {
 
 }
 
-/** Add a new event to manipulate a game element e.g. move up on key press
- *
- */
-
-function addNewEvent() {
-
-    console.log("ADDING EVENT!");
-
-}
-
-/** Show the event creation page
- *
- * @param eventTargets
- */
-
-function showEventsPage(eventTargets) {
-    
-    generalFunctions.createList(eventTargets, $("#addEventElement"));
-
-    showWidget($('#eventCreatorDiv'));
-
-}
-
-/** Show the events that can be executed upon satisfaction of a particular condition
- *
- */
-
-function showExecutorEvents(){
-
-    console.log("Executor has been clicked");
-
-}
-
-/** Show the page that holds all executor events
- *
- * @param eventTargets
- */
-
-function showExecutorPage(eventTargets){
-
-    $("#addEventElement").empty();
-    $("#addEventTask").empty();
-
-    generalFunctions.createList(eventTargets, $("#addEventElement"));
-    console.log(eventTargets);
-
-}
-
-/** Show events that can act as listeners in order to carry out a certain task
- *
- * @param onClickFunction
- * @param callback
- * @param genericElements
- */
-
-function eventElementsList(onClickFunction, callback, genericElements){
-
-    var targetList = [];
-
-    if (genericElements) {
-
-        targetList.push(mouse, keyboard);
-        for (var j = 0; j < targetList.length; j++)targetList[j].elementClicked = onClickFunction;
-
-    }
-
-    for (var i = 0; i < canvasElements.length; i++){
-        targetList.push(canvasElements[i]);
-    }
-    for(var k = 2; k <targetList.length; k ++)targetList[k].elementClicked = onClickFunction;
-    
-    if(callback)callback(targetList);
-    
-}
-
 /** Show Sprite Editor window
  *
  */
@@ -605,22 +530,70 @@ function showDrawPage() {
     showWidget($("#drawDiv"));
 }
 
-/** Show events of each object that can be listened upon
+/** Show events that can act as listeners in order to carry out a certain task
  *
+ * @param array
+ * @param onClickFunction
+ * @param showGenerics
+ * @returns {Array}
  */
 
-function showTargetEvents() {
+function eventElementsList(array, onClickFunction, showGenerics){
 
-    for (var i = 0; i < this.availableEvents.length; i ++){
+    var targetList = [];
 
-        this.availableEvents[i].elementClicked = function(){
+    var j = 0;
 
-            eventElementsList(showExecutorEvents, showExecutorPage, false);
+    if (showGenerics == true) {
 
-        };
+        targetList.push(mouse, keyboard);
+        for (j = 0; j < targetList.length; j++)targetList[j].elementClicked = onClickFunction;
 
     }
 
-    generalFunctions.createList(this.availableEvents, $("#addEventTask"));
+    for (var i = 0; i < array.length; i++){
+        targetList.push(array[i]);
+    }
+
+    //k = j tests for insertion of generic elements (mouse, keyboard etc.)
+
+    for(var k = j; k <targetList.length; k ++)targetList[k].elementClicked = onClickFunction;
+    
+    return targetList;
+    
+}
+
+function showListenerElements(){
+
+    showWidget($("#eventCreatorDiv"));
+    generalFunctions.createList(eventElementsList(canvasElements, showListenerTasks, true), $("#addEventListener"));
+}
+
+function showListenerTasks(){
+
+    console.log(eventElementsList(this.listenerEvents, showExecutorElements, false));
+    generalFunctions.createList(eventElementsList(this.listenerEvents, showExecutorElements, false), $("#addEventTask"));
+}
+
+function showExecutorElements(){
+
+    eventCompiler.eventListener = this;
+
+    $("#addEventTask").empty();
+    generalFunctions.createList(eventElementsList(canvasElements, showExecutorTasks, false), $("#addEventListener"));
+
+}
+
+function showExecutorTasks(){
+
+    generalFunctions.createList(eventElementsList(this.executorEvents, compileEvent, false), $("#addEventTask"));
+
+}
+
+function compileEvent(){
+
+    eventCompiler.eventExecutor = this;
+
+    console.log(eventCompiler);
 
 }

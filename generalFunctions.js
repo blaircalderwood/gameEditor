@@ -32,6 +32,7 @@ generalFunctions.createList = function(array, JQMListElement, callback, callback
         }
 
     if(callback)execCallback(callback, callbackParamArray);
+    else return callbackParamArray;
 
 };
 
