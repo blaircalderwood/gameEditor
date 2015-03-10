@@ -573,14 +573,7 @@ function eventElementsList(array, onClickFunction, showGenerics) {
 
     for (var k = j; k < targetList.length; k++) {
 
-        if(targetList[k].parameters){
-           targetList[k].elementClicked = function(){
-               console.log("This has parameters");
-           }
-        }
-        else{
             targetList[k].elementClicked = onClickFunction;
-        }
 
     }
 
@@ -636,7 +629,7 @@ function compileEvent() {
 
         eventCompiler.key = "W";
 
-        canvasElements[i].addedEvents.push("spriteArray[" + i + "].addKeyDownEvent('" + eventCompiler.key + "', spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.parameterArray + ");");
+        canvasElements[i].addedEvents.push("spriteArray[" + i + "].addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "', spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.parameterArray + ");");
         console.log(canvasElements[i].addedEvents);
     }
 
