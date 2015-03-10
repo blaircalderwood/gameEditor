@@ -15,8 +15,8 @@ var backgroundCanvas, mainCanvas,
         ]
     },
     keyboard = {events: [], elementName: "Keyboard", listenerEvents: [
-        {elementName: "Key Down", targetFunction: "keyDown"},
-        {elementName: "Key Up", targetFunction: "keyUp"}
+        {elementName: "Key Down", targetFunction: "keyDown", parameters: ["Key"]},
+        {elementName: "Key Up", targetFunction: "keyUp", parameters: ["Key"]}
     ]},
     dragInterval, clickedElement,
     behaviourBarPos = -1,
@@ -573,7 +573,14 @@ function eventElementsList(array, onClickFunction, showGenerics) {
 
     for (var k = j; k < targetList.length; k++) {
 
-        targetList[k].elementClicked = onClickFunction;
+        if(targetList[k].parameters){
+           targetList[k].elementClicked = function(){
+               console.log("This has parameters");
+           }
+        }
+        else{
+            targetList[k].elementClicked = onClickFunction;
+        }
 
     }
 
@@ -585,6 +592,7 @@ function showListenerElements() {
 
     showWidget($("#eventCreatorDiv"));
     generalFunctions.createList(eventElementsList(canvasElements, showListenerTasks, true), $("#addEventListener"));
+
 }
 
 function showListenerTasks() {
