@@ -22,6 +22,18 @@ var compileText = "";
 
 //Constructors
 
+/** Creates a new rectangle on the canvas - usually to surround and highlight an element
+ *
+ * @param x
+ * @param y
+ * @param width
+ * @param height
+ * @param targetCanvas
+ * @param colour
+ * @param type
+ * @constructor
+ */
+
 function CanvasRectangle(x, y, width, height, targetCanvas, colour, type) {
 
     this.x = x;
@@ -35,6 +47,10 @@ function CanvasRectangle(x, y, width, height, targetCanvas, colour, type) {
 }
 
 //Set Up
+
+/** Loads all elements needed to run the editor
+ *
+ */
 
 function loadInterface() {
 
@@ -60,6 +76,10 @@ function loadInterface() {
 
 }
 
+/** Shows the File menu at the top left corner of the screen
+ *
+ */
+
 function showFileMenu() {
 
     var menu = $("<ul id='menu'>" +
@@ -72,6 +92,10 @@ function showFileMenu() {
 
 }
 
+/** Shows the edit menu next to the file menu
+ *
+ */
+
 function showEditMenu() {
 
     var menu = $("<ul id='editMenu'>" +
@@ -83,6 +107,12 @@ function showEditMenu() {
     createMenu(menu, document.getElementById("editMenuButton"));
 
 }
+
+/** Shows the corresponding file, edit or window menu upon click of the relevant button
+ *
+ * @param menu
+ * @param menuButton
+ */
 
 function createMenu(menu, menuButton) {
 
@@ -122,6 +152,10 @@ function removeTopMenu() {
 
 }
 
+/** Change the canvas size to fit the width and height of the screen
+ *
+ */
+
 function resizeCanvas() {
 
     backgroundCanvas.width = $(window).width();
@@ -132,6 +166,10 @@ function resizeCanvas() {
 
 }
 
+/** Change the colours of the canvas background
+ *
+ */
+
 function setUpBackground() {
 
     backgroundCanvas.context.fillStyle = 'skyblue';
@@ -141,6 +179,10 @@ function setUpBackground() {
     mainCanvas.context.fillRect(0, 0, mainCanvas.width, mainCanvas.height);
 
 }
+
+/** Load the corresponding images for each behaviour in the Behaviour Bar
+ *
+ */
 
 function loadBehaviours() {
 
@@ -159,6 +201,10 @@ function loadBehaviours() {
 }
 
 //General Functions
+
+/** Redraw the screen every frame
+ *
+ */
 
 function redraw() {
 
@@ -210,6 +256,10 @@ function redraw() {
 
 }
 
+/** Clear all canvases of any drawings
+ *
+ */
+
 function clearCanvases() {
 
     backgroundCanvas.context.fillStyle = 'white';
@@ -219,6 +269,11 @@ function clearCanvases() {
     mainCanvas.context.fillRect(0, 0, mainCanvas.width, mainCanvas.height);
 
 }
+
+/** Save mouse coordinates every time it is moved
+ *
+ * @param e
+ */
 
 function mouseMoveListener(e) {
 
@@ -233,6 +288,11 @@ function mouseMoveListener(e) {
     }
 
 }
+
+/** Check for clicked elements each time the mouse is pressed
+ *
+ * @param e
+ */
 
 function mouseDownListener(e) {
 
@@ -270,6 +330,10 @@ function mouseDownListener(e) {
     if (menuShown)removeTopMenu();
 }
 
+/** Show the right click menu each time the right mouse button is pressed
+ *
+ */
+
 $(document).bind("contextmenu", function (event) {
 
     event.preventDefault();
@@ -292,6 +356,10 @@ $(document).bind("contextmenu", function (event) {
 
 });
 
+/**Remove the right click menu when the user clicks elsewhere on the screen
+ *
+ */
+
 function removeRightMenu() {
 
     var clickMenu = $("#clickMenu");
@@ -301,6 +369,11 @@ function removeRightMenu() {
     }
 
 }
+
+/** Drop any dragging elements when the mouse button is released
+ *
+ * @param e
+ */
 
 function mouseUpListener(e) {
 
@@ -313,6 +386,11 @@ function mouseUpListener(e) {
 
 }
 
+/** Drag an element on screen
+ *
+ * @returns {boolean}
+ */
+
 function dragging() {
 
     return !(mouse.startX - mouse.x >= -3 && mouse.startX - mouse.x <= 3 &&
@@ -320,44 +398,10 @@ function dragging() {
 
 }
 
-//Create HTML to show the selected list
-function createList(array, listElement) {
-
-    //Delete anything that is currently in the list
-    listElement.empty();
-
-    //Loop for every item in the list
-    for (var i = 0; i < array.length; i++) {
-
-        //Create a new list item
-        var listItem = document.createElement("li"),
-
-        //Add an anchor containing the location name which will in future link to the relevant weather data
-            anchor = document.createElement("a");
-        anchor.innerText = array[i].elementName;
-
-        //Add the list item to the page's HTML
-        listItem.appendChild(anchor);
-        listElement.append(listItem);
-
-        (function (el) {
-            listItem.onclick = function () {
-                console.log(el);
-                canvasElements[el].elementClicked();
-            };
-        })(i);
-
-    }
-
-    //If there is already a list then refresh it if no make a new one
-    if (listElement.hasClass('ui-listview')) {
-        listElement.listview('refresh');
-    }
-    else {
-        listElement.trigger('create');
-    }
-
-}
+/** Show window containing additional functionality e.g. Sprite Editor
+ *
+ * @param newShownWindow
+ */
 
 function showWidget(newShownWindow) {
 
@@ -368,6 +412,10 @@ function showWidget(newShownWindow) {
 
 }
 
+/** Close any additional windows
+ *
+ */
+
 function closeWindow() {
 
     if (shownWindow) {
@@ -376,6 +424,10 @@ function closeWindow() {
     }
 
 }
+
+/** Load a drawing made in sprite editor via local storage
+ *
+ */
 
 function loadCanvasDrawing() {
 
@@ -388,7 +440,7 @@ function loadCanvasDrawing() {
         tempImage.onload = function () {
             canvasElements.push(new CanvasElement(mainCanvas.width / 2, mainCanvas.height / 2,
                 tempImage.width, tempImage.height, mainCanvas, tempImage, null, true, true));
-            createList(canvasElements, $("#elementList"));
+            generalFunctions.createList(canvasElements, $("#elementList"));
         };
 
         sessionStorage.removeItem('image');
@@ -404,11 +456,15 @@ function loadSessDrawings() {
         newImage.src = JSON.stringify(sessionStorage.images[0]);
         newImage.onload = function () {
             new CanvasElement(10, 10, 64, 64, mainCanvas, newImage);
-            createList(canvasElements, $("#elementList"));
+            generalFunctions.createList(canvasElements, $("#elementList"));
         };
         //}
     }
 }
+
+/** Show dialog box when the user closes a window
+ *
+ */
 
 function confirmCloseWindow() {
 
@@ -429,6 +485,10 @@ function confirmCloseWindow() {
         }
     })
 }
+
+/** Compile all features set by the user into a local storage file ready to be run by the game engine as a full game
+ *
+ */
 
 function compile() {
 
@@ -462,11 +522,20 @@ function compile() {
 
 }
 
+/** Add a new event to manipulate a game element e.g. move up on key press
+ *
+ */
+
 function addNewEvent() {
 
     console.log("ADDING EVENT!");
 
 }
+
+/** Show the event creation page
+ *
+ * @param eventTargets
+ */
 
 function showEventsPage(eventTargets) {
     
@@ -476,11 +545,20 @@ function showEventsPage(eventTargets) {
 
 }
 
+/** Show the events that can be executed upon satisfaction of a particular condition
+ *
+ */
+
 function showExecutorEvents(){
 
     console.log("Executor has been clicked");
 
 }
+
+/** Show the page that holds all executor events
+ *
+ * @param eventTargets
+ */
 
 function showExecutorPage(eventTargets){
 
@@ -491,6 +569,13 @@ function showExecutorPage(eventTargets){
     console.log(eventTargets);
 
 }
+
+/** Show events that can act as listeners in order to carry out a certain task
+ *
+ * @param onClickFunction
+ * @param callback
+ * @param genericElements
+ */
 
 function eventElementsList(onClickFunction, callback, genericElements){
 
@@ -512,9 +597,17 @@ function eventElementsList(onClickFunction, callback, genericElements){
     
 }
 
+/** Show Sprite Editor window
+ *
+ */
+
 function showDrawPage() {
     showWidget($("#drawDiv"));
 }
+
+/** Show events of each object that can be listened upon
+ *
+ */
 
 function showTargetEvents() {
 
