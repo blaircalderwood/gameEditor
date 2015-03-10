@@ -597,7 +597,6 @@ function showExecutorElements() {
 
     eventCompiler.eventListener = this;
 
-    console.log(this);
     $("#addEventTask").empty();
     generalFunctions.createList(eventElementsList(canvasElements, showExecutorTasks, false), $("#addEventListener"));
 
@@ -616,13 +615,12 @@ function compileEvent() {
 
     eventCompiler.parameterArray = 10;
 
-    console.log(i);
     eventCompiler.eventExecutor = this.engineFunction;
 
     console.log(this.engineFunction);
 
     canvasElements[i].addedEvents.push("spriteArray[" + i + "].addEvent(spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.eventListener.targetFunction +", " + eventCompiler.parameterArray + ");");
 
-    console.log(canvasElements[i].addedEvents);
+    closeWindow();
 
 }
