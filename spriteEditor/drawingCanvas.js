@@ -350,6 +350,6 @@ function showImage(){
     var tempImage = new Image();
     tempImage.src = fileRead.result;
 
-    context.drawImage(tempImage, 0, 0);
+    context.drawImage(tempImage, 0, 0, drawingCanvas.width, drawingCanvas.height);
 
 }
