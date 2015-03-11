@@ -8,19 +8,38 @@ var backgroundCanvas, mainCanvas,
         oldY: 0,
         events: [],
         elementName: "Mouse",
-        availableEvents: [{elementName: "Left Mouse Down", targetFunction: ""}, {elementName: "Left Mouse Up", targetFunction: ""}]
+        listenerEvents: [
+            {elementName: "Left Mouse Down", targetFunction: ""},
+            {elementName: "Left Mouse Up", targetFunction: ""},
+            {elementName: "Mouse Move", targetFunction: "mouseMoveListener"}
+        ]
     },
-    keyboard = {events: [], elementName: "Keyboard", availableEvents: [{elementName: "Key Down", targetFunction: ""}, {elementName: "Key Up", targetFunction: ""}]},
+    keyboard = {events: [], elementName: "Keyboard", listenerEvents: [
+        {elementName: "Key Down", targetFunction: "keyDown", parameters: ["Key"]},
+        {elementName: "Key Up", targetFunction: "keyUp", parameters: ["Key"]}
+    ]},
     dragInterval, clickedElement,
     behaviourBarPos = -1,
     behaviours = {}, behaviourArray = [], plusImage, topMenu = "", menuShown = false,
     rightMenu, shownWindow,
     worldGravity = {horizontal: 0, vertical: 0.9},
-    behavioursShown;
+    behavioursShown, eventCompiler = {eventListener: {}, eventExecutor: {}};
 
 var compileText = "";
 
 //Constructors
+
+/** Creates a new rectangle on the canvas - usually to surround and highlight an element
+ *
+ * @param x
+ * @param y
+ * @param width
+ * @param height
+ * @param targetCanvas
+ * @param colour
+ * @param type
+ * @constructor
+ */
 
 function CanvasRectangle(x, y, width, height, targetCanvas, colour, type) {
 
@@ -35,6 +54,10 @@ function CanvasRectangle(x, y, width, height, targetCanvas, colour, type) {
 }
 
 //Set Up
+
+/** Loads all elements needed to run the editor
+ *
+ */
 
 function loadInterface() {
 
@@ -60,29 +83,43 @@ function loadInterface() {
 
 }
 
+/** Shows the File menu at the top left corner of the screen
+ *
+ */
+
 function showFileMenu() {
 
     var menu = $("<ul id='menu'>" +
-    "<li><a onmousedown='compile()'>Run</a></li>" +
-    "<li>New Project</li>" +
-    "<li>Settings</li>" +
-    "</ul></div>");
+        "<li><a onmousedown='compile()'>Run</a></li>" +
+        "<li>New Project</li>" +
+        "<li>Settings</li>" +
+        "</ul></div>");
 
     createMenu(menu, document.getElementById("fileMenuButton"));
 
 }
 
+/** Shows the edit menu next to the file menu
+ *
+ */
+
 function showEditMenu() {
 
     var menu = $("<ul id='editMenu'>" +
-    "<li><a>Edit Stuff</a></li>" +
-    "<li>Change Stuff</li>" +
-    "<li>Remove Stuff</li>" +
-    "</ul></div>");
+        "<li><a>Edit Stuff</a></li>" +
+        "<li>Change Stuff</li>" +
+        "<li>Remove Stuff</li>" +
+        "</ul></div>");
 
     createMenu(menu, document.getElementById("editMenuButton"));
 
 }
+
+/** Shows the corresponding file, edit or window menu upon click of the relevant button
+ *
+ * @param menu
+ * @param menuButton
+ */
 
 function createMenu(menu, menuButton) {
 
@@ -122,6 +159,10 @@ function removeTopMenu() {
 
 }
 
+/** Change the canvas size to fit the width and height of the screen
+ *
+ */
+
 function resizeCanvas() {
 
     backgroundCanvas.width = $(window).width();
@@ -132,6 +173,10 @@ function resizeCanvas() {
 
 }
 
+/** Change the colours of the canvas background
+ *
+ */
+
 function setUpBackground() {
 
     backgroundCanvas.context.fillStyle = 'skyblue';
@@ -141,6 +186,10 @@ function setUpBackground() {
     mainCanvas.context.fillRect(0, 0, mainCanvas.width, mainCanvas.height);
 
 }
+
+/** Load the corresponding images for each behaviour in the Behaviour Bar
+ *
+ */
 
 function loadBehaviours() {
 
@@ -159,6 +208,10 @@ function loadBehaviours() {
 }
 
 //General Functions
+
+/** Redraw the screen every frame
+ *
+ */
 
 function redraw() {
 
@@ -210,6 +263,10 @@ function redraw() {
 
 }
 
+/** Clear all canvases of any drawings
+ *
+ */
+
 function clearCanvases() {
 
     backgroundCanvas.context.fillStyle = 'white';
@@ -219,6 +276,11 @@ function clearCanvases() {
     mainCanvas.context.fillRect(0, 0, mainCanvas.width, mainCanvas.height);
 
 }
+
+/** Save mouse coordinates every time it is moved
+ *
+ * @param e
+ */
 
 function mouseMoveListener(e) {
 
@@ -233,6 +295,11 @@ function mouseMoveListener(e) {
     }
 
 }
+
+/** Check for clicked elements each time the mouse is pressed
+ *
+ * @param e
+ */
 
 function mouseDownListener(e) {
 
@@ -270,6 +337,10 @@ function mouseDownListener(e) {
     if (menuShown)removeTopMenu();
 }
 
+/** Show the right click menu each time the right mouse button is pressed
+ *
+ */
+
 $(document).bind("contextmenu", function (event) {
 
     event.preventDefault();
@@ -277,10 +348,10 @@ $(document).bind("contextmenu", function (event) {
     removeRightMenu();
 
     var menu = $("<ul id='menu'>" +
-    "<li><a onmousedown='showDrawPage()'> New Element</a></li>" +
-    "<li>Edit</li>" +
-    "<li>Delete</li>" +
-    "</ul></div>");
+        "<li><a onmousedown='showDrawPage()'> New Element</a></li>" +
+        "<li>Edit</li>" +
+        "<li>Delete</li>" +
+        "</ul></div>");
 
     var rightMenu = $("<div id='clickMenu' style='position: absolute; font-size: 14px; z-index: 100;'>").css({
         top: event.pageY + "px",
@@ -292,6 +363,10 @@ $(document).bind("contextmenu", function (event) {
 
 });
 
+/**Remove the right click menu when the user clicks elsewhere on the screen
+ *
+ */
+
 function removeRightMenu() {
 
     var clickMenu = $("#clickMenu");
@@ -301,6 +376,11 @@ function removeRightMenu() {
     }
 
 }
+
+/** Drop any dragging elements when the mouse button is released
+ *
+ * @param e
+ */
 
 function mouseUpListener(e) {
 
@@ -313,51 +393,22 @@ function mouseUpListener(e) {
 
 }
 
+/** Drag an element on screen
+ *
+ * @returns {boolean}
+ */
+
 function dragging() {
 
     return !(mouse.startX - mouse.x >= -3 && mouse.startX - mouse.x <= 3 &&
-    mouse.startY - mouse.y >= -3 && mouse.startY - mouse.y <= 3);
+        mouse.startY - mouse.y >= -3 && mouse.startY - mouse.y <= 3);
 
 }
 
-//Create HTML to show the selected list
-function createList(array, listElement) {
-
-    //Delete anything that is currently in the list
-    listElement.empty();
-
-    //Loop for every item in the list
-    for (var i = 0; i < array.length; i++) {
-
-        //Create a new list item
-        var listItem = document.createElement("li"),
-
-        //Add an anchor containing the location name which will in future link to the relevant weather data
-            anchor = document.createElement("a");
-        anchor.innerText = array[i].elementName;
-
-        //Add the list item to the page's HTML
-        listItem.appendChild(anchor);
-        listElement.append(listItem);
-
-        (function (el) {
-            listItem.onclick = function () {
-                console.log(el);
-                canvasElements[el].elementClicked();
-            };
-        })(i);
-
-    }
-
-    //If there is already a list then refresh it if no make a new one
-    if (listElement.hasClass('ui-listview')) {
-        listElement.listview('refresh');
-    }
-    else {
-        listElement.trigger('create');
-    }
-
-}
+/** Show window containing additional functionality e.g. Sprite Editor
+ *
+ * @param newShownWindow
+ */
 
 function showWidget(newShownWindow) {
 
@@ -368,6 +419,10 @@ function showWidget(newShownWindow) {
 
 }
 
+/** Close any additional windows
+ *
+ */
+
 function closeWindow() {
 
     if (shownWindow) {
@@ -377,6 +432,10 @@ function closeWindow() {
 
 }
 
+/** Load a drawing made in sprite editor via local storage
+ *
+ */
+
 function loadCanvasDrawing() {
 
     if (sessionStorage.image) {
@@ -384,11 +443,11 @@ function loadCanvasDrawing() {
 
         var tempImage = new Image();
         tempImage.src = data;
-        console.log(tempImage);
+
         tempImage.onload = function () {
             canvasElements.push(new CanvasElement(mainCanvas.width / 2, mainCanvas.height / 2,
                 tempImage.width, tempImage.height, mainCanvas, tempImage, null, true, true));
-            createList(canvasElements, $("#elementList"));
+            generalFunctions.createList(canvasElements, $("#elementList"));
         };
 
         sessionStorage.removeItem('image');
@@ -404,11 +463,15 @@ function loadSessDrawings() {
         newImage.src = JSON.stringify(sessionStorage.images[0]);
         newImage.onload = function () {
             new CanvasElement(10, 10, 64, 64, mainCanvas, newImage);
-            createList(canvasElements, $("#elementList"));
+            generalFunctions.createList(canvasElements, $("#elementList"));
         };
         //}
     }
 }
+
+/** Show dialog box when the user closes a window
+ *
+ */
 
 function confirmCloseWindow() {
 
@@ -430,25 +493,33 @@ function confirmCloseWindow() {
     })
 }
 
+/** Compile all features set by the user into a local storage file ready to be run by the game engine as a full game
+ *
+ */
+
 function compile() {
 
     var canImage;
 
     compileText = "var firstBody;" +
-    "physics.world.SetGravity(new b2Vec2(" + worldGravity.horizontal + ", " + worldGravity.vertical + "));";
+        "physics.world.SetGravity(new b2Vec2(" + worldGravity.horizontal + ", " + worldGravity.vertical + "));";
 
     for (var i = 0; i < canvasElements.length; i++) {
 
         compileText += "firstBody = new Body(physics, {" +
-        "shape: 'circle'," +
-        "radius: " + (canvasElements[i].width / 2) + "/ physics.scale," +
-        "x:  " + (canvasElements[i].x + (canvasElements[i].width / 2)) + "/ physics.scale," +
-        "y: " + (canvasElements[i].y + (canvasElements[i].height / 2)) + "/ physics.scale," +
-        "width: " + canvasElements[i].width + "/ physics.scale," +
-        "height: " + canvasElements[i].height + "/ physics.scale," +
-        "image: '" + canvasElements[i].image.src + "'});" +
-        //"image: 'exampleImage.png'});" +
-        "spriteArray.push(firstBody);";
+            "shape: 'circle'," +
+            "radius: " + (canvasElements[i].width / 2) + "/ physics.scale," +
+            "x:  " + (canvasElements[i].x + (canvasElements[i].width / 2)) + "/ physics.scale," +
+            "y: " + (canvasElements[i].y + (canvasElements[i].height / 2)) + "/ physics.scale," +
+            "width: " + canvasElements[i].width + "/ physics.scale," +
+            "height: " + canvasElements[i].height + "/ physics.scale," +
+            "image: '" + canvasElements[i].image.src + "'});" +
+            "spriteArray.push(firstBody);";
+
+        for (var j = 0; j < canvasElements[i].addedEvents.length; j++) {
+
+            compileText += canvasElements[i].addedEvents[j];
+        }
 
     }
 
@@ -462,34 +533,106 @@ function compile() {
 
 }
 
-function addNewEvent() {
-
-    console.log("ADDING EVENT!");
-
-}
-
-function showEventsPage() {
-
-    var eventTargets = [];
-    eventTargets.push(mouse, keyboard);
-    for (var j = 0; j < eventTargets.length; j++)eventTargets[j].elementClicked = showTargetEvents;
-
-    for (var i = 0; i < canvasElements.length; i++){
-        eventTargets.push(canvasElements[i]);
-    }
-    for(var k = 2; k <eventTargets.length; k ++)eventTargets[k].elementClicked = showTargetEvents;
-
-    generalFunctions.createList(eventTargets, $("#addEventElement"));
-
-    showWidget($('#eventCreatorDiv'));
-
-}
+/** Show Sprite Editor window
+ *
+ */
 
 function showDrawPage() {
     showWidget($("#drawDiv"));
 }
 
-function showTargetEvents() {
-    console.log(this.availableEvents);
-    generalFunctions.createList(this.availableEvents, $("#addEventTask"));
+/** Show events that can act as listeners in order to carry out a certain task
+ *
+ * @param array
+ * @param onClickFunction
+ * @param showGenerics
+ * @returns {Array}
+ */
+
+function eventElementsList(array, onClickFunction, showGenerics) {
+
+    var targetList = [];
+
+    var j = 0;
+
+    if (showGenerics == true) {
+
+        targetList.push(mouse, keyboard);
+        for (j = 0; j < targetList.length; j++) {
+            targetList[j].elementClicked = onClickFunction;
+        }
+
+    }
+
+    for (var i = 0; i < array.length; i++) {
+        targetList.push(array[i]);
+        targetList[i].arrayIndex = i;
+    }
+
+    //k = j tests for insertion of generic elements (mouse, keyboard etc.)
+
+    for (var k = j; k < targetList.length; k++) {
+
+            targetList[k].elementClicked = onClickFunction;
+
+    }
+
+    return targetList;
+
+}
+
+function showListenerElements() {
+
+    showWidget($("#eventCreatorDiv"));
+    generalFunctions.createList(eventElementsList(canvasElements, showListenerTasks, true), $("#addEventListener"));
+
+}
+
+function showListenerTasks() {
+
+    eventCompiler.listenerElement = this;
+    generalFunctions.createList(eventElementsList(this.listenerEvents, showExecutorElements, false), $("#addEventTask"));
+
+}
+
+function showExecutorElements() {
+
+    eventCompiler.eventListener = this;
+
+    $("#addEventTask").empty();
+    generalFunctions.createList(eventElementsList(canvasElements, showExecutorTasks, false), $("#addEventListener"));
+
+}
+
+function showExecutorTasks() {
+
+    eventCompiler.arrayIndex = this.arrayIndex;
+    generalFunctions.createList(eventElementsList(this.executorEvents, compileEvent, false), $("#addEventTask"));
+
+}
+
+function compileEvent() {
+
+    var i = eventCompiler.arrayIndex;
+
+    eventCompiler.parameterArray = 10;
+
+    eventCompiler.eventExecutor = this.engineFunction;
+
+    if (eventCompiler.listenerElement.elementName !== "Keyboard") {
+
+        canvasElements[i].addedEvents.push("spriteArray[" + i + "].addEvent(spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.eventListener.targetFunction + ", " + eventCompiler.parameterArray + ");");
+
+    }
+
+    else{
+
+        eventCompiler.key = "W";
+
+        canvasElements[i].addedEvents.push("spriteArray[" + i + "].addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "', spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.parameterArray + ");");
+        console.log(canvasElements[i].addedEvents);
+    }
+
+    closeWindow();
+
 }
