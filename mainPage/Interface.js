@@ -19,6 +19,10 @@ var backgroundCanvas, mainCanvas,
         {elementName: "Key Down", targetFunction: "keyDown", parameters: ["Key"]},
         {elementName: "Key Up", targetFunction: "keyUp", parameters: ["Key"]}
     ]},
+    system = {events: [], elementName: "System", listenerEvents: [
+        {elementName: "Redraw", targetFunction: "redraw"},
+        {elementName: "Game Loaded", targetFunction: "startEngine"}
+    ]},
     dragInterval, clickedElement,
     behaviourBarPos = -1,
     behaviours = {}, behaviourArray = [], plusImage, topMenu = "", menuShown = false,
@@ -558,7 +562,7 @@ function eventElementsList(array, onClickFunction, showGenerics) {
 
     if (showGenerics == true) {
 
-        targetList.push(mouse, keyboard);
+        targetList.push(mouse, keyboard, system);
         for (j = 0; j < targetList.length; j++) {
             targetList[j].elementClicked = onClickFunction;
         }
@@ -614,6 +618,10 @@ function showExecutorTasks() {
 
 function compileEvent() {
 
+    if(!this.parametersDetails){
+        this.parametersDetails = [];
+        this.parametersDetails[0] = "";
+    }
     var i = eventCompiler.arrayIndex;
 
     eventCompiler.parameterArray = 10;
@@ -622,13 +630,13 @@ function compileEvent() {
 
     if (eventCompiler.listenerElement.elementName !== "Keyboard") {
 
-        canvasElements[i].addedEvents.push("spriteArray[" + i + "].addEvent(spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.eventListener.targetFunction + ", " + eventCompiler.parameterArray + ");");
+        canvasElements[i].addedEvents.push("spriteArray[" + i + "].addEvent(spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.eventListener.targetFunction + ", " + this.parametersDetails[0] + ");");
 
     }
 
     else {
 
-        canvasElements[i].addedEvents.push("spriteArray[" + i + "].addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "', spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.parameterArray + ");");
+        canvasElements[i].addedEvents.push("spriteArray[" + i + "].addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "', spriteArray[" + i + "]." + this.engineFunction + ", " + this.parametersDetails[0] + ");");
         console.log(canvasElements[i].addedEvents);
     }
 

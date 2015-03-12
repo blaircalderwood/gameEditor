@@ -1,9 +1,10 @@
 var spriteExecutors = [{elementName: "Rotate", engineFunction: "rotate"},
-    {elementName: "Move Left", engineFunction: "moveLeft"},
-    {elementName: "Move Right", engineFunction: "moveRight"},
-    {elementName: "Move Up", engineFunction: "moveUp"},
-    {elementName: "Move Down", engineFunction: "moveDown"},
-    {elementName: "Rotate Towards Mouse", engineFunction: "rotateTowardsMouse"}];
+    {elementName: "Move Left", engineFunction: "moveLeft", parameters: ["Speed"]},
+    {elementName: "Move Right", engineFunction: "moveRight", parameters: ["Speed"]},
+    {elementName: "Move Up", engineFunction: "moveUp", parameters: ["Speed"]},
+    {elementName: "Move Down", engineFunction: "moveDown", parameters: ["Speed"]},
+    {elementName: "Rotate Towards Mouse", engineFunction: "rotateTowardsMouse"},
+    {elementName: "Move Towards Mouse", engineFunction: "moveTowardsMouse", parameters: ["Speed"]}];
 
 //Canvas Element Prototypes
 function CanvasElement(x, y, width, height, targetCanvas, image, elementName, draggable, selectable, behaviours, events) {

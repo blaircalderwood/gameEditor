@@ -343,6 +343,22 @@ Body.prototype.moveTowardsPoint = function (target, speed) {
 
 };
 
+Body.prototype.moveTowardsMouse = function (speed) {
+
+
+    //if (mouse.inBounds(physicsCanvas.canvas) == true && mouse.inBounds(physicsCanvas.canvas) == true) {
+
+        var vecLength = Math.sqrt((mouse.x * this.body.GetWorldCenter().x) + (mouse.x * this.body.GetWorldCenter().y));
+
+        this.body.ApplyImpulse({
+            x: ((mouse.x - this.body.GetPosition().x * physics.scale) / vecLength * speed),
+            y: ((mouse.y - this.body.GetPosition().y * physics.scale) / vecLength * speed)
+        }, this.body.GetWorldCenter());
+
+    //}
+
+};
+
 /** Set friction for top down games
  *
  * @param friction

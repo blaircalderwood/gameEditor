@@ -166,7 +166,7 @@ window.onload = function () {
  *
  */
 
-function startEngine() {
+var startEngine = function() {
 
     requestAnimationFrame(redraw);
 
@@ -174,7 +174,9 @@ function startEngine() {
 
     engineStarted = true;
 
-}
+    listen(startEngine);
+
+};
 
 /** Loads all required canvases from DOM for future manipulation
  *
