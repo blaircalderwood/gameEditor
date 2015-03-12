@@ -298,17 +298,6 @@ Body.prototype.moveDown = function (velocity) {
     this.body.SetLinearVelocity(new b2Vec2(0, velocity));
 };
 
-/** Rotate towards the current mouse position.
- *
- */
-
-Body.prototype.rotateTowardsMouse = function () {
-
-    this.body.SetAngle(tanAngle({x: mouse.x, y: mouse.y},
-        {x: this.body.GetWorldCenter().x * physics.scale, y: this.body.GetWorldCenter().y * physics.scale}));
-
-};
-
 /** Rotate towards another object
  *
  * @param target
