@@ -1,5 +1,5 @@
 var backgroundCanvas, mainCanvas,
-    canvasElements = [], canvasRects = [],
+    canvasElements = [], canvasRects = [], eventsList = [],
     mouseDown = false,
     mouse = {
         x: 0,
@@ -573,7 +573,7 @@ function eventElementsList(array, onClickFunction, showGenerics) {
 
     for (var k = j; k < targetList.length; k++) {
 
-            targetList[k].elementClicked = onClickFunction;
+        targetList[k].elementClicked = onClickFunction;
 
     }
 
@@ -625,14 +625,30 @@ function compileEvent() {
 
     }
 
-    else{
-
-        eventCompiler.key = "W";
+    else {
 
         canvasElements[i].addedEvents.push("spriteArray[" + i + "].addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "', spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.parameterArray + ");");
         console.log(canvasElements[i].addedEvents);
     }
 
+    var eventString = {};
+
+    eventString.elementName = "On " + eventCompiler.listenerElement.elementName + " " + eventCompiler.eventListener.elementName + " - " + eventCompiler.eventExecutor + " on " + canvasElements[eventCompiler.arrayIndex].elementName;
+
+    eventString.elementClicked = function () {
+        console.log("Event Clicked");
+    };
+
+    updateEventList(eventString);
+
     closeWindow();
+
+}
+
+function updateEventList(newEventString) {
+
+    eventsList.push(newEventString);
+
+    generalFunctions.createList(eventsList, $("#eventsList"));
 
 }
