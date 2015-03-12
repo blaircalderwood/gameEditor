@@ -9,9 +9,9 @@ var backgroundCanvas, mainCanvas,
         events: [],
         elementName: "Mouse",
         listenerEvents: [
-            {elementName: "Left Mouse Down", targetFunction: ""},
+            {elementName: "Left Mouse Down", targetFunction: "handleClick"},
             {elementName: "Left Mouse Up", targetFunction: ""},
-            {elementName: "Mouse Move", targetFunction: "mouseMoveListener"}
+            {elementName: "Move", targetFunction: "mouseMoveListener"}
         ]
     },
     keyboard = {events: [], elementName: "Keyboard", listenerEvents: [
