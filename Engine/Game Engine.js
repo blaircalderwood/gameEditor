@@ -480,6 +480,24 @@ var mouseMoveListener = function (e) {
 
 };
 
+var mouseClick = function(e){
+
+    listen(mouseClick);
+
+};
+
+var mouseRelease = function(e){
+
+    listen(mouseRelease);
+
+};
+
+var mousePressed = function(e){
+
+    listen(mousePressed);
+
+};
+
 function createMouseJoint() {
 
     var e = Event;

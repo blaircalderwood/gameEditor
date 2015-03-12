@@ -9,7 +9,7 @@ function engineReady(physics){
         y: 400 / 20,
         width: 2,
         height: 2,
-        image: "Images/sonic.png"
+        image: "../images/sonic.png"
     });
     spriteArray.push(firstBody);
 
@@ -25,7 +25,10 @@ function engineReady(physics){
 
     firstBody.addKeyUpEvent("W", firstBody.setTopDownFriction, 0.5);
 
-    firstBody.addEvent(firstBody.rotateTowardsPoint, mouseMoveListener, mouse);
+    //firstBody.addEvent(firstBody.rotateTowardsPoint, mouseMoveListener, mouse);
+    //firstBody.addEvent(firstBody.moveUp, mouseClick, 10);
+    //firstBody.addEvent(firstBody.moveDown, mouseRelease, 10);
+    firstBody.addEvent(firstBody.rotateTowardsPoint, mousePressed, mouse);
     startEngine();
 
 }

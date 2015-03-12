@@ -10,9 +10,10 @@
     <script type="text/javascript" src="Game%20Engine.js"></script>
     <script type="text/javascript" src="spritePrototypes.js"></script>
     <script type="text/javascript" src="../generalFunctions.js"></script>
+    <script type="text/javascript" src="testGame.js"></script>
 
 </head>
-<body onmousemove="mouseMoveListener(event)">
+<body onmousemove="mouseMoveListener(event)" onmouseup="mouseRelease(event)" onclick="mouseClick(event)" onmousedown="mousePressed(event)">
 
 <canvas id="backgroundCanvas" width="1000px" height="1000px" style="z-index: -1000; position: absolute; top: 0; left: 0;"></canvas>
 <canvas id="exampleCanvas" width="1000px" height="1000px" style="z-index: 1; position: absolute; top: 0; left: 0;"></canvas>
