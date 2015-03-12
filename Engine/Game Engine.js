@@ -159,6 +159,7 @@ window.onload = function () {
     eval(tempText);
 
     imagesLoaded();
+
 };
 
 /** Starts the execution of the game engine

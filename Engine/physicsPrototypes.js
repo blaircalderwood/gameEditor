@@ -309,6 +309,17 @@ Body.prototype.rotateTowardsPoint = function (target) {
 
 };
 
+/** Rotate towards the current mouse position.
+ *
+ */
+
+Body.prototype.rotateTowardsMouse = function () {
+
+    this.body.SetAngle(tanAngle({x: mouse.x, y: mouse.y},
+        {x: this.body.GetWorldCenter().x * physics.scale, y: this.body.GetWorldCenter().y * physics.scale}));
+
+};
+
 /** Move towards another object
  *
  * @param target
