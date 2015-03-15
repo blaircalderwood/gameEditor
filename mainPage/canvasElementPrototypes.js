@@ -113,3 +113,11 @@ CanvasElement.prototype.showBehaviourBar = function (targetBehaviours) {
 function hideBehaviourBar() {
     $("#behaviourDiv").animate({bottom: '-25%'});
 }
+
+CanvasElement.prototype.deleteElement = function(){
+
+    this.unHighlight();
+    canvasElements.splice(canvasElements.indexOf(this), 1);
+    generalFunctions.createList(canvasElements, $("#elementList"));
+
+};

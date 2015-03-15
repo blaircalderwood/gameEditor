@@ -205,6 +205,8 @@ var Body = window.Body = function (physics, details) {
 
 Body.prototype.SetAirFriction = function (friction, angularDamping) {
 
+    this.body.SetAwake(true);
+
     if (friction) {
         this.body.GetLinearVelocity().x *= friction;
         this.body.GetLinearVelocity().y *= friction;
@@ -268,6 +270,7 @@ Body.prototype.SetAngularThreshold = function (threshold) {
  */
 
 Body.prototype.moveLeft = function (velocity) {
+    this.body.SetAwake(true);
     this.body.SetLinearVelocity(new b2Vec2(-velocity, 0));
 };
 
@@ -277,6 +280,7 @@ Body.prototype.moveLeft = function (velocity) {
  */
 
 Body.prototype.moveRight = function (velocity) {
+    this.body.SetAwake(true);
     this.body.SetLinearVelocity(new b2Vec2(velocity, 0));
 };
 
@@ -286,6 +290,7 @@ Body.prototype.moveRight = function (velocity) {
  */
 
 Body.prototype.moveUp = function (velocity) {
+    this.body.SetAwake(true);
     this.body.SetLinearVelocity(new b2Vec2(0, -velocity));
 };
 
@@ -295,6 +300,7 @@ Body.prototype.moveUp = function (velocity) {
  */
 
 Body.prototype.moveDown = function (velocity) {
+    this.body.SetAwake(true);
     this.body.SetLinearVelocity(new b2Vec2(0, velocity));
 };
 
