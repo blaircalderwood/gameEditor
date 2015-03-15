@@ -159,13 +159,14 @@ window.onload = function () {
     eval(tempText);
 
     imagesLoaded();
+
 };
 
 /** Starts the execution of the game engine
  *
  */
 
-function startEngine() {
+var startEngine = function() {
 
     requestAnimationFrame(redraw);
 
@@ -173,7 +174,9 @@ function startEngine() {
 
     engineStarted = true;
 
-}
+    listen(startEngine);
+
+};
 
 /** Loads all required canvases from DOM for future manipulation
  *
@@ -477,6 +480,24 @@ var mouseMoveListener = function (e) {
     mouse.y = e.pageY;
 
     listen(mouseMoveListener);
+
+};
+
+var mouseClick = function(e){
+
+    listen(mouseClick);
+
+};
+
+var mouseRelease = function(e){
+
+    listen(mouseRelease);
+
+};
+
+var mousePressed = function(e){
+
+    listen(mousePressed);
 
 };
 

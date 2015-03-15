@@ -225,7 +225,7 @@ function circUp() {
 
     context.arc(savedX + distance, savedY + distance, distance, 0, 360);
 
-    context.stroke();
+    context.fill();
 
 }
 

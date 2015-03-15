@@ -9,7 +9,7 @@ function engineReady(physics){
         y: 400 / 20,
         width: 2,
         height: 2,
-        image: "Images/sonic.png"
+        image: "../Images/sonic.png"
     });
     spriteArray.push(firstBody);
 

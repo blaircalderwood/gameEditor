@@ -1,5 +1,5 @@
 var backgroundCanvas, mainCanvas,
-    canvasElements = [], canvasRects = [],
+    canvasElements = [], canvasRects = [], eventsList = [],
     mouseDown = false,
     mouse = {
         x: 0,
@@ -9,20 +9,29 @@ var backgroundCanvas, mainCanvas,
         events: [],
         elementName: "Mouse",
         listenerEvents: [
-            {elementName: "Left Mouse Down", targetFunction: ""},
-            {elementName: "Left Mouse Up", targetFunction: ""},
-            {elementName: "Mouse Move", targetFunction: "mouseMoveListener"}
+            {elementName: "Left Mouse Down", targetFunction: "mousePressed"},
+            {elementName: "Left Mouse Up", targetFunction: "mouseRelease"},
+            {elementName: "Left Mouse Click", targetFunction: "mouseClick"},
+            {elementName: "Move", targetFunction: "mouseMoveListener"}
         ]
     },
-    keyboard = {events: [], elementName: "Keyboard", listenerEvents: [
-        {elementName: "Key Down", targetFunction: "keyDown", parameters: ["Key"]},
-        {elementName: "Key Up", targetFunction: "keyUp", parameters: ["Key"]}
-    ]},
+    keyboard = {
+        events: [], elementName: "Keyboard", listenerEvents: [
+            {elementName: "Key Down", targetFunction: "keyDown", parameters: ["Key"]},
+            {elementName: "Key Up", targetFunction: "keyUp", parameters: ["Key"]}
+        ]
+    },
+    system = {
+        events: [], elementName: "System", listenerEvents: [
+            {elementName: "Redraw", targetFunction: "redraw"},
+            {elementName: "Game Loaded", targetFunction: "startEngine"}
+        ]
+    },
     dragInterval, clickedElement,
     behaviourBarPos = -1,
     behaviours = {}, behaviourArray = [], plusImage, topMenu = "", menuShown = false,
-    rightMenu, shownWindow,
-    worldGravity = {horizontal: 0, vertical: 0.9},
+    rightMenu, shownWindow, selectedElNo,
+    worldGravity = {horizontal: 0, vertical: 0},
     behavioursShown, eventCompiler = {eventListener: {}, eventExecutor: {}};
 
 var compileText = "";
@@ -90,10 +99,10 @@ function loadInterface() {
 function showFileMenu() {
 
     var menu = $("<ul id='menu'>" +
-        "<li><a onmousedown='compile()'>Run</a></li>" +
-        "<li>New Project</li>" +
-        "<li>Settings</li>" +
-        "</ul></div>");
+    "<li><a onmousedown='compile()'>Run</a></li>" +
+    "<li>New Project</li>" +
+    "<li>Settings</li>" +
+    "</ul></div>");
 
     createMenu(menu, document.getElementById("fileMenuButton"));
 
@@ -106,10 +115,10 @@ function showFileMenu() {
 function showEditMenu() {
 
     var menu = $("<ul id='editMenu'>" +
-        "<li><a>Edit Stuff</a></li>" +
-        "<li>Change Stuff</li>" +
-        "<li>Remove Stuff</li>" +
-        "</ul></div>");
+    "<li><a>Edit Stuff</a></li>" +
+    "<li>Change Stuff</li>" +
+    "<li>Remove Stuff</li>" +
+    "</ul></div>");
 
     createMenu(menu, document.getElementById("editMenuButton"));
 
@@ -322,10 +331,11 @@ function mouseDownListener(e) {
             tempY >= targetElement.y && tempY <= (targetElement.x + targetElement.height)) {
 
             clickedElement = targetElement;
-
+            selectedElNo = i;
         }
         else if ($("#backgroundCanvas:hover").length > 0 || $("#mainCanvas:hover").length > 0) {
             targetElement.unHighlight();
+            selectedElNo = -1;
         }
 
     }
@@ -348,10 +358,10 @@ $(document).bind("contextmenu", function (event) {
     removeRightMenu();
 
     var menu = $("<ul id='menu'>" +
-        "<li><a onmousedown='showDrawPage()'> New Element</a></li>" +
-        "<li>Edit</li>" +
-        "<li>Delete</li>" +
-        "</ul></div>");
+    "<li><a onmousedown='showDrawPage()'> New Element</a></li>" +
+    "<li>Edit</li>" +
+    "<li>Delete</li>" +
+    "</ul></div>");
 
     var rightMenu = $("<div id='clickMenu' style='position: absolute; font-size: 14px; z-index: 100;'>").css({
         top: event.pageY + "px",
@@ -401,7 +411,7 @@ function mouseUpListener(e) {
 function dragging() {
 
     return !(mouse.startX - mouse.x >= -3 && mouse.startX - mouse.x <= 3 &&
-        mouse.startY - mouse.y >= -3 && mouse.startY - mouse.y <= 3);
+    mouse.startY - mouse.y >= -3 && mouse.startY - mouse.y <= 3);
 
 }
 
@@ -501,20 +511,20 @@ function compile() {
 
     var canImage;
 
-    compileText = "var firstBody;" +
-        "physics.world.SetGravity(new b2Vec2(" + worldGravity.horizontal + ", " + worldGravity.vertical + "));";
+    compileText = "var firstBody;";
 
     for (var i = 0; i < canvasElements.length; i++) {
 
         compileText += "firstBody = new Body(physics, {" +
-            "shape: 'circle'," +
-            "radius: " + (canvasElements[i].width / 2) + "/ physics.scale," +
-            "x:  " + (canvasElements[i].x + (canvasElements[i].width / 2)) + "/ physics.scale," +
-            "y: " + (canvasElements[i].y + (canvasElements[i].height / 2)) + "/ physics.scale," +
-            "width: " + canvasElements[i].width + "/ physics.scale," +
-            "height: " + canvasElements[i].height + "/ physics.scale," +
-            "image: '" + canvasElements[i].image.src + "'});" +
-            "spriteArray.push(firstBody);";
+        "shape: 'circle'," +
+        "radius: " + (canvasElements[i].width / 2) + "/ physics.scale," +
+        "x:  " + (canvasElements[i].x + (canvasElements[i].width / 2)) + "/ physics.scale," +
+        "y: " + (canvasElements[i].y + (canvasElements[i].height / 2)) + "/ physics.scale," +
+        "width: " + canvasElements[i].width + "/ physics.scale," +
+        "height: " + canvasElements[i].height + "/ physics.scale," +
+        "image: '" + canvasElements[i].image.src + "'});" +
+        "spriteArray.push(firstBody);" +
+        "physics.world.SetGravity(new b2Vec2(" + worldGravity.horizontal + ", " + worldGravity.vertical + "));";
 
         for (var j = 0; j < canvasElements[i].addedEvents.length; j++) {
 
@@ -557,7 +567,7 @@ function eventElementsList(array, onClickFunction, showGenerics) {
 
     if (showGenerics == true) {
 
-        targetList.push(mouse, keyboard);
+        targetList.push(mouse, keyboard, system);
         for (j = 0; j < targetList.length; j++) {
             targetList[j].elementClicked = onClickFunction;
         }
@@ -573,7 +583,7 @@ function eventElementsList(array, onClickFunction, showGenerics) {
 
     for (var k = j; k < targetList.length; k++) {
 
-            targetList[k].elementClicked = onClickFunction;
+        targetList[k].elementClicked = onClickFunction;
 
     }
 
@@ -613,6 +623,10 @@ function showExecutorTasks() {
 
 function compileEvent() {
 
+    if (!this.parametersDetails) {
+        this.parametersDetails = [];
+        this.parametersDetails[0] = "";
+    }
     var i = eventCompiler.arrayIndex;
 
     eventCompiler.parameterArray = 10;
@@ -621,18 +635,41 @@ function compileEvent() {
 
     if (eventCompiler.listenerElement.elementName !== "Keyboard") {
 
-        canvasElements[i].addedEvents.push("spriteArray[" + i + "].addEvent(spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.eventListener.targetFunction + ", " + eventCompiler.parameterArray + ");");
+        canvasElements[i].addedEvents.push("spriteArray[" + i + "].addEvent(spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.eventListener.targetFunction + ", " + this.parametersDetails[0] + ");");
 
     }
 
-    else{
+    else {
 
-        eventCompiler.key = "W";
-
-        canvasElements[i].addedEvents.push("spriteArray[" + i + "].addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "', spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.parameterArray + ");");
+        canvasElements[i].addedEvents.push("spriteArray[" + i + "].addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "', spriteArray[" + i + "]." + this.engineFunction + ", " + this.parametersDetails[0] + ");");
         console.log(canvasElements[i].addedEvents);
     }
 
+    var eventString = {};
+
+    eventString.elementName = "On " + eventCompiler.listenerElement.elementName + " " + eventCompiler.eventListener.elementName + " - " + eventCompiler.eventExecutor + " on " + canvasElements[eventCompiler.arrayIndex].elementName;
+
+    eventString.elementClicked = function () {
+        console.log("Event Clicked");
+    };
+
+    updateEventList(eventString);
+
     closeWindow();
 
+}
+
+function updateEventList(newEventString) {
+
+    eventsList.push(newEventString);
+
+    generalFunctions.createList(eventsList, $("#eventsList"));
+
+}
+
+function checkShortcuts(e){
+
+    if(e.keyCode == 46 && selectedElNo >= 0){
+        canvasElements[selectedElNo].deleteElement();
+    }
 }

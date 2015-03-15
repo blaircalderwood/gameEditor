@@ -79,6 +79,7 @@ Physics.prototype.click = function (callback) {
     var self = this;
 
     function handleClick(e) {
+
         e.preventDefault();
         var point = {
             x: (e.offsetX || e.layerX) / self.scale,
@@ -204,6 +205,8 @@ var Body = window.Body = function (physics, details) {
 
 Body.prototype.SetAirFriction = function (friction, angularDamping) {
 
+    this.body.SetAwake(true);
+
     if (friction) {
         this.body.GetLinearVelocity().x *= friction;
         this.body.GetLinearVelocity().y *= friction;
@@ -267,6 +270,7 @@ Body.prototype.SetAngularThreshold = function (threshold) {
  */
 
 Body.prototype.moveLeft = function (velocity) {
+    this.body.SetAwake(true);
     this.body.SetLinearVelocity(new b2Vec2(-velocity, 0));
 };
 
@@ -276,6 +280,7 @@ Body.prototype.moveLeft = function (velocity) {
  */
 
 Body.prototype.moveRight = function (velocity) {
+    this.body.SetAwake(true);
     this.body.SetLinearVelocity(new b2Vec2(velocity, 0));
 };
 
@@ -285,6 +290,7 @@ Body.prototype.moveRight = function (velocity) {
  */
 
 Body.prototype.moveUp = function (velocity) {
+    this.body.SetAwake(true);
     this.body.SetLinearVelocity(new b2Vec2(0, -velocity));
 };
 
@@ -294,6 +300,7 @@ Body.prototype.moveUp = function (velocity) {
  */
 
 Body.prototype.moveDown = function (velocity) {
+    this.body.SetAwake(true);
     this.body.SetLinearVelocity(new b2Vec2(0, velocity));
 };
 
@@ -305,6 +312,17 @@ Body.prototype.moveDown = function (velocity) {
 Body.prototype.rotateTowardsPoint = function (target) {
 
     this.body.SetAngle(tanAngle({x: target.x, y: target.y},
+        {x: this.body.GetWorldCenter().x * physics.scale, y: this.body.GetWorldCenter().y * physics.scale}));
+
+};
+
+/** Rotate towards the current mouse position.
+ *
+ */
+
+Body.prototype.rotateTowardsMouse = function () {
+
+    this.body.SetAngle(tanAngle({x: mouse.x, y: mouse.y},
         {x: this.body.GetWorldCenter().x * physics.scale, y: this.body.GetWorldCenter().y * physics.scale}));
 
 };
@@ -328,6 +346,22 @@ Body.prototype.moveTowardsPoint = function (target, speed) {
         }, this.body.GetWorldCenter());
 
     }
+
+};
+
+Body.prototype.moveTowardsMouse = function (speed) {
+
+
+    //if (mouse.inBounds(physicsCanvas.canvas) == true && mouse.inBounds(physicsCanvas.canvas) == true) {
+
+        var vecLength = Math.sqrt((mouse.x * this.body.GetWorldCenter().x) + (mouse.x * this.body.GetWorldCenter().y));
+
+        this.body.ApplyImpulse({
+            x: ((mouse.x - this.body.GetPosition().x * physics.scale) / vecLength * speed),
+            y: ((mouse.y - this.body.GetPosition().y * physics.scale) / vecLength * speed)
+        }, this.body.GetWorldCenter());
+
+    //}
 
 };
 
