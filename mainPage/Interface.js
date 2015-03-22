@@ -633,17 +633,19 @@ function compileEvent() {
 
     eventCompiler.eventExecutor = this.engineFunction;
 
-    if (eventCompiler.listenerElement.elementName !== "Keyboard") {
+    var newEvent = "spriteArray[" + i + "].";
 
-        canvasElements[i].addedEvents.push("spriteArray[" + i + "].addEvent(spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.eventListener.targetFunction + ", " + this.parametersDetails[0] + ");");
-
+    if(eventCompiler.listenerElement.elementName == "Keyboard"){
+        newEvent += "addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "', spriteArray[" + i + "]." + this.engineFunction;
+        eventCompiler.eventListener.parametersDetails.splice(0, 1);
     }
+    else newEvent += "addEvent(spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.eventListener.targetFunction;
 
-    else {
+    if(this.parametersDetails[0])newEvent += ", " + this.parametersDetails[0];
 
-        canvasElements[i].addedEvents.push("spriteArray[" + i + "].addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "', spriteArray[" + i + "]." + this.engineFunction + ", " + this.parametersDetails[0] + ");");
-        console.log(canvasElements[i].addedEvents);
-    }
+    newEvent += ");";
+    canvasElements[i].addedEvents.push(newEvent);
+    console.log(canvasElements[i].addedEvents);
 
     var eventString = {};
 
