@@ -84,8 +84,13 @@ function loadInterface() {
 
     setInterval(redraw, 17);
 
-    $(".UIWindow").resizable({handles: "n, e, s, w, ne, se, sw, nw"}).draggable();
+    var UIWindow = $(".UIWindow");
 
+    UIWindow.resizable({handles: "n, e, s, w, ne, se, sw, nw"}).draggable();
+    UIWindow.height($(window).height() / 2);
+
+    //UIWindow.style.top = $(window).height() / 3;
+    console.log(UIWindow);
     $("#behaviourDiv").hide();
 
     loadBehaviours();
@@ -465,20 +470,6 @@ function loadCanvasDrawing() {
 
 }
 
-function loadSessDrawings() {
-
-    if (sessionStorage.images) {
-        //for (var i = 0; i <sessionStorage.images.length; i ++){
-        var newImage = new Image();
-        newImage.src = JSON.stringify(sessionStorage.images[0]);
-        newImage.onload = function () {
-            new CanvasElement(10, 10, 64, 64, mainCanvas, newImage);
-            generalFunctions.createList(canvasElements, $("#elementList"));
-        };
-        //}
-    }
-}
-
 /** Show dialog box when the user closes a window
  *
  */
@@ -548,7 +539,9 @@ function compile() {
  */
 
 function showDrawPage() {
+
     showWidget($("#drawDiv"));
+
 }
 
 /** Show events that can act as listeners in order to carry out a certain task
