@@ -17,8 +17,8 @@ var backgroundCanvas, mainCanvas,
     },
     keyboard = {
         events: [], elementName: "Keyboard", listenerEvents: [
-            {elementName: "Key Down", targetFunction: "keyDown", parameters: [{label: "Key", inputType: "list", inputList: ["This stuff", "should hopefully", "work", "plz"]}]},
-            {elementName: "Key Up", targetFunction: "keyUp", parameters: [{label: "Key", inputType: "canvasElements"}]}
+            {elementName: "Key Down", targetFunction: "keyDown", parameters: [{label: "Key", inputType: "keyList"}]},
+            {elementName: "Key Up", targetFunction: "keyUp", parameters: [{label: "Key", inputType: "keyList"}]}
         ]
     },
     system = {
@@ -629,13 +629,13 @@ function compileEvent() {
 
     var newEvent = "spriteArray[" + i + "].";
 
-    if(eventCompiler.listenerElement.elementName == "Keyboard"){
+    if (eventCompiler.listenerElement.elementName == "Keyboard") {
         newEvent += "addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "', spriteArray[" + i + "]." + this.engineFunction;
         eventCompiler.eventListener.parametersDetails.splice(0, 1);
     }
     else newEvent += "addEvent(spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.eventListener.targetFunction;
 
-    if(this.parametersDetails[0])newEvent += ", " + this.parametersDetails[0];
+    if (this.parametersDetails[0])newEvent += ", " + this.parametersDetails[0];
 
     newEvent += ");";
     canvasElements[i].addedEvents.push(newEvent);
@@ -663,9 +663,9 @@ function updateEventList(newEventString) {
 
 }
 
-function checkShortcuts(e){
+function checkShortcuts(e) {
 
-    if(e.keyCode == 46 && selectedElNo >= 0){
+    if (e.keyCode == 46 && selectedElNo >= 0) {
         canvasElements[selectedElNo].deleteElement();
     }
 }
@@ -719,31 +719,39 @@ generalFunctions.createList = function (array, JQMListElement, callback, callbac
 
             for (var z = 0; z < array[i].parameters.length; z++) {
 
+                var parameterItem = array[i].parameters[z];
+
                 var collapsibleItem = document.createElement("li");
 
                 var collapsibleInput;
 
-                if (array[i].parameters[z].inputType == "list") {
+                if (parameterItem.inputType == "list") {
 
-                    collapsibleInput = insertList(array, array[i].parameters[z]);
+                    collapsibleInput = insertList(array, parameterItem);
 
                 }
 
-                else if(array[i].parameters[z].inputType == "canvasElements"){
+                else if (parameterItem.inputType == "canvasElements") {
 
-                    array[i].parameters[z].inputList = fillCanvasElements();
-                    collapsibleInput = insertList(array, array[i].parameters[z]);
+                    parameterItem.inputList = fillCanvasElements();
+                    collapsibleInput = insertList(array, parameterItem);
+                }
+
+                else if (parameterItem.inputType == "keyList") {
+
+                    parameterItem.inputList = fillKeys();
+                    collapsibleInput = insertList(array, parameterItem);
                 }
 
                 else {
 
                     collapsibleInput = document.createElement("input");
-                    if (array[i].parameters[z].inputType)collapsibleInput.type = array[i].parameters[z].inputType;
+                    if (parameterItem.inputType)collapsibleInput.type = parameterItem.inputType;
 
                 }
 
                 var collapsibleLabel = document.createElement("label");
-                collapsibleLabel.innerHTML = array[i].parameters[z].label;
+                collapsibleLabel.innerHTML = parameterItem.label;
 
                 collapsibleItem.appendChild(collapsibleLabel);
                 collapsibleItem.appendChild(collapsibleInput);
@@ -798,16 +806,23 @@ generalFunctions.createList = function (array, JQMListElement, callback, callbac
 
 };
 
-function fillCanvasElements(){
+function fillCanvasElements() {
 
     var targetArray = [];
 
-    for(var q = 0; q < canvasElements.length; q++)targetArray.push(canvasElements[q].elementName);
+    for (var q = 0; q < canvasElements.length; q++)targetArray.push(canvasElements[q].elementName);
 
     return targetArray;
+
 }
 
-function insertList(array, target){
+function fillKeys() {
+    return ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
+        "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+}
+
+function insertList(array, target) {
 
     var collapsibleInput;
 
