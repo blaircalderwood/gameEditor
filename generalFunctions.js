@@ -50,7 +50,15 @@ generalFunctions.createList = function (array, JQMListElement, callback, callbac
             for (var z = 0; z < array[i].parameters.length; z++) {
 
                 var collapsibleItem = document.createElement("li");
+
                 var collapsibleInput = document.createElement("input");
+                if(array[i].parameters[z].inputType)collapsibleInput.type = array[i].parameters[z].inputType;
+                if(array[i].parameters[z].inputList)collapsibleInput.setAttribute("list", array[i].parameters[z].inputList);
+
+                var collapsibleLabel = document.createElement("label");
+                collapsibleLabel.innerHTML = array[i].parameters[z].label;
+
+                collapsibleItem.appendChild(collapsibleLabel);
                 collapsibleItem.appendChild(collapsibleInput);
 
                 ul.appendChild(collapsibleItem);

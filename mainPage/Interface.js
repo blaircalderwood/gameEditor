@@ -17,8 +17,8 @@ var backgroundCanvas, mainCanvas,
     },
     keyboard = {
         events: [], elementName: "Keyboard", listenerEvents: [
-            {elementName: "Key Down", targetFunction: "keyDown", parameters: ["Key"]},
-            {elementName: "Key Up", targetFunction: "keyUp", parameters: ["Key"]}
+            {elementName: "Key Down", targetFunction: "keyDown", parameters: [{label: "Key", inputType: "list", inputList: ["This stuff", "should hopefully", "work"]}]},
+            {elementName: "Key Up", targetFunction: "keyUp", parameters: [{label: "Key", inputType: "number"}]}
         ]
     },
     system = {

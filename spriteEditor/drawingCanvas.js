@@ -35,15 +35,17 @@ function canvasLoad() {
 
 }
 
+//Change to more efficient method if possible
+
 function setEraseTimer(){
 
-    //Change to more efficient method if possible
     var eraseTimer = setInterval(function () {
 
         if (sessionStorage.image == undefined) {
             eraseDrawing();
             canvasLoad();
         }
+
     }, 2000);
 
 }
