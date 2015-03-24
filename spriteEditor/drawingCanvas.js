@@ -5,12 +5,14 @@ var selected = {down: "", move: "", up: ""};
 var savedX, savedY = 0;
 var undoQueue = [], redoQueue = [], canvasElements = [];
 
-function canvasLoad () {
+function canvasLoad() {
 
     drawingCanvas = document.getElementById("drawingCanvas");
     context = drawingCanvas.getContext("2d");
 
     context.fillStyle = 'blue';
+
+    setEraseTimer();
 
     setCanvasPos();
 
@@ -25,15 +27,37 @@ function canvasLoad () {
 
     selected = new Selected(paint, paint);
 
-        drawingCanvas.addEventListener('touchstart', putMouseDown);
-        drawingCanvas.addEventListener('touchmove', function(){
-            mouseMove(event)
-        });
-        drawingCanvas.addEventListener('touchend', mouseUp);
+    drawingCanvas.addEventListener('touchstart', putMouseDown);
+    drawingCanvas.addEventListener('touchmove', function () {
+        mouseMove(event)
+    });
+    drawingCanvas.addEventListener('touchend', mouseUp);
 
 }
 
-function setCanvasSize(){
+//Change to more efficient method if possible
+
+function setEraseTimer(){
+
+    var eraseTimer = setInterval(function () {
+
+        if (sessionStorage.image == undefined) {
+            eraseDrawing();
+            canvasLoad();
+        }
+
+    }, 2000);
+
+}
+
+function eraseDrawing() {
+
+    context.fillStyle = 'white';
+    context.fillRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+
+}
+
+function setCanvasSize() {
 
     var contentDiv = $("#contentDiv");
     contentDiv.width = $(window).outerWidth();
@@ -41,10 +65,10 @@ function setCanvasSize(){
 
 }
 
-function setCanvasPos(){
+function setCanvasPos() {
 
     var contentDiv = $("#contentDiv");
-    var headerHeight = $(".ui-header").hasClass("ui-header-fixed") ? $(".ui-header").outerHeight()  - 1 : $(".ui-header").outerHeight();
+    var headerHeight = $(".ui-header").hasClass("ui-header-fixed") ? $(".ui-header").outerHeight() - 1 : $(".ui-header").outerHeight();
     var drawSize = (($("#drawingPage").outerHeight() + headerHeight) / 2) - (drawingCanvas.height / 2);
 
     contentDiv.css('left', 50 + '%');
@@ -52,19 +76,23 @@ function setCanvasPos(){
 
 }
 
-function changeDimensionsValues(){
+function changeDimensionsValues() {
 
     $("#dimensionsPickerWidth").val(drawingCanvas.width);
     $("#dimensionsPickerHeight").val(drawingCanvas.height);
 
+
 }
 
-function changeDimensions(){
+function changeDimensions() {
+
+    var currentImg = context.getImageData(0, 0, drawingCanvas.width, drawingCanvas.height);
 
     drawingCanvas.width = $("#dimensionsPickerWidth").val();
     drawingCanvas.height = $("#dimensionsPickerHeight").val();
 
     setCanvasPos();
+    context.putImageData(currentImg, (drawingCanvas.width / 2) - (currentImg.width / 2), (drawingCanvas.height / 2) - (currentImg.height / 2));
 
 }
 
@@ -72,7 +100,7 @@ function Selected(down, move, up) {
 
     var contentDiv = $('#contentDiv');
 
-    if(isDragEnabled){
+    if (isDragEnabled) {
         contentDiv.draggable("disable");
     }
 
@@ -87,7 +115,7 @@ function Selected(down, move, up) {
 
 }
 
-function dragEnabled(){
+function dragEnabled() {
 
     selected = new Selected();
     $("#contentDiv").draggable();
@@ -114,9 +142,9 @@ function putMouseDown() {
 
 function mouseMove(e) {
 
-    if(e.touches){
+    if (e.touches) {
 
-        if(prevTouched) {
+        if (prevTouched) {
 
             mouse.oldX = mouse.x;
             mouse.oldY = mouse.y;
@@ -126,10 +154,10 @@ function mouseMove(e) {
 
         }
 
-        else{
+        else {
 
             mouse.oldX = mouse.x = e.touches[0].clientX - drawingCanvas.getBoundingClientRect().left;
-            mouse.oldY =  mouse.y = e.touches[0].clientY - drawingCanvas.getBoundingClientRect().top;
+            mouse.oldY = mouse.y = e.touches[0].clientY - drawingCanvas.getBoundingClientRect().top;
             saveCoords();
             prevTouched = true;
 
@@ -138,7 +166,7 @@ function mouseMove(e) {
         checkAndMove();
     }
 
-    else if(e.pageX){
+    else if (e.pageX) {
 
         mouse.oldX = mouse.x;
         mouse.oldY = mouse.y;
@@ -148,13 +176,13 @@ function mouseMove(e) {
 
         checkAndMove();
     }
-    else if(e.touches.length < 0){
+    else if (e.touches.length < 0) {
         mouseUp();
     }
 
 }
 
-function checkAndMove(){
+function checkAndMove() {
 
     if (mouseDown && selected.move) {
         selected.move();
@@ -259,7 +287,7 @@ function selectItem() {
 
 function dragElement() {
 
-    if(clickedElement) {
+    if (clickedElement) {
         clickedElement.x += mouse.x - mouse.oldX;
         clickedElement.y += mouse.y - mouse.oldY;
 
@@ -284,7 +312,7 @@ function dropElement() {
 
 function highlight() {
 
-    if(clickedElement) {
+    if (clickedElement) {
         context.fillStyle = 'blue';
         context.strokeRect(drawingCanvas.width + 100, drawingCanvas.height + 100, clickedElement.width, clickedElement.height);
 
@@ -320,11 +348,11 @@ function undo(popQueue, pushQueue) {
 
 }
 
-function saveDrawing(){
+function saveDrawing() {
     sessionStorage.setItem('image', drawingCanvas.toDataURL("image/png"));
 }
 
-function removeActiveClass(button, e){
+function removeActiveClass(button, e) {
 
     $("#navbarStuff").removeClass("ui-btn-active");
     e.preventDefault();
@@ -332,18 +360,18 @@ function removeActiveClass(button, e){
 
 }
 
-function fileUpload(target){
+function fileUpload(target) {
 
     var files = target.files[0];
 
     console.log(files);
     fileRead = new FileReader();
-        fileRead.readAsDataURL(files);
+    fileRead.readAsDataURL(files);
     fileRead.onload = showImage;
 
 }
 
-function showImage(){
+function showImage() {
 
     console.log(fileRead.result);
 
@@ -351,5 +379,7 @@ function showImage(){
     tempImage.src = fileRead.result;
 
     context.drawImage(tempImage, 0, 0, drawingCanvas.width, drawingCanvas.height);
+
+    saveContext();
 
 }

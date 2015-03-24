@@ -17,8 +17,8 @@ var backgroundCanvas, mainCanvas,
     },
     keyboard = {
         events: [], elementName: "Keyboard", listenerEvents: [
-            {elementName: "Key Down", targetFunction: "keyDown", parameters: ["Key"]},
-            {elementName: "Key Up", targetFunction: "keyUp", parameters: ["Key"]}
+            {elementName: "Key Down", targetFunction: "keyDown", parameters: [{label: "Key", inputType: "keyList"}]},
+            {elementName: "Key Up", targetFunction: "keyUp", parameters: [{label: "Key", inputType: "keyList"}]}
         ]
     },
     system = {
@@ -84,8 +84,14 @@ function loadInterface() {
 
     setInterval(redraw, 17);
 
-    $(".UIWindow").resizable({handles: "n, e, s, w, ne, se, sw, nw"}).draggable();
+    var UIWindow = $(".UIWindow");
 
+    UIWindow.resizable({handles: "n, e, s, w, ne, se, sw, nw"}).draggable();
+    UIWindow.height($(window).height() / 2);
+
+    //UIWindow.style.top = $(window).height() / 3;
+    UIWindow.position.top = 500;
+    console.log(UIWindow);
     $("#behaviourDiv").hide();
 
     loadBehaviours();
@@ -465,20 +471,6 @@ function loadCanvasDrawing() {
 
 }
 
-function loadSessDrawings() {
-
-    if (sessionStorage.images) {
-        //for (var i = 0; i <sessionStorage.images.length; i ++){
-        var newImage = new Image();
-        newImage.src = JSON.stringify(sessionStorage.images[0]);
-        newImage.onload = function () {
-            new CanvasElement(10, 10, 64, 64, mainCanvas, newImage);
-            generalFunctions.createList(canvasElements, $("#elementList"));
-        };
-        //}
-    }
-}
-
 /** Show dialog box when the user closes a window
  *
  */
@@ -548,7 +540,9 @@ function compile() {
  */
 
 function showDrawPage() {
+
     showWidget($("#drawDiv"));
+
 }
 
 /** Show events that can act as listeners in order to carry out a certain task
@@ -633,17 +627,19 @@ function compileEvent() {
 
     eventCompiler.eventExecutor = this.engineFunction;
 
-    if (eventCompiler.listenerElement.elementName !== "Keyboard") {
+    var newEvent = "spriteArray[" + i + "].";
 
-        canvasElements[i].addedEvents.push("spriteArray[" + i + "].addEvent(spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.eventListener.targetFunction + ", " + this.parametersDetails[0] + ");");
-
+    if (eventCompiler.listenerElement.elementName == "Keyboard") {
+        newEvent += "addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "', spriteArray[" + i + "]." + this.engineFunction;
+        eventCompiler.eventListener.parametersDetails.splice(0, 1);
     }
+    else newEvent += "addEvent(spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.eventListener.targetFunction;
 
-    else {
+    if (this.parametersDetails[0])newEvent += ", " + this.parametersDetails[0];
 
-        canvasElements[i].addedEvents.push("spriteArray[" + i + "].addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "', spriteArray[" + i + "]." + this.engineFunction + ", " + this.parametersDetails[0] + ");");
-        console.log(canvasElements[i].addedEvents);
-    }
+    newEvent += ");";
+    canvasElements[i].addedEvents.push(newEvent);
+    console.log(canvasElements[i].addedEvents);
 
     var eventString = {};
 
@@ -667,9 +663,180 @@ function updateEventList(newEventString) {
 
 }
 
-function checkShortcuts(e){
+function checkShortcuts(e) {
 
-    if(e.keyCode == 46 && selectedElNo >= 0){
+    if (e.keyCode == 46 && selectedElNo >= 0) {
         canvasElements[selectedElNo].deleteElement();
     }
+}
+
+generalFunctions.createList = function (array, JQMListElement, callback, callbackParamArray) {
+
+    JQMListElement.empty();
+
+    for (var i = 0; i < array.length; i++) {
+
+        var listItem = document.createElement("li");
+
+        if (!array[i].parameters) {
+
+            var anchor = document.createElement("a");
+            if (array[i].elementName) anchor.innerText = array[i].elementName;
+            else console.log("Create List - Element Name not found for array object " + i);
+
+            listItem.appendChild(anchor);
+            JQMListElement.append(listItem);
+
+            (function (el) {
+                listItem.onclick = function () {
+                    if (array[el].elementClicked)array[el].elementClicked();
+                    else console.log("Create List - Element does not have clicked function");
+                };
+            })(i);
+
+        }
+
+        else {
+
+            var collapsibles = [];
+
+            var divItem = document.createElement("div");
+
+            var ul = document.createElement("ul");
+
+            var anchor1 = document.createElement("h4");
+
+            var submitLi = document.createElement("li");
+            var submitButton = document.createElement("a");
+            $(submitButton).attr("data-type", "button");
+            submitButton.innerText = "Submit";
+            $(submitButton).button();
+
+            if (array[i].elementName) anchor1.innerText = array[i].elementName;
+            else console.log("Create List - Element Name not found for array object " + i);
+
+            divItem.appendChild(anchor1);
+
+            for (var z = 0; z < array[i].parameters.length; z++) {
+
+                var parameterItem = array[i].parameters[z];
+
+                var collapsibleItem = document.createElement("li");
+
+                var collapsibleInput;
+
+                if (parameterItem.inputType == "list") {
+
+                    collapsibleInput = insertList(array, parameterItem);
+
+                }
+
+                else if (parameterItem.inputType == "canvasElements") {
+
+                    parameterItem.inputList = fillCanvasElements();
+                    collapsibleInput = insertList(array, parameterItem);
+                }
+
+                else if (parameterItem.inputType == "keyList") {
+
+                    parameterItem.inputList = fillKeys();
+                    collapsibleInput = insertList(array, parameterItem);
+                }
+
+                else {
+
+                    collapsibleInput = document.createElement("input");
+                    if (parameterItem.inputType)collapsibleInput.type = parameterItem.inputType;
+
+                }
+
+                var collapsibleLabel = document.createElement("label");
+                collapsibleLabel.innerHTML = parameterItem.label;
+
+                collapsibleItem.appendChild(collapsibleLabel);
+                collapsibleItem.appendChild(collapsibleInput);
+
+                ul.appendChild(collapsibleItem);
+
+                collapsibles.push(collapsibleInput);
+
+            }
+
+            (function (el, collapsibles) {
+
+                submitButton.onclick = function () {
+
+                    var parametersDetails = [];
+
+                    for (var y = 0; y < collapsibles.length; y++) {
+                        console.log(collapsibles[y].value);
+                        parametersDetails[y] = collapsibles[y].value;
+                    }
+                    array[el].parametersDetails = parametersDetails;
+                    console.log(array[el]);
+                    if (array[el].elementClicked)array[el].elementClicked();
+                    else console.log("Create List - Element does not have clicked function");
+
+                };
+            })(i, collapsibles);
+
+
+            submitLi.appendChild(submitButton);
+
+            ul.appendChild(submitLi);
+
+            divItem.appendChild(ul);
+            refreshList($(ul));
+            listItem.appendChild(divItem);
+
+            $(divItem).attr("data-role", "collapsible");
+            $(divItem).attr("data-inset", false);
+            $(divItem).collapsible();
+
+            JQMListElement.append(listItem);
+
+        }
+
+    }
+
+    refreshList(JQMListElement);
+
+    if (callback)execCallback(callback, callbackParamArray);
+    else return callbackParamArray;
+
+};
+
+function fillCanvasElements() {
+
+    var targetArray = [];
+
+    for (var q = 0; q < canvasElements.length; q++)targetArray.push(canvasElements[q].elementName);
+
+    return targetArray;
+
+}
+
+function fillKeys() {
+    return ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
+        "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+}
+
+function insertList(array, target) {
+
+    var collapsibleInput;
+
+    collapsibleInput = document.createElement("select");
+    if (target.inputList) {
+
+        for (var i = 0; i < target.inputList.length; i++) {
+
+            var option = document.createElement("option");
+            option.innerHTML = option.value = option.title = target.inputList[i];
+            collapsibleInput.appendChild(option);
+        }
+    }
+
+    return collapsibleInput;
+
 }
