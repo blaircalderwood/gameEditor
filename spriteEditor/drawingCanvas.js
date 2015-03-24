@@ -12,6 +12,8 @@ function canvasLoad () {
 
     context.fillStyle = 'blue';
 
+    eraseDrawing();
+
     setCanvasPos();
 
     $(window).on('resize', setCanvasPos);
@@ -30,6 +32,13 @@ function canvasLoad () {
             mouseMove(event)
         });
         drawingCanvas.addEventListener('touchend', mouseUp);
+
+}
+
+function eraseDrawing(){
+
+    context.fillStyle = 'white';
+    context.fillRect(0, 0, drawingCanvas.width, drawingCanvas.height);
 
 }
 
@@ -57,14 +66,18 @@ function changeDimensionsValues(){
     $("#dimensionsPickerWidth").val(drawingCanvas.width);
     $("#dimensionsPickerHeight").val(drawingCanvas.height);
 
+
 }
 
 function changeDimensions(){
+
+    var currentImg = context.getImageData(0, 0, drawingCanvas.width, drawingCanvas.height);
 
     drawingCanvas.width = $("#dimensionsPickerWidth").val();
     drawingCanvas.height = $("#dimensionsPickerHeight").val();
 
     setCanvasPos();
+    context.putImageData(currentImg, (drawingCanvas.width / 2) - (currentImg.width / 2), (drawingCanvas.height / 2) - (currentImg.height / 2));
 
 }
 
@@ -351,5 +364,7 @@ function showImage(){
     tempImage.src = fileRead.result;
 
     context.drawImage(tempImage, 0, 0, drawingCanvas.width, drawingCanvas.height);
+
+    saveContext();
 
 }

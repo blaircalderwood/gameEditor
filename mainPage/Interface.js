@@ -90,6 +90,7 @@ function loadInterface() {
     UIWindow.height($(window).height() / 2);
 
     //UIWindow.style.top = $(window).height() / 3;
+    UIWindow.position.top = 500;
     console.log(UIWindow);
     $("#behaviourDiv").hide();
 
