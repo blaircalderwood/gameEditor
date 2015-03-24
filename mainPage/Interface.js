@@ -17,8 +17,8 @@ var backgroundCanvas, mainCanvas,
     },
     keyboard = {
         events: [], elementName: "Keyboard", listenerEvents: [
-            {elementName: "Key Down", targetFunction: "keyDown", parameters: [{label: "Key", inputType: "list", inputList: ["This stuff", "should hopefully", "work"]}]},
-            {elementName: "Key Up", targetFunction: "keyUp", parameters: [{label: "Key", inputType: "number"}]}
+            {elementName: "Key Down", targetFunction: "keyDown", parameters: [{label: "Key", inputType: "list", inputList: ["This stuff", "should hopefully", "work", "plz"]}]},
+            {elementName: "Key Up", targetFunction: "keyUp", parameters: [{label: "Key", inputType: "canvasElements"}]}
         ]
     },
     system = {
@@ -668,4 +668,160 @@ function checkShortcuts(e){
     if(e.keyCode == 46 && selectedElNo >= 0){
         canvasElements[selectedElNo].deleteElement();
     }
+}
+
+generalFunctions.createList = function (array, JQMListElement, callback, callbackParamArray) {
+
+    JQMListElement.empty();
+
+    for (var i = 0; i < array.length; i++) {
+
+        var listItem = document.createElement("li");
+
+        if (!array[i].parameters) {
+
+            var anchor = document.createElement("a");
+            if (array[i].elementName) anchor.innerText = array[i].elementName;
+            else console.log("Create List - Element Name not found for array object " + i);
+
+            listItem.appendChild(anchor);
+            JQMListElement.append(listItem);
+
+            (function (el) {
+                listItem.onclick = function () {
+                    if (array[el].elementClicked)array[el].elementClicked();
+                    else console.log("Create List - Element does not have clicked function");
+                };
+            })(i);
+
+        }
+
+        else {
+
+            var collapsibles = [];
+
+            var divItem = document.createElement("div");
+
+            var ul = document.createElement("ul");
+
+            var anchor1 = document.createElement("h4");
+
+            var submitLi = document.createElement("li");
+            var submitButton = document.createElement("a");
+            $(submitButton).attr("data-type", "button");
+            submitButton.innerText = "Submit";
+            $(submitButton).button();
+
+            if (array[i].elementName) anchor1.innerText = array[i].elementName;
+            else console.log("Create List - Element Name not found for array object " + i);
+
+            divItem.appendChild(anchor1);
+
+            for (var z = 0; z < array[i].parameters.length; z++) {
+
+                var collapsibleItem = document.createElement("li");
+
+                var collapsibleInput;
+
+                if (array[i].parameters[z].inputType == "list") {
+
+                    collapsibleInput = insertList(array, array[i].parameters[z]);
+
+                }
+
+                else if(array[i].parameters[z].inputType == "canvasElements"){
+
+                    array[i].parameters[z].inputList = fillCanvasElements();
+                    collapsibleInput = insertList(array, array[i].parameters[z]);
+                }
+
+                else {
+
+                    collapsibleInput = document.createElement("input");
+                    if (array[i].parameters[z].inputType)collapsibleInput.type = array[i].parameters[z].inputType;
+
+                }
+
+                var collapsibleLabel = document.createElement("label");
+                collapsibleLabel.innerHTML = array[i].parameters[z].label;
+
+                collapsibleItem.appendChild(collapsibleLabel);
+                collapsibleItem.appendChild(collapsibleInput);
+
+                ul.appendChild(collapsibleItem);
+
+                collapsibles.push(collapsibleInput);
+
+            }
+
+            (function (el, collapsibles) {
+
+                submitButton.onclick = function () {
+
+                    var parametersDetails = [];
+
+                    for (var y = 0; y < collapsibles.length; y++) {
+                        console.log(collapsibles[y].value);
+                        parametersDetails[y] = collapsibles[y].value;
+                    }
+                    array[el].parametersDetails = parametersDetails;
+                    console.log(array[el]);
+                    if (array[el].elementClicked)array[el].elementClicked();
+                    else console.log("Create List - Element does not have clicked function");
+
+                };
+            })(i, collapsibles);
+
+
+            submitLi.appendChild(submitButton);
+
+            ul.appendChild(submitLi);
+
+            divItem.appendChild(ul);
+            refreshList($(ul));
+            listItem.appendChild(divItem);
+
+            $(divItem).attr("data-role", "collapsible");
+            $(divItem).attr("data-inset", false);
+            $(divItem).collapsible();
+
+            JQMListElement.append(listItem);
+
+        }
+
+    }
+
+    refreshList(JQMListElement);
+
+    if (callback)execCallback(callback, callbackParamArray);
+    else return callbackParamArray;
+
+};
+
+function fillCanvasElements(){
+
+    var targetArray = [];
+
+    for(var q = 0; q < canvasElements.length; q++)targetArray.push(canvasElements[q].elementName);
+
+    return targetArray;
+}
+
+function insertList(array, target){
+
+    var collapsibleInput;
+
+    collapsibleInput = document.createElement("select");
+    if (target.inputList) {
+
+        for (var i = 0; i < target.inputList.length; i++) {
+
+            var option = document.createElement("option");
+            option.innerHTML = option.value = option.title = target.inputList[i];
+            collapsibleInput.appendChild(option);
+        }
+    }
+
+    return collapsibleInput;
+
 }
