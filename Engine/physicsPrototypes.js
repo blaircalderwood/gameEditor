@@ -87,7 +87,6 @@ Physics.prototype.click = function (callback) {
         };
 
         self.world.QueryPoint(function (fixture) {
-            console.log(fixture);
             callback(fixture.GetBody(),
                 fixture,
                 point);
@@ -311,7 +310,7 @@ Body.prototype.moveDown = function (velocity) {
 
 Body.prototype.rotateTowardsPoint = function (target) {
 
-    this.body.SetAngle(tanAngle({x: target.x, y: target.y},
+    this.body.SetAngle(tanAngle({x: target.body.GetWorldCenter().x * physics.scale, y: target.body.GetWorldCenter().y * physics.scale},
         {x: this.body.GetWorldCenter().x * physics.scale, y: this.body.GetWorldCenter().y * physics.scale}));
 
 };
