@@ -117,7 +117,7 @@ Physics.prototype.collision = function () {
         console.log("TESTING ATTENTION PLZ");
         var contactOne = contact.GetFixtureA().GetBody().GetUserData();
         var contactTwo = contact.GetFixtureB().GetBody().GetUserData();
-
+        contactOne.contact(contactTwo);
     };
 
     this.world.SetContactListener(this.listener);
@@ -228,6 +228,11 @@ Body.prototype.SetAirFriction = function (friction, angularDamping) {
         this.body.SetAngularVelocity(this.body.GetAngularVelocity() * angularDamping);
     }
 
+};
+
+Body.prototype.contact = function(collidingObject){
+
+    listen(this.contact);
 };
 
 /** Set maximum object speed

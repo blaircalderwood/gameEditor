@@ -26,6 +26,7 @@ function engineReady(physics){
     firstBody.addKeyUpEvent("W", firstBody.setTopDownFriction, 0.5);
 
     firstBody.addEvent(firstBody.rotateTowardsPoint, mouseMoveListener, mouse);
+
     startEngine();
 
 }

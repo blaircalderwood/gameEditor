@@ -34,6 +34,8 @@ var backgroundCanvas, mainCanvas,
     worldGravity = {horizontal: 0, vertical: 0},
     behavioursShown, eventCompiler = {eventListener: {}, eventExecutor: {}};
 
+var genericsArray = [mouse, keyboard, system];
+
 var compileText = "";
 
 //Constructors
@@ -457,12 +459,16 @@ function loadCanvasDrawing() {
         tempImage.src = data;
 
         tempImage.onload = function () {
+
+            var renameText = $("#renameText");
             canvasElements.push(new CanvasElement(mainCanvas.width / 2, mainCanvas.height / 2,
-                tempImage.width, tempImage.height, mainCanvas, tempImage, $("#renameText").val(), true, true));
+                tempImage.width, tempImage.height, mainCanvas, tempImage, renameText.val(), true, true));
             createList(canvasElements, $("#elementList"));
+            renameText.val("");
         };
 
         sessionStorage.removeItem('image');
+
     }
 
 }
@@ -540,6 +546,8 @@ function compile() {
             compileText += canvasElements[i].addedEvents[j];
         }
 
+        //compileText += "spriteArray[0].addEvent(spriteArray[1].destroy, spriteArray[0].contact);"
+
     }
 
     compileText += "startEngine();";
@@ -578,7 +586,7 @@ function eventElementsList(array, onClickFunction, showGenerics) {
 
     if (showGenerics == true) {
 
-        targetList.push(mouse, keyboard, system);
+        for(var item = 0; item < genericsArray.length; item ++)targetList.push(genericsArray[item]);
         for (j = 0; j < targetList.length; j++) {
             targetList[j].elementClicked = onClickFunction;
         }
@@ -650,6 +658,11 @@ function compileEvent() {
         newEvent += "addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "', spriteArray[" + i + "]." + this.engineFunction;
         eventCompiler.eventListener.parametersDetails.splice(0, 1);
     }
+    else if(genericsArray.indexOf(eventCompiler.listenerElement.elementName) == -1){
+
+        newEvent += "addEvent(spriteArray[" + i + "]." + this.engineFunction + ", spriteArray[" + i + "]." + eventCompiler.eventListener.targetFunction;
+    }
+
     else newEvent += "addEvent(spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.eventListener.targetFunction;
 
     if (this.parametersDetails[0])newEvent += ", " + this.parametersDetails[0];
