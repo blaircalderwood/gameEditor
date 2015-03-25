@@ -176,6 +176,8 @@ var startEngine = function() {
 
     listen(startEngine);
 
+    physics.collision();
+
 };
 
 /** Loads all required canvases from DOM for future manipulation
@@ -397,7 +399,7 @@ function imagesLoaded() {
 
         //generalFunctions.loadImages(finishedImageLoad, null, newImage);
 
-        finishedImageLoad("blabla", newImage);
+        finishedImageLoad(newImage);
         spriteArray[i].details.image.onload = function () {
 
             counter++;
@@ -411,7 +413,7 @@ function imagesLoaded() {
     }
 }
 
-function finishedImageLoad(blabla, images) {
+function finishedImageLoad(images) {
 
     for (var i = 0; i < images.length; i++) {
 
@@ -421,7 +423,6 @@ function finishedImageLoad(blabla, images) {
         spriteArray[i].details.image.src = images[i];
 
         spriteArray[0].details.image.onload = function () {
-            console.log(spriteArray[i].details.image);
             startEngine();
         }(i);
 

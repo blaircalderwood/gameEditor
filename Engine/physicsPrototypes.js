@@ -9,6 +9,7 @@ var b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
 var b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
 var b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
 var gravity = new b2Vec2(0, 0);
+var toDestroy = [];
 
 // Physics set up functions are based on the tutorial found at http://buildnewgames.com/box2dweb/
 
@@ -68,6 +69,11 @@ Physics.prototype.step = function (dt) {
 
     }
 
+    for(var i = 0; i < toDestroy.length; i ++){
+        physics.world.DestroyBody(toDestroy[i]);
+    }
+    toDestroy = [];
+
 };
 
 /** Get point in game world when canvas is clicked
@@ -104,11 +110,18 @@ Physics.prototype.click = function (callback) {
 
 Physics.prototype.collision = function () {
 
+
     this.listener = new Box2D.Dynamics.b2ContactListener();
 
-    this.listener.BeginContact = function (contact) {
+    this.listener.PostSolve = function (contact, impulse) {
+        console.log("TESTING ATTENTION PLZ");
+        var contactOne = contact.GetFixtureA().GetBody().GetUserData();
+        var contactTwo = contact.GetFixtureB().GetBody().GetUserData();
 
-    }
+    };
+
+    this.world.SetContactListener(this.listener);
+
 };
 
 /** Show debug graphics
@@ -371,6 +384,10 @@ Body.prototype.moveTowardsMouse = function (speed) {
 
 Body.prototype.setTopDownFriction = function (friction) {
     this.body.SetLinearDamping(friction);
+};
+
+Body.prototype.destroy = function(){
+    toDestroy.push(this.body);
 };
 
 /** Default body prototype values for use if no detail is given

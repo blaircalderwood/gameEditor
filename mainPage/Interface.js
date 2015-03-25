@@ -458,7 +458,7 @@ function loadCanvasDrawing() {
 
         tempImage.onload = function () {
             canvasElements.push(new CanvasElement(mainCanvas.width / 2, mainCanvas.height / 2,
-                tempImage.width, tempImage.height, mainCanvas, tempImage, null, true, true));
+                tempImage.width, tempImage.height, mainCanvas, tempImage, $("#renameText").val(), true, true));
             createList(canvasElements, $("#elementList"));
         };
 
@@ -476,9 +476,9 @@ function confirmCloseWindow() {
     $("#confirmDialog").dialog({
         buttons: {
             "Save": function () {
-                loadCanvasDrawing();
                 closeWindow();
                 $(this).dialog("close");
+                renameSprite();
             },
             "Delete": function () {
                 closeWindow();
@@ -489,6 +489,27 @@ function confirmCloseWindow() {
             }
         }
     })
+}
+
+function renameSprite(){
+
+    var renameDialog = $("#renameDialog");
+    renameDialog.dialog({
+        buttons: {
+            "Save": function () {
+                if($("#renameText").val() !== "") {
+                    loadCanvasDrawing();
+                    $(this).dialog("close");
+                }
+                else{
+                    renameDialog.innerHTML = "Please enter a valid element name";
+                }
+            }
+
+        }
+
+    })
+
 }
 
 /** Compile all features set by the user into a local storage file ready to be run by the game engine as a full game
