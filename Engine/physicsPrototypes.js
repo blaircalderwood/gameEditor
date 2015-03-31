@@ -141,6 +141,19 @@ Physics.prototype.debug = function () {
 
 };
 
+Physics.prototype.addScreenBounds = function(){
+
+    var screenWidth = (physicsCanvas.canvas.width) / physics.scale;
+    var screenHeight = (physicsCanvas.canvas.height) / physics.scale;
+
+    console.log(screenHeight);
+    new Body(physics, { type: "static", x: 0, y: 0, height: 0.5, width: screenWidth});
+    new Body(physics, { type: "static", x: 0, y: 0, height: screenHeight,  width: 0.5 });
+    new Body(physics, { type: "static", x: screenWidth, y: 0, height: screenHeight,  width: 0.5});
+    new Body(physics, { type: "static", x: 0, y: screenHeight - 1, height: 0.5, width: screenWidth });
+
+};
+
 //Body Protos
 
 /** Set up new body element for physics manipulation

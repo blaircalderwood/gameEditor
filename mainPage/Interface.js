@@ -546,9 +546,13 @@ function compile() {
             compileText += canvasElements[i].addedEvents[j];
         }
 
+
+
         //compileText += "spriteArray[0].addEvent(spriteArray[1].destroy, spriteArray[0].contact);"
 
     }
+
+    if($("#bounceWalls").is(":checked") == true) compileText += "physics.addScreenBounds();";
 
     compileText += "startEngine();";
 
