@@ -176,6 +176,8 @@ var startEngine = function() {
 
     listen(startEngine);
 
+    physics.collision();
+
 };
 
 /** Loads all required canvases from DOM for future manipulation
@@ -397,7 +399,7 @@ function imagesLoaded() {
 
         //generalFunctions.loadImages(finishedImageLoad, null, newImage);
 
-        finishedImageLoad("blabla", newImage);
+        finishedImageLoad(newImage);
         spriteArray[i].details.image.onload = function () {
 
             counter++;
@@ -411,7 +413,7 @@ function imagesLoaded() {
     }
 }
 
-function finishedImageLoad(blabla, images) {
+function finishedImageLoad(images) {
 
     for (var i = 0; i < images.length; i++) {
 
@@ -421,7 +423,6 @@ function finishedImageLoad(blabla, images) {
         spriteArray[i].details.image.src = images[i];
 
         spriteArray[0].details.image.onload = function () {
-            console.log(spriteArray[i].details.image);
             startEngine();
         }(i);
 
@@ -565,7 +566,7 @@ Body.prototype.addKeyDownEvent = function (key, targetFunction, parameterArray) 
     controlArray.push(addKey.apply(this, [key, targetFunction, parameterArray]));
 };
 
-/** Add an event that is triggered when a keybaord key is released
+/** Add an event that is triggered when a keyboard key is released
  *
  * @param key
  * @param targetFunction
@@ -574,6 +575,19 @@ Body.prototype.addKeyDownEvent = function (key, targetFunction, parameterArray) 
 
 Body.prototype.addKeyUpEvent = function (key, targetFunction, parameterArray) {
     controlReleasedArray.push(addKey.apply(this, [key, targetFunction, parameterArray]));
+};
+
+Body.prototype.addCollisionEvent = function(targetFunction, parameterArray){
+
+    if(!Array.isArray(parameterArray))parameterArray = [parameterArray];
+    console.log(parameterArray);
+
+    this.collisionArray.push({collidingObject: parameterArray[0], targetFunction: targetFunction});
+
+    //parameterArray.splice(0, 1);
+
+    this.collisionArray.parameterArray = parameterArray;
+
 };
 
 /** Add a keyboard key for later event trigger purposes

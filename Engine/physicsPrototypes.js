@@ -9,6 +9,7 @@ var b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
 var b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
 var b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
 var gravity = new b2Vec2(0, 0);
+var toDestroy = [];
 
 // Physics set up functions are based on the tutorial found at http://buildnewgames.com/box2dweb/
 
@@ -68,6 +69,11 @@ Physics.prototype.step = function (dt) {
 
     }
 
+    for(var i = 0; i < toDestroy.length; i ++){
+        physics.world.DestroyBody(toDestroy[i]);
+    }
+    toDestroy = [];
+
 };
 
 /** Get point in game world when canvas is clicked
@@ -87,7 +93,6 @@ Physics.prototype.click = function (callback) {
         };
 
         self.world.QueryPoint(function (fixture) {
-            console.log(fixture);
             callback(fixture.GetBody(),
                 fixture,
                 point);
@@ -105,11 +110,21 @@ Physics.prototype.click = function (callback) {
 
 Physics.prototype.collision = function () {
 
+
     this.listener = new Box2D.Dynamics.b2ContactListener();
 
-    this.listener.BeginContact = function (contact) {
+    this.listener.PostSolve = function (contact, impulse) {
 
-    }
+        var contactOne = contact.GetFixtureA().GetBody().GetUserData();
+        var contactTwo = contact.GetFixtureB().GetBody().GetUserData();
+        contactOne.checkCollisions(contactTwo);
+        contactTwo.checkCollisions(contactOne);
+
+        //listen(contact.checkCollisions)
+    };
+
+    this.world.SetContactListener(this.listener);
+
 };
 
 /** Show debug graphics
@@ -126,6 +141,19 @@ Physics.prototype.debug = function () {
     this.debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
 
     this.world.SetDebugDraw(this.debugDraw);
+
+};
+
+Physics.prototype.addScreenBounds = function(){
+
+    var screenWidth = (physicsCanvas.canvas.width) / physics.scale;
+    var screenHeight = (physicsCanvas.canvas.height) / physics.scale;
+
+    console.log(screenHeight);
+    new Body(physics, { type: "static", x: 0, y: 0, height: 0.5, width: screenWidth});
+    new Body(physics, { type: "static", x: 0, y: 0, height: screenHeight,  width: 0.5 });
+    new Body(physics, { type: "static", x: screenWidth, y: 0, height: screenHeight,  width: 0.5});
+    new Body(physics, { type: "static", x: 0, y: screenHeight - 1, height: 0.5, width: screenWidth });
 
 };
 
@@ -186,6 +214,7 @@ var Body = window.Body = function (physics, details) {
 
     this.behaviours = details.behaviours || [];
     this.controlArray = details.controlArray || [];
+    this.collisionArray = details.collisionArray || [];
 
     this.body.CreateFixture(this.fixtureDef);
 
@@ -193,6 +222,31 @@ var Body = window.Body = function (physics, details) {
         x: this.body.GetWorldCenter().x,
         y: this.body.GetWorldCenter().y
     };
+
+};
+
+Body.prototype.checkCollisions = function(collidingObject){
+
+    console.log(this);
+    for(var i = 0; i < this.collisionArray.length; i ++){
+        console.log(this.collisionArray[i]);
+        if(this.collisionArray[i].collidingObject == collidingObject){
+            //var listeningFunction = {functions: this.collisionArray[i].targetFunction, bodyObject: this};
+            //listeningFunction.targetFunction.parameterArray = collidingObject.parameterArray;
+            /*this.collisionArray.collided = {functions: this.targetFunction, bodyObject: this};
+            console.log(listeningFunction);
+            listen(listeningFunction);*/
+
+            this.collisionArray[i].targetFunction.apply(this, this.collisionArray[i].parameterArray);
+
+        }
+    }
+
+};
+
+Body.prototype.collision = function(){
+
+    console.log("COLLIDED");
 
 };
 
@@ -216,6 +270,11 @@ Body.prototype.SetAirFriction = function (friction, angularDamping) {
         this.body.SetAngularVelocity(this.body.GetAngularVelocity() * angularDamping);
     }
 
+};
+
+Body.prototype.contact = function(collidingObject){
+
+    listen(this.contact);
 };
 
 /** Set maximum object speed
@@ -311,7 +370,7 @@ Body.prototype.moveDown = function (velocity) {
 
 Body.prototype.rotateTowardsPoint = function (target) {
 
-    this.body.SetAngle(tanAngle({x: target.x, y: target.y},
+    this.body.SetAngle(tanAngle({x: target.body.GetWorldCenter().x * physics.scale, y: target.body.GetWorldCenter().y * physics.scale},
         {x: this.body.GetWorldCenter().x * physics.scale, y: this.body.GetWorldCenter().y * physics.scale}));
 
 };
@@ -372,6 +431,10 @@ Body.prototype.moveTowardsMouse = function (speed) {
 
 Body.prototype.setTopDownFriction = function (friction) {
     this.body.SetLinearDamping(friction);
+};
+
+Body.prototype.destroy = function(){
+    toDestroy.push(this.body);
 };
 
 /** Default body prototype values for use if no detail is given
