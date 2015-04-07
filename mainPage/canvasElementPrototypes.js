@@ -1,15 +1,36 @@
-var spriteExecutors = [{elementName: "Rotate", engineFunction: "rotate"},
-    {elementName: "Move Left", engineFunction: "moveLeft", parameters: [{label: "Speed", inputType: "number"}]},
-    {elementName: "Move Right", engineFunction: "moveRight", parameters: [{label: "Speed", inputType: "number"}]},
-    {elementName: "Move Up", engineFunction: "moveUp", parameters: [{label: "Speed", inputType: "number"}]},
-    {elementName: "Move Down", engineFunction: "moveDown", parameters: [{label: "Speed", inputType: "number"}]},
+var spriteExecutors = [
+    {elementName: "Rotate", engineFunction: "rotate"},
+    {elementName: "Move Left", engineFunction: "moveLeft", parameters: [
+        {label: "Speed", inputType: "number"}
+    ]},
+    {elementName: "Move Right", engineFunction: "moveRight", parameters: [
+        {label: "Speed", inputType: "number"}
+    ]},
+    {elementName: "Move Up", engineFunction: "moveUp", parameters: [
+        {label: "Speed", inputType: "number"}
+    ]},
+    {elementName: "Move Down", engineFunction: "moveDown", parameters: [
+        {label: "Speed", inputType: "number"}
+    ]},
     {elementName: "Rotate Towards Mouse", engineFunction: "rotateTowardsMouse"},
-    {elementName: "Rotate Towards Object", engineFunction: "rotateTowardsPoint", parameters: [{label: "Target Object", inputType: "canvasElements"}]},
-    {elementName: "Move Towards Mouse", engineFunction: "moveTowardsMouse", parameters: [{label: "Speed", inputType: "number"}]},
-    {elementName: "Move Towards Object", engineFunction: "moveTowardsPoint", parameters: [{label: "Target Object", inputType: "canvasElements"}]},
-    {elementName: "Destroy Object", engineFunction: "destroy"}];
+    {elementName: "Rotate Towards Object", engineFunction: "rotateTowardsPoint", parameters: [
+        {label: "Target Object", inputType: "canvasElements"}
+    ]},
+    {elementName: "Move Towards Mouse", engineFunction: "moveTowardsMouse", parameters: [
+        {label: "Speed", inputType: "number"}
+    ]},
+    {elementName: "Move Towards Object", engineFunction: "moveTowardsPoint", parameters: [
+        {label: "Target Object", inputType: "canvasElements"}
+    ]},
+    {elementName: "Destroy Object", engineFunction: "destroy"}
+];
 
-var spriteEvents = [{elementName: "On any Collision", targetFunction: "contact"}, {elementName: "On Collision With Object", targetFunction: "collision", parameters: [{label: "Target Object", inputType: "canvasElements"}]}];
+var spriteEvents = [
+    {elementName: "On any Collision", targetFunction: "contact"},
+    {elementName: "On Collision With Object", targetFunction: "collision", parameters: [
+        {label: "Target Object", inputType: "canvasElements"}
+    ]}
+];
 
 //Canvas Element Prototypes
 function CanvasElement(x, y, width, height, targetCanvas, image, elementName, draggable, selectable, behaviours, events) {
@@ -28,6 +49,7 @@ function CanvasElement(x, y, width, height, targetCanvas, image, elementName, dr
     this.listenerEvents = events || spriteEvents;
     this.executorEvents = spriteExecutors;
     this.addedEvents = [];
+    this.type = "dynamic";
 
 }
 
@@ -53,7 +75,7 @@ CanvasElement.prototype.dropElement = function () {
         this.elementClicked();
     }
 
-    if(canvasRects.length > 0)this.showBehaviourBar(this.behaviours);
+    if (canvasRects.length > 0)this.showBehaviourBar(this.behaviours);
     else hideBehaviourBar();
 
 };
@@ -97,11 +119,13 @@ function unHighlightElements() {
         canvasElements[i].unHighlight();
     }
 
+    showWorldSettings();
+
 }
 
 CanvasElement.prototype.unHighlight = function () {
 
-    if(!dragging())hideBehaviourBar();
+    if (!dragging())hideBehaviourBar();
 
     canvasRects.splice(this.highlightRect, 1);
     this.highlightRect = -1;
@@ -119,7 +143,7 @@ function hideBehaviourBar() {
     $("#behaviourDiv").animate({bottom: '-25%'});
 }
 
-CanvasElement.prototype.deleteElement = function(){
+CanvasElement.prototype.deleteElement = function () {
 
     this.unHighlight();
     canvasElements.splice(canvasElements.indexOf(this), 1);

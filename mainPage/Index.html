@@ -64,20 +64,41 @@
             data-filter-placeholder="Search Elements" data-mini="true"></ul>
     </div>
     <div class="rightMenuItem">
-        <ul data-role="listview" id="settingsList" data-filter="true"
-            data-filter-placeholder="Search Settings" data-mini="true">
 
-            <li><label for="worldGravSetX">World Gravity X</label><input type="number" id="worldGravSetX"
-                                                                         data-mini="true"
-                                                                         onchange="worldGravity.horizontal = this.value"
-                                                                         value="0"></li>
-            <li><label for="worldGravSetY">World Gravity Y</label><input type="number" id="worldGravSetY"
-                                                                         data-mini="true"
-                                                                         onchange="worldGravity.vertical = this.value"
-                                                                         value="0"></li>
-            <li><label for="bounceWalls">Bounce off Walls</label><input id="bounceWalls" type="checkbox"></li>
 
-        </ul>
+            <div data-role="navbar">
+                <ul>
+                    <li><a id="worldSettingsButton" onclick="showWorldSettings()">World Settings</a></li>
+                    <li><a id="elementSettingsButton" onclick="showElementSettings()">Element Settings</a></li>
+                </ul>
+            </div>
+            <div data-role="content" id="worldSettings">
+                <ul data-role="listview" id="settingsList" data-filter="true"
+                    data-filter-placeholder="Search Settings" data-mini="true">
+
+                    <li><label for="worldGravSetX">World Gravity X</label><input type="number" id="worldGravSetX"
+                                                                                 data-mini="true"
+                                                                                 onchange="worldGravity.horizontal = this.value"
+                                                                                 value="0"></li>
+                    <li><label for="worldGravSetY">World Gravity Y</label><input type="number" id="worldGravSetY"
+                                                                                 data-mini="true"
+                                                                                 onchange="worldGravity.vertical = this.value"
+                                                                                 value="0"></li>
+                    <li><label for="bounceWalls">Bounce off Walls</label><input id="bounceWalls" type="checkbox"></li>
+
+                </ul>
+            </div>
+
+            <div data-role="content" id="elementSettings">
+                <ul data-role="listview" id="elementSettingsList" data-filter="true"
+                    data-filter-placeholder="Search Settings" data-mini="true">
+
+                    <li><label for="staticCheck">Static</label><input id="staticCheck" type="checkbox" onchange="changeType()"></li>
+
+                </ul>
+
+        </div>
+
     </div>
 
 </div>
@@ -130,6 +151,7 @@
 </body>
 
 <div id="confirmDialog" title="Save sprite"><p>Would you like to save the sprite for use in the project?</p></div>
-<div id="renameDialog" title="Name Sprite"><p>Please give your new object a name.<input id="renameText" type="text"></p></div>
+<div id="renameDialog" title="Name Sprite"><p>Please give your new object a name.<input id="renameText" type="text"></p>
+</div>
 
 </html>

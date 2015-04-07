@@ -94,6 +94,29 @@ function loadInterface() {
 
     loadBehaviours();
 
+    $("#worldSettingsButton").addClass('ui-btn-active');
+    $("#elementSettings").hide();
+
+}
+
+function showWorldSettings(){
+
+    $("#elementSettings").hide();
+    $("#worldSettings").show();
+
+}
+
+function showElementSettings(){
+
+    $("#elementSettings").show();
+    $("#worldSettings").hide();
+
+}
+
+function changeType(){
+
+    if($("#staticCheck").is(":checked") == true) canvasElements[selectedElNo].type = "static";
+    else canvasElements[selectedElNo].type = "dynamic";
 }
 
 /** Shows the File menu at the top left corner of the screen
@@ -531,6 +554,7 @@ function compile() {
     for (var i = 0; i < canvasElements.length; i++) {
 
         compileText += "firstBody = new Body(physics, {" +
+            "type: '" + canvasElements[i].type + "'," +
             "shape: 'circle'," +
             "radius: " + (canvasElements[i].width / 2) + "/ physics.scale," +
             "x:  " + (canvasElements[i].x + (canvasElements[i].width / 2)) + "/ physics.scale," +
