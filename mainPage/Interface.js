@@ -94,13 +94,14 @@ function loadInterface() {
 
     loadBehaviours();
 
-    $("#worldSettingsButton").addClass('ui-btn-active');
-    $("#elementSettings").hide();
+    showWorldSettings();
+    $("#elementSettingsButton").addClass('ui-disabled');
 
 }
 
 function showWorldSettings(){
 
+    $("#worldSettingsButton").addClass('ui-btn-active');
     $("#elementSettings").hide();
     $("#worldSettings").show();
 
