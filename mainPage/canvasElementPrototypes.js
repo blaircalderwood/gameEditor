@@ -9,7 +9,7 @@ var spriteExecutors = [{elementName: "Rotate", engineFunction: "rotate"},
     {elementName: "Move Towards Object", engineFunction: "moveTowardsPoint", parameters: [{label: "Target Object", inputType: "canvasElements"}]},
     {elementName: "Destroy Object", engineFunction: "destroy"}];
 
-var spriteEvents = [{elementName: "on any collision", targetFunction: "contact"}];
+var spriteEvents = [{elementName: "On any Collision", targetFunction: "contact"}, {elementName: "On Collision With Object", targetFunction: "collision", parameters: [{label: "Target Object", inputType: "canvasElements"}]}];
 
 //Canvas Element Prototypes
 function CanvasElement(x, y, width, height, targetCanvas, image, elementName, draggable, selectable, behaviours, events) {

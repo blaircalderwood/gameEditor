@@ -531,19 +531,24 @@ function compile() {
     for (var i = 0; i < canvasElements.length; i++) {
 
         compileText += "firstBody = new Body(physics, {" +
-        "shape: 'circle'," +
-        "radius: " + (canvasElements[i].width / 2) + "/ physics.scale," +
-        "x:  " + (canvasElements[i].x + (canvasElements[i].width / 2)) + "/ physics.scale," +
-        "y: " + (canvasElements[i].y + (canvasElements[i].height / 2)) + "/ physics.scale," +
-        "width: " + canvasElements[i].width + "/ physics.scale," +
-        "height: " + canvasElements[i].height + "/ physics.scale," +
-        "image: '" + canvasElements[i].image.src + "'});" +
-        "spriteArray.push(firstBody);" +
-        "physics.world.SetGravity(new b2Vec2(" + worldGravity.horizontal + ", " + worldGravity.vertical + "));";
+            "shape: 'circle'," +
+            "radius: " + (canvasElements[i].width / 2) + "/ physics.scale," +
+            "x:  " + (canvasElements[i].x + (canvasElements[i].width / 2)) + "/ physics.scale," +
+            "y: " + (canvasElements[i].y + (canvasElements[i].height / 2)) + "/ physics.scale," +
+            "width: " + canvasElements[i].width + "/ physics.scale," +
+            "height: " + canvasElements[i].height + "/ physics.scale," +
+            "image: '" + canvasElements[i].image.src + "'});" +
+            "spriteArray.push(firstBody);" +
+            "physics.world.SetGravity(new b2Vec2(" + worldGravity.horizontal + ", " + worldGravity.vertical + "));";
+
+    }
+
+    for(i = 0; i < canvasElements.length; i ++){
 
         for (var j = 0; j < canvasElements[i].addedEvents.length; j++) {
 
             compileText += canvasElements[i].addedEvents[j];
+
         }
 
 
@@ -658,7 +663,14 @@ function compileEvent() {
 
     var newEvent = "spriteArray[" + i + "].";
 
-    if (eventCompiler.listenerElement.elementName == "Keyboard") {
+    console.log(eventCompiler.eventListener);
+
+    if(eventCompiler.eventListener.targetFunction == "collision"){
+        console.log("COLLIDER" + eventCompiler.eventListener.parametersDetails[0]);
+        newEvent += "addCollisionEvent(spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.eventListener.parametersDetails[0];
+        console.log(newEvent);
+    }
+    else if (eventCompiler.listenerElement.elementName == "Keyboard") {
         newEvent += "addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "', spriteArray[" + i + "]." + this.engineFunction;
         eventCompiler.eventListener.parametersDetails.splice(0, 1);
     }

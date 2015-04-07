@@ -114,10 +114,13 @@ Physics.prototype.collision = function () {
     this.listener = new Box2D.Dynamics.b2ContactListener();
 
     this.listener.PostSolve = function (contact, impulse) {
-        console.log("TESTING ATTENTION PLZ");
+
         var contactOne = contact.GetFixtureA().GetBody().GetUserData();
         var contactTwo = contact.GetFixtureB().GetBody().GetUserData();
-        contactOne.contact(contactTwo);
+        contactOne.checkCollisions(contactTwo);
+        contactTwo.checkCollisions(contactOne);
+
+        //listen(contact.checkCollisions)
     };
 
     this.world.SetContactListener(this.listener);
@@ -211,6 +214,7 @@ var Body = window.Body = function (physics, details) {
 
     this.behaviours = details.behaviours || [];
     this.controlArray = details.controlArray || [];
+    this.collisionArray = details.collisionArray || [];
 
     this.body.CreateFixture(this.fixtureDef);
 
@@ -218,6 +222,31 @@ var Body = window.Body = function (physics, details) {
         x: this.body.GetWorldCenter().x,
         y: this.body.GetWorldCenter().y
     };
+
+};
+
+Body.prototype.checkCollisions = function(collidingObject){
+
+    console.log(this);
+    for(var i = 0; i < this.collisionArray.length; i ++){
+        console.log(this.collisionArray[i]);
+        if(this.collisionArray[i].collidingObject == collidingObject){
+            //var listeningFunction = {functions: this.collisionArray[i].targetFunction, bodyObject: this};
+            //listeningFunction.targetFunction.parameterArray = collidingObject.parameterArray;
+            /*this.collisionArray.collided = {functions: this.targetFunction, bodyObject: this};
+            console.log(listeningFunction);
+            listen(listeningFunction);*/
+
+            this.collisionArray[i].targetFunction.apply(this, this.collisionArray[i].parameterArray);
+
+        }
+    }
+
+};
+
+Body.prototype.collision = function(){
+
+    console.log("COLLIDED");
 
 };
 
