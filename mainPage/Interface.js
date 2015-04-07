@@ -550,7 +550,9 @@ function compile() {
 
     var canImage;
 
-    compileText = "var firstBody;";
+    compileText = "$('#physicsCanvas').width(" + mainCanvas.width + ");$('#physicsCanvas').height(" + mainCanvas.height + ");";
+
+    compileText += "var firstBody;";
 
     for (var i = 0; i < canvasElements.length; i++) {
 
