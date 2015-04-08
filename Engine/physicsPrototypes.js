@@ -416,8 +416,8 @@ Body.prototype.moveTowardsMouse = function (speed) {
         var vecLength = Math.sqrt((mouse.x * this.body.GetWorldCenter().x) + (mouse.x * this.body.GetWorldCenter().y));
 
         this.body.ApplyImpulse({
-            x: ((mouse.x - this.body.GetPosition().x * physics.scale) / vecLength * speed),
-            y: ((mouse.y - this.body.GetPosition().y * physics.scale) / vecLength * speed)
+            x: ((mouse.x - this.body.GetPosition().x * physics.scale) * speed),
+            y: ((mouse.y - this.body.GetPosition().y * physics.scale) * speed)
         }, this.body.GetWorldCenter());
 
     //}

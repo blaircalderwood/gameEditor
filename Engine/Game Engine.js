@@ -545,7 +545,7 @@ Body.prototype.addEvent = function (targetFunction, listener, parameterArray) {
 
     targetFunction.bodyObject = this;
 
-    if (!listener.functions) {
+    if (listener.functions == undefined) {
         listener.functions = [];
     }
 

@@ -38,6 +38,14 @@ function eventElementsList(array, onClickFunction, showGenerics) {
 
 }
 
+function genericsArrayNames(){
+
+    var targetList = [];
+    for(var item = 0; item < genericsArray.length; item ++)targetList.push(genericsArray[item].elementName);
+    return targetList;
+
+}
+
 function showListenerElements() {
 
     showWidget($("#eventCreatorDiv"));
@@ -78,6 +86,9 @@ function updateEventList(newEventString) {
 
 function compileEvent() {
 
+    var genericsNames = genericsArrayNames();
+
+    console.log(genericsNames);
     if (!this.parametersDetails) {
         this.parametersDetails = [];
         this.parametersDetails[0] = "";
@@ -93,16 +104,16 @@ function compileEvent() {
     console.log(eventCompiler.eventListener);
 
     if(eventCompiler.eventListener.targetFunction == "collision"){
-        console.log("COLLIDER" + eventCompiler.eventListener.parametersDetails[0]);
         newEvent += "addCollisionEvent(spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.eventListener.parametersDetails[0];
         console.log(newEvent);
     }
+
     else if (eventCompiler.listenerElement.elementName == "Keyboard") {
         newEvent += "addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "', spriteArray[" + i + "]." + this.engineFunction;
         eventCompiler.eventListener.parametersDetails.splice(0, 1);
     }
-    else if(genericsArray.indexOf(eventCompiler.listenerElement.elementName) == -1){
 
+    else if(genericsNames.indexOf(eventCompiler.listenerElement.elementName) == -1){
         newEvent += "addEvent(spriteArray[" + i + "]." + this.engineFunction + ", spriteArray[" + i + "]." + eventCompiler.eventListener.targetFunction;
     }
 
