@@ -70,36 +70,37 @@
     <div class="rightMenuItem">
 
 
-            <div data-role="navbar" style="width: 98%">
-                <ul>
-                    <li><a id="worldSettingsButton" onclick="showWorldSettings()">World Settings</a></li>
-                    <li><a id="elementSettingsButton" onclick="showElementSettings()">Element Settings</a></li>
-                </ul>
-            </div>
-            <div data-role="content" id="worldSettings">
-                <ul data-role="listview" id="settingsList" data-filter="true"
-                    data-filter-placeholder="Search Settings" data-mini="true">
+        <div data-role="navbar" style="width: 98%">
+            <ul>
+                <li><a id="worldSettingsButton" onclick="showWorldSettings()">World Settings</a></li>
+                <li><a id="elementSettingsButton" onclick="showElementSettings()">Element Settings</a></li>
+            </ul>
+        </div>
+        <div data-role="content" id="worldSettings">
+            <ul data-role="listview" id="settingsList" data-filter="true"
+                data-filter-placeholder="Search Settings" data-mini="true">
 
-                    <li><label for="worldGravSetX">World Gravity X</label><input type="number" id="worldGravSetX"
-                                                                                 data-mini="true"
-                                                                                 onchange="worldGravity.horizontal = this.value"
-                                                                                 value="0"></li>
-                    <li><label for="worldGravSetY">World Gravity Y</label><input type="number" id="worldGravSetY"
-                                                                                 data-mini="true"
-                                                                                 onchange="worldGravity.vertical = this.value"
-                                                                                 value="0"></li>
-                    <li><label for="bounceWalls">Bounce off Walls</label><input id="bounceWalls" type="checkbox"></li>
+                <li><label for="worldGravSetX">World Gravity X</label><input type="number" id="worldGravSetX"
+                                                                             data-mini="true"
+                                                                             onchange="worldGravity.horizontal = this.value"
+                                                                             value="0"></li>
+                <li><label for="worldGravSetY">World Gravity Y</label><input type="number" id="worldGravSetY"
+                                                                             data-mini="true"
+                                                                             onchange="worldGravity.vertical = this.value"
+                                                                             value="0"></li>
+                <li><label for="bounceWalls">Bounce off Walls</label><input id="bounceWalls" type="checkbox"></li>
 
-                </ul>
-            </div>
+            </ul>
+        </div>
 
-            <div data-role="content" id="elementSettings">
-                <ul data-role="listview" id="elementSettingsList" data-filter="true"
-                    data-filter-placeholder="Search Settings">
+        <div data-role="content" id="elementSettings">
+            <ul data-role="listview" id="elementSettingsList" data-filter="true"
+                data-filter-placeholder="Search Settings">
 
-                    <li><label for="staticCheck">Static</label><input id="staticCheck" type="checkbox" onchange="changeType()"></li>
+                <li><label for="staticCheck">Static</label><input id="staticCheck" type="checkbox"
+                                                                  onchange="changeType()"></li>
 
-                </ul>
+            </ul>
 
         </div>
 
@@ -109,6 +110,7 @@
 
 <canvas id="backgroundCanvas" style="position: absolute; top: 7%; left: 14%; width: 72%; height: 93%;"></canvas>
 <canvas id="mainCanvas" style="position: absolute; top: 17%; left: 17%; z-index: 10;"></canvas>
+<canvas id="tempCanvas" style="visibility: hidden"></canvas>
 
 <div id="behaviourDiv">
     <img src="../Images/Plus%20Image.png" height="90%" class="behaviourIcon">
@@ -152,6 +154,6 @@
 
 <div id="confirmDialog" title="Save sprite"><p>Would you like to save the sprite for use in the project?</p></div>
 <div id="renameDialog" title="Name Sprite"><p>Please give your new object a name.<input id="renameText" type="text"></p>
-    </div>
+</div>
 
 </html>
