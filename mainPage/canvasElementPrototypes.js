@@ -109,6 +109,8 @@ CanvasElement.prototype.highlight = function () {
     canvasRects.push(new CanvasRectangle(this.x, this.y, this.width, this.height, this.targetCanvas, 'blue', 'stroke'));
     this.highlightRect = canvasRects.length - 1;
 
+    $("#elementSettingsButton").removeClass('ui-disabled');
+
 };
 
 function unHighlightElements() {
@@ -129,6 +131,13 @@ CanvasElement.prototype.unHighlight = function () {
 
     canvasRects.splice(this.highlightRect, 1);
     this.highlightRect = -1;
+
+    showWorldSettings();
+
+    var elementButton = $("#elementSettingsButton");
+
+    elementButton.removeClass('ui-btn-active');
+    elementButton.addClass('ui-disabled');
 
 };
 

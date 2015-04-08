@@ -94,13 +94,14 @@ function loadInterface() {
 
     loadBehaviours();
 
-    $("#worldSettingsButton").addClass('ui-btn-active');
-    $("#elementSettings").hide();
+    showWorldSettings();
+    $("#elementSettingsButton").addClass('ui-disabled');
 
 }
 
 function showWorldSettings(){
 
+    $("#worldSettingsButton").addClass('ui-btn-active');
     $("#elementSettings").hide();
     $("#worldSettings").show();
 
@@ -549,7 +550,9 @@ function compile() {
 
     var canImage;
 
-    compileText = "var firstBody;";
+    compileText = "$('#physicsCanvas').width(" + mainCanvas.width + ");$('#physicsCanvas').height(" + mainCanvas.height + ");";
+
+    compileText += "var firstBody;";
 
     for (var i = 0; i < canvasElements.length; i++) {
 

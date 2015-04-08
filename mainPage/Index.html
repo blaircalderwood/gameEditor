@@ -40,6 +40,7 @@
         <a data-role="button" id="runGameButton"
            onclick="compile()" data-icon="play" title="Compile and run the game">Run</a>
         <a data-role="button" id="newElementButton" onclick="showWidget($('#drawDiv'))" data-icon="plus">New Element</a>
+        <a data-role="button" id="tutorialsButton" onclick="showWidget($('#drawDiv'))" data-icon="book">Tutorials</a>
     </div>
 
 </div>
@@ -91,7 +92,7 @@
 
             <div data-role="content" id="elementSettings">
                 <ul data-role="listview" id="elementSettingsList" data-filter="true"
-                    data-filter-placeholder="Search Settings" data-mini="true">
+                    data-filter-placeholder="Search Settings">
 
                     <li><label for="staticCheck">Static</label><input id="staticCheck" type="checkbox" onchange="changeType()"></li>
 
