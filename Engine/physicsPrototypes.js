@@ -394,15 +394,14 @@ Body.prototype.rotateTowardsMouse = function () {
 
 Body.prototype.moveTowardsPoint = function (target, speed) {
 
+    var vector = new b2Vec2((target.body.GetWorldCenter().x - this.body.GetWorldCenter().x) * physics.scale * 50,
+        (target.body.GetWorldCenter().y - this.body.GetWorldCenter().y) * physics.scale * 50);
 
     if (target.inBounds(physicsCanvas.canvas) == true && target.inBounds(physicsCanvas.canvas) == true) {
 
         var vecLength = Math.sqrt((target.x * this.body.GetWorldCenter().x) + (target.x * this.body.GetWorldCenter().y));
 
-        this.body.ApplyImpulse({
-            x: ((target.x - this.body.GetPosition().x * physics.scale) / vecLength * speed),
-            y: ((target.y - this.body.GetPosition().y * physics.scale) / vecLength * speed)
-        }, this.body.GetWorldCenter());
+        this.body.ApplyImpulse(vector, this.body.GetWorldCenter());
 
     }
 
@@ -410,15 +409,14 @@ Body.prototype.moveTowardsPoint = function (target, speed) {
 
 Body.prototype.moveTowardsMouse = function (speed) {
 
+    var vector = new b2Vec2((mouse.x - this.body.GetWorldCenter().x) * physics.scale,
+        (mouse.y - this.body.GetWorldCenter().y) * physics.scale);
 
     //if (mouse.inBounds(physicsCanvas.canvas) == true && mouse.inBounds(physicsCanvas.canvas) == true) {
 
         var vecLength = Math.sqrt((mouse.x * this.body.GetWorldCenter().x) + (mouse.x * this.body.GetWorldCenter().y));
 
-        this.body.ApplyImpulse({
-            x: ((mouse.x - this.body.GetPosition().x * physics.scale) * speed),
-            y: ((mouse.y - this.body.GetPosition().y * physics.scale) * speed)
-        }, this.body.GetWorldCenter());
+        this.body.ApplyImpulse(vector, this.body.GetWorldCenter());
 
     //}
 
