@@ -34,6 +34,8 @@ var backgroundCanvas, mainCanvas,
     worldGravity = {horizontal: 0, vertical: 0},
     behavioursShown, eventCompiler = {eventListener: {}, eventExecutor: {}};
 
+var genericsArray = [mouse, keyboard, system];
+
 var compileText = "";
 
 //Constructors
@@ -87,15 +89,35 @@ function loadInterface() {
     var UIWindow = $(".UIWindow");
 
     UIWindow.resizable({handles: "n, e, s, w, ne, se, sw, nw"}).draggable();
-    UIWindow.height($(window).height() / 2);
 
-    //UIWindow.style.top = $(window).height() / 3;
-    UIWindow.position.top = 500;
-    console.log(UIWindow);
     $("#behaviourDiv").hide();
 
     loadBehaviours();
 
+    showWorldSettings();
+    $("#elementSettingsButton").addClass('ui-disabled');
+
+}
+
+function showWorldSettings(){
+
+    $("#worldSettingsButton").addClass('ui-btn-active');
+    $("#elementSettings").hide();
+    $("#worldSettings").show();
+
+}
+
+function showElementSettings(){
+
+    $("#elementSettings").show();
+    $("#worldSettings").hide();
+
+}
+
+function changeType(){
+
+    if($("#staticCheck").is(":checked") == true) canvasElements[selectedElNo].type = "static";
+    else canvasElements[selectedElNo].type = "dynamic";
 }
 
 /** Shows the File menu at the top left corner of the screen
@@ -461,12 +483,16 @@ function loadCanvasDrawing() {
         tempImage.src = data;
 
         tempImage.onload = function () {
+
+            var renameText = $("#renameText");
             canvasElements.push(new CanvasElement(mainCanvas.width / 2, mainCanvas.height / 2,
-                tempImage.width, tempImage.height, mainCanvas, tempImage, null, true, true));
-            generalFunctions.createList(canvasElements, $("#elementList"));
+                tempImage.width, tempImage.height, mainCanvas, tempImage, renameText.val(), true, true));
+            createList(canvasElements, $("#elementList"));
+            renameText.val("");
         };
 
         sessionStorage.removeItem('image');
+
     }
 
 }
@@ -480,9 +506,9 @@ function confirmCloseWindow() {
     $("#confirmDialog").dialog({
         buttons: {
             "Save": function () {
-                loadCanvasDrawing();
                 closeWindow();
                 $(this).dialog("close");
+                renameSprite();
             },
             "Delete": function () {
                 closeWindow();
@@ -495,6 +521,27 @@ function confirmCloseWindow() {
     })
 }
 
+function renameSprite(){
+
+    var renameDialog = $("#renameDialog");
+    renameDialog.dialog({
+        buttons: {
+            "Save": function () {
+                if($("#renameText").val() !== "") {
+                    loadCanvasDrawing();
+                    $(this).dialog("close");
+                }
+                else{
+                    renameDialog.innerHTML = "Please enter a valid element name";
+                }
+            }
+
+        }
+
+    })
+
+}
+
 /** Compile all features set by the user into a local storage file ready to be run by the game engine as a full game
  *
  */
@@ -503,27 +550,41 @@ function compile() {
 
     var canImage;
 
-    compileText = "var firstBody;";
+    compileText = "$('#physicsCanvas').width(" + mainCanvas.width + ");$('#physicsCanvas').height(" + mainCanvas.height + ");";
+
+    compileText += "var firstBody;";
 
     for (var i = 0; i < canvasElements.length; i++) {
 
         compileText += "firstBody = new Body(physics, {" +
-        "shape: 'circle'," +
-        "radius: " + (canvasElements[i].width / 2) + "/ physics.scale," +
-        "x:  " + (canvasElements[i].x + (canvasElements[i].width / 2)) + "/ physics.scale," +
-        "y: " + (canvasElements[i].y + (canvasElements[i].height / 2)) + "/ physics.scale," +
-        "width: " + canvasElements[i].width + "/ physics.scale," +
-        "height: " + canvasElements[i].height + "/ physics.scale," +
-        "image: '" + canvasElements[i].image.src + "'});" +
-        "spriteArray.push(firstBody);" +
-        "physics.world.SetGravity(new b2Vec2(" + worldGravity.horizontal + ", " + worldGravity.vertical + "));";
+            "type: '" + canvasElements[i].type + "'," +
+            "shape: 'circle'," +
+            "radius: " + (canvasElements[i].width / 2) + "/ physics.scale," +
+            "x:  " + (canvasElements[i].x + (canvasElements[i].width / 2)) + "/ physics.scale," +
+            "y: " + (canvasElements[i].y + (canvasElements[i].height / 2)) + "/ physics.scale," +
+            "width: " + canvasElements[i].width + "/ physics.scale," +
+            "height: " + canvasElements[i].height + "/ physics.scale," +
+            "image: '" + canvasElements[i].image.src + "'});" +
+            "spriteArray.push(firstBody);" +
+            "physics.world.SetGravity(new b2Vec2(" + worldGravity.horizontal + ", " + worldGravity.vertical + "));";
+
+    }
+
+    for(i = 0; i < canvasElements.length; i ++){
 
         for (var j = 0; j < canvasElements[i].addedEvents.length; j++) {
 
             compileText += canvasElements[i].addedEvents[j];
+
         }
 
+
+
+        //compileText += "spriteArray[0].addEvent(spriteArray[1].destroy, spriteArray[0].contact);"
+
     }
+
+    if($("#bounceWalls").is(":checked") == true) compileText += "physics.addScreenBounds();";
 
     compileText += "startEngine();";
 
@@ -561,7 +622,7 @@ function eventElementsList(array, onClickFunction, showGenerics) {
 
     if (showGenerics == true) {
 
-        targetList.push(mouse, keyboard, system);
+        for(var item = 0; item < genericsArray.length; item ++)targetList.push(genericsArray[item]);
         for (j = 0; j < targetList.length; j++) {
             targetList[j].elementClicked = onClickFunction;
         }
@@ -588,14 +649,14 @@ function eventElementsList(array, onClickFunction, showGenerics) {
 function showListenerElements() {
 
     showWidget($("#eventCreatorDiv"));
-    generalFunctions.createList(eventElementsList(canvasElements, showListenerTasks, true), $("#addEventListener"));
+    createList(eventElementsList(canvasElements, showListenerTasks, true), $("#addEventListener"));
 
 }
 
 function showListenerTasks() {
 
     eventCompiler.listenerElement = this;
-    generalFunctions.createList(eventElementsList(this.listenerEvents, showExecutorElements, false), $("#addEventTask"));
+    createList(eventElementsList(this.listenerEvents, showExecutorElements, false), $("#addEventTask"));
 
 }
 
@@ -604,14 +665,14 @@ function showExecutorElements() {
     eventCompiler.eventListener = this;
 
     $("#addEventTask").empty();
-    generalFunctions.createList(eventElementsList(canvasElements, showExecutorTasks, false), $("#addEventListener"));
+    createList(eventElementsList(canvasElements, showExecutorTasks, false), $("#addEventListener"));
 
 }
 
 function showExecutorTasks() {
 
     eventCompiler.arrayIndex = this.arrayIndex;
-    generalFunctions.createList(eventElementsList(this.executorEvents, compileEvent, false), $("#addEventTask"));
+    createList(eventElementsList(this.executorEvents, compileEvent, false), $("#addEventTask"));
 
 }
 
@@ -629,10 +690,22 @@ function compileEvent() {
 
     var newEvent = "spriteArray[" + i + "].";
 
-    if (eventCompiler.listenerElement.elementName == "Keyboard") {
+    console.log(eventCompiler.eventListener);
+
+    if(eventCompiler.eventListener.targetFunction == "collision"){
+        console.log("COLLIDER" + eventCompiler.eventListener.parametersDetails[0]);
+        newEvent += "addCollisionEvent(spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.eventListener.parametersDetails[0];
+        console.log(newEvent);
+    }
+    else if (eventCompiler.listenerElement.elementName == "Keyboard") {
         newEvent += "addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "', spriteArray[" + i + "]." + this.engineFunction;
         eventCompiler.eventListener.parametersDetails.splice(0, 1);
     }
+    else if(genericsArray.indexOf(eventCompiler.listenerElement.elementName) == -1){
+
+        newEvent += "addEvent(spriteArray[" + i + "]." + this.engineFunction + ", spriteArray[" + i + "]." + eventCompiler.eventListener.targetFunction;
+    }
+
     else newEvent += "addEvent(spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.eventListener.targetFunction;
 
     if (this.parametersDetails[0])newEvent += ", " + this.parametersDetails[0];
@@ -659,7 +732,7 @@ function updateEventList(newEventString) {
 
     eventsList.push(newEventString);
 
-    generalFunctions.createList(eventsList, $("#eventsList"));
+    createList(eventsList, $("#eventsList"));
 
 }
 
@@ -670,7 +743,7 @@ function checkShortcuts(e) {
     }
 }
 
-generalFunctions.createList = function (array, JQMListElement, callback, callbackParamArray) {
+createList = function (array, JQMListElement, callback, callbackParamArray) {
 
     JQMListElement.empty();
 
@@ -727,20 +800,20 @@ generalFunctions.createList = function (array, JQMListElement, callback, callbac
 
                 if (parameterItem.inputType == "list") {
 
-                    collapsibleInput = insertList(array, parameterItem);
+                    collapsibleInput = insertList(parameterItem);
 
                 }
 
                 else if (parameterItem.inputType == "canvasElements") {
 
                     parameterItem.inputList = fillCanvasElements();
-                    collapsibleInput = insertList(array, parameterItem);
+                    collapsibleInput = insertElementsList();
                 }
 
                 else if (parameterItem.inputType == "keyList") {
 
                     parameterItem.inputList = fillKeys();
-                    collapsibleInput = insertList(array, parameterItem);
+                    collapsibleInput = insertList(parameterItem);
                 }
 
                 else {
@@ -822,7 +895,7 @@ function fillKeys() {
         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 }
 
-function insertList(array, target) {
+function insertList(target) {
 
     var collapsibleInput;
 
@@ -835,6 +908,25 @@ function insertList(array, target) {
             option.innerHTML = option.value = option.title = target.inputList[i];
             collapsibleInput.appendChild(option);
         }
+    }
+
+    return collapsibleInput;
+
+}
+
+function insertElementsList() {
+
+    var target = fillCanvasElements();
+    var collapsibleInput;
+
+    collapsibleInput = document.createElement("select");
+
+    for (var i = 0; i < target.length; i++) {
+
+        var option = document.createElement("option");
+        option.innerHTML = option.title = target[i];
+        option.value = "spriteArray[" + i + "]";
+        collapsibleInput.appendChild(option);
     }
 
     return collapsibleInput;
