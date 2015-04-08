@@ -20,6 +20,9 @@
 
     <script src="Interface.js"></script>
     <script src="canvasElementPrototypes.js"></script>
+    <script src="inputOutput.js"></script>
+    <script src="spriteHandling.js"></script>
+    <script src="eventHandling.js"></script>
 
 </head>
 <body onmousemove="mouseMoveListener(event)" onmousedown="mouseDownListener(event)" onmouseup="mouseUpListener(event)"
@@ -67,7 +70,7 @@
     <div class="rightMenuItem">
 
 
-            <div data-role="navbar">
+            <div data-role="navbar" style="width: 98%">
                 <ul>
                     <li><a id="worldSettingsButton" onclick="showWorldSettings()">World Settings</a></li>
                     <li><a id="elementSettingsButton" onclick="showElementSettings()">Element Settings</a></li>
@@ -149,6 +152,6 @@
 
 <div id="confirmDialog" title="Save sprite"><p>Would you like to save the sprite for use in the project?</p></div>
 <div id="renameDialog" title="Name Sprite"><p>Please give your new object a name.<input id="renameText" type="text"></p>
-</div>
+    </div>
 
 </html>
