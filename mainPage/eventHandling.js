@@ -147,7 +147,8 @@ function compileEvent() {
 
 function compile() {
 
-    compileText = "$('#physicsCanvas').width(" + mainCanvas.width + ");$('#physicsCanvas').height(" + mainCanvas.height + ");";
+    //compileText = "physicsCanvas = new CanvasElement('physicsCanvas', 0, 0, " + mainCanvas.width + ", " + mainCanvas.height + ")";
+    compileText = "physicsCanvas.canvas.width = " + mainCanvas.width + ";physicsCanvas.canvas.height = " + mainCanvas.height + ";";
 
     compileText += "var firstBody;";
 
