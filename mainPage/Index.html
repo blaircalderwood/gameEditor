@@ -64,6 +64,12 @@
 <div id="rightMenuDiv" class="sideMenu" style="left: 86%;">
 
     <div class="rightMenuItem">
+        <div data-role="navbar" style="width: 98%">
+            <ul>
+                <li><a id="showElementsButton" onclick="showElementsList()">Elements</a></li>
+                <li><a id="showGroupsButton" onclick="showGroupsList()">Groups</a></li>
+            </ul>
+        </div>
         <ul data-role="listview" id="elementList" data-filter="true"
             data-filter-placeholder="Search Elements" data-mini="true"></ul>
     </div>

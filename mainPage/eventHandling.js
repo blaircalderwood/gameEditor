@@ -1,3 +1,5 @@
+var compileText = "";
+
 /** Show events that can act as listeners in order to carry out a certain task
  *
  * @param array

@@ -1,5 +1,5 @@
 var backgroundCanvas, mainCanvas,
-    canvasElements = [], canvasRects = [], eventsList = [],
+    canvasElements = [], canvasRects = [], eventsList = [], canvasGroups = [],
     mouseDown = false,
     mouse = {
         x: 0,
@@ -97,6 +97,8 @@ function loadInterface() {
     showWorldSettings();
     $("#elementSettingsButton").addClass('ui-disabled');
 
+    showElementsList();
+
 }
 
 function showWorldSettings(){
@@ -111,6 +113,27 @@ function showElementSettings(){
 
     $("#elementSettings").show();
     $("#worldSettings").hide();
+
+}
+
+function showElementsList(){
+
+    createList(canvasElements, $("#elementList"));
+    $("#showElementsButton").addClass('ui-btn-active');
+
+}
+
+function showGroupsList(){
+
+    var tempGroups = canvasGroups.slice();
+    tempGroups.push({elementName: "Add New Group", elementClicked: addNewGroup});
+    createList(tempGroups, $("#elementList"));
+
+}
+
+function addNewGroup(){
+
+
 
 }
 
