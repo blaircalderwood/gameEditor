@@ -118,3 +118,11 @@
     overflow-x: auto
 
 }
+
+.ui-content {
+    padding: 0 !important;
+}
+
+.ui-listview {
+    margin: 0 !important;
+}

@@ -151,7 +151,7 @@ window.onload = function () {
 
     setUpCanvases();
 
-    if (physicsEnabled) physics = window.physics = new Physics(physicsCanvas.canvas);
+    if (physicsEnabled) physics = window.physics = new Physics(physicsCanvas.canvas, 20);
 
     //engineReady(physics);
 
@@ -177,7 +177,7 @@ var startEngine = function() {
     listen(startEngine);
 
     physics.collision();
-
+    physics.click();
 };
 
 /** Loads all required canvases from DOM for future manipulation
@@ -186,8 +186,8 @@ var startEngine = function() {
 
 function setUpCanvases() {
 
-    physicsCanvas = new CanvasElement("physicsCanvas", 0, 0, $(window).width(), $(window).height());
-    exampleCanvas = new CanvasElement("exampleCanvas", 0, 0, $(window).width(), $(window).height());
+    physicsCanvas = new CanvasElement("physicsCanvas", 0, 0, 1280, 682);
+    exampleCanvas = new CanvasElement("exampleCanvas", 0, 0,  1280, 682);
     canvasArray.push(exampleCanvas);
 
     backgroundCanvas = new CanvasElement("backgroundCanvas", 0, 0, $(window).width(), $(window).height());
@@ -273,6 +273,7 @@ function physicsLoop() {
 
     var tm = new Date().getTime();
 
+    var dt = (tm - lastFrame) / 1000;
     var dt = (tm - lastFrame) / 1000;
 
     if (dt > 1 / 15) {
@@ -477,8 +478,8 @@ var mouseMoveListener = function (e) {
     mouse.oldX = mouse.x;
     mouse.oldY = mouse.y;
 
-    mouse.x = e.pageX;
-    mouse.y = e.pageY;
+    mouse.x = (e.offsetX || e.layerX) / physics.scale;
+        mouse.y = (e.offsetY || e.layerY) / physics.scale;
 
     listen(mouseMoveListener);
 
@@ -545,7 +546,7 @@ Body.prototype.addEvent = function (targetFunction, listener, parameterArray) {
 
     targetFunction.bodyObject = this;
 
-    if (!listener.functions) {
+    if (listener.functions == undefined) {
         listener.functions = [];
     }
 

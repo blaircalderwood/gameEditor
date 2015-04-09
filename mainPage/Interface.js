@@ -1,5 +1,5 @@
 var backgroundCanvas, mainCanvas,
-    canvasElements = [], canvasRects = [], eventsList = [],
+    canvasElements = [], canvasRects = [], eventsList = [], canvasGroups = [],
     mouseDown = false,
     mouse = {
         x: 0,
@@ -97,6 +97,8 @@ function loadInterface() {
     showWorldSettings();
     $("#elementSettingsButton").addClass('ui-disabled');
 
+    showElementsList();
+
 }
 
 function showWorldSettings(){
@@ -111,6 +113,27 @@ function showElementSettings(){
 
     $("#elementSettings").show();
     $("#worldSettings").hide();
+
+}
+
+function showElementsList(){
+
+    createList(canvasElements, $("#elementList"));
+    $("#showElementsButton").addClass('ui-btn-active');
+
+}
+
+function showGroupsList(){
+
+    var tempGroups = canvasGroups.slice();
+    tempGroups.push({elementName: "Add New Group", elementClicked: addNewGroup});
+    createList(tempGroups, $("#elementList"));
+
+}
+
+function addNewGroup(){
+
+
 
 }
 
@@ -314,135 +337,6 @@ function clearCanvases() {
 
 }
 
-/** Save mouse coordinates every time it is moved
- *
- * @param e
- */
-
-function mouseMoveListener(e) {
-
-    mouse.oldX = mouse.x;
-    mouse.oldY = mouse.y;
-
-    mouse.x = e.pageX;
-    mouse.y = e.pageY;
-
-    if (mouseDown && clickedElement !== undefined && dragging()) {
-        clickedElement.dragElement();
-    }
-
-}
-
-/** Check for clicked elements each time the mouse is pressed
- *
- * @param e
- */
-
-function mouseDownListener(e) {
-
-    mouse.startX = mouse.x;
-    mouse.startY = mouse.y;
-
-    var tempRect, tempX, tempY, targetElement;
-
-    mouseDown = true;
-
-    for (var i = 0; i < canvasElements.length; i++) {
-
-        targetElement = canvasElements[i];
-
-        tempRect = targetElement.targetCanvas.getBoundingClientRect();
-        tempX = e.pageX - tempRect.left;
-        tempY = e.pageY - tempRect.top;
-
-        if (tempX >= targetElement.x && tempX <= (targetElement.x + targetElement.width) &&
-            tempY >= targetElement.y && tempY <= (targetElement.x + targetElement.height)) {
-
-            clickedElement = targetElement;
-            selectedElNo = i;
-        }
-        else if ($("#backgroundCanvas:hover").length > 0 || $("#mainCanvas:hover").length > 0) {
-            targetElement.unHighlight();
-            selectedElNo = -1;
-        }
-
-    }
-
-    if ($("#clickMenu:hover").length > 0) {
-        removeRightMenu();
-    }
-
-    if (menuShown)removeTopMenu();
-}
-
-/** Show the right click menu each time the right mouse button is pressed
- *
- */
-
-$(document).bind("contextmenu", function (event) {
-
-    event.preventDefault();
-
-    removeRightMenu();
-
-    var menu = $("<ul id='menu'>" +
-    "<li><a onmousedown='showDrawPage()'> New Element</a></li>" +
-    "<li>Edit</li>" +
-    "<li>Delete</li>" +
-    "</ul></div>");
-
-    var rightMenu = $("<div id='clickMenu' style='position: absolute; font-size: 14px; z-index: 100;'>").css({
-        top: event.pageY + "px",
-        left: event.pageX + "px"
-    });
-    menu.menu();
-    menu.appendTo(rightMenu);
-    rightMenu.appendTo("body");
-
-});
-
-/**Remove the right click menu when the user clicks elsewhere on the screen
- *
- */
-
-function removeRightMenu() {
-
-    var clickMenu = $("#clickMenu");
-
-    if (clickMenu) {
-        clickMenu.remove();
-    }
-
-}
-
-/** Drop any dragging elements when the mouse button is released
- *
- * @param e
- */
-
-function mouseUpListener(e) {
-
-    mouseDown = false;
-
-    if (clickedElement !== undefined) {
-        clickedElement.dropElement();
-        clickedElement = undefined;
-    }
-
-}
-
-/** Drag an element on screen
- *
- * @returns {boolean}
- */
-
-function dragging() {
-
-    return !(mouse.startX - mouse.x >= -3 && mouse.startX - mouse.x <= 3 &&
-    mouse.startY - mouse.y >= -3 && mouse.startY - mouse.y <= 3);
-
-}
-
 /** Show window containing additional functionality e.g. Sprite Editor
  *
  * @param newShownWindow
@@ -466,33 +360,6 @@ function closeWindow() {
     if (shownWindow) {
         shownWindow.hide();
         shownWindow = "";
-    }
-
-}
-
-/** Load a drawing made in sprite editor via local storage
- *
- */
-
-function loadCanvasDrawing() {
-
-    if (sessionStorage.image) {
-        var data = sessionStorage.getItem('image');
-
-        var tempImage = new Image();
-        tempImage.src = data;
-
-        tempImage.onload = function () {
-
-            var renameText = $("#renameText");
-            canvasElements.push(new CanvasElement(mainCanvas.width / 2, mainCanvas.height / 2,
-                tempImage.width, tempImage.height, mainCanvas, tempImage, renameText.val(), true, true));
-            createList(canvasElements, $("#elementList"));
-            renameText.val("");
-        };
-
-        sessionStorage.removeItem('image');
-
     }
 
 }
@@ -521,81 +388,6 @@ function confirmCloseWindow() {
     })
 }
 
-function renameSprite(){
-
-    var renameDialog = $("#renameDialog");
-    renameDialog.dialog({
-        buttons: {
-            "Save": function () {
-                if($("#renameText").val() !== "") {
-                    loadCanvasDrawing();
-                    $(this).dialog("close");
-                }
-                else{
-                    renameDialog.innerHTML = "Please enter a valid element name";
-                }
-            }
-
-        }
-
-    })
-
-}
-
-/** Compile all features set by the user into a local storage file ready to be run by the game engine as a full game
- *
- */
-
-function compile() {
-
-    var canImage;
-
-    compileText = "$('#physicsCanvas').width(" + mainCanvas.width + ");$('#physicsCanvas').height(" + mainCanvas.height + ");";
-
-    compileText += "var firstBody;";
-
-    for (var i = 0; i < canvasElements.length; i++) {
-
-        compileText += "firstBody = new Body(physics, {" +
-            "type: '" + canvasElements[i].type + "'," +
-            "shape: 'circle'," +
-            "radius: " + (canvasElements[i].width / 2) + "/ physics.scale," +
-            "x:  " + (canvasElements[i].x + (canvasElements[i].width / 2)) + "/ physics.scale," +
-            "y: " + (canvasElements[i].y + (canvasElements[i].height / 2)) + "/ physics.scale," +
-            "width: " + canvasElements[i].width + "/ physics.scale," +
-            "height: " + canvasElements[i].height + "/ physics.scale," +
-            "image: '" + canvasElements[i].image.src + "'});" +
-            "spriteArray.push(firstBody);" +
-            "physics.world.SetGravity(new b2Vec2(" + worldGravity.horizontal + ", " + worldGravity.vertical + "));";
-
-    }
-
-    for(i = 0; i < canvasElements.length; i ++){
-
-        for (var j = 0; j < canvasElements[i].addedEvents.length; j++) {
-
-            compileText += canvasElements[i].addedEvents[j];
-
-        }
-
-
-
-        //compileText += "spriteArray[0].addEvent(spriteArray[1].destroy, spriteArray[0].contact);"
-
-    }
-
-    if($("#bounceWalls").is(":checked") == true) compileText += "physics.addScreenBounds();";
-
-    compileText += "startEngine();";
-
-    console.log(compileText);
-
-    localStorage.setItem('compiledText', compileText);
-
-    window.open("../Engine/index.html");
-
-}
-
 /** Show Sprite Editor window
  *
  */
@@ -603,136 +395,6 @@ function compile() {
 function showDrawPage() {
 
     showWidget($("#drawDiv"));
-
-}
-
-/** Show events that can act as listeners in order to carry out a certain task
- *
- * @param array
- * @param onClickFunction
- * @param showGenerics
- * @returns {Array}
- */
-
-function eventElementsList(array, onClickFunction, showGenerics) {
-
-    var targetList = [];
-
-    var j = 0;
-
-    if (showGenerics == true) {
-
-        for(var item = 0; item < genericsArray.length; item ++)targetList.push(genericsArray[item]);
-        for (j = 0; j < targetList.length; j++) {
-            targetList[j].elementClicked = onClickFunction;
-        }
-
-    }
-
-    for (var i = 0; i < array.length; i++) {
-        targetList.push(array[i]);
-        targetList[i].arrayIndex = i;
-    }
-
-    //k = j tests for insertion of generic elements (mouse, keyboard etc.)
-
-    for (var k = j; k < targetList.length; k++) {
-
-        targetList[k].elementClicked = onClickFunction;
-
-    }
-
-    return targetList;
-
-}
-
-function showListenerElements() {
-
-    showWidget($("#eventCreatorDiv"));
-    createList(eventElementsList(canvasElements, showListenerTasks, true), $("#addEventListener"));
-
-}
-
-function showListenerTasks() {
-
-    eventCompiler.listenerElement = this;
-    createList(eventElementsList(this.listenerEvents, showExecutorElements, false), $("#addEventTask"));
-
-}
-
-function showExecutorElements() {
-
-    eventCompiler.eventListener = this;
-
-    $("#addEventTask").empty();
-    createList(eventElementsList(canvasElements, showExecutorTasks, false), $("#addEventListener"));
-
-}
-
-function showExecutorTasks() {
-
-    eventCompiler.arrayIndex = this.arrayIndex;
-    createList(eventElementsList(this.executorEvents, compileEvent, false), $("#addEventTask"));
-
-}
-
-function compileEvent() {
-
-    if (!this.parametersDetails) {
-        this.parametersDetails = [];
-        this.parametersDetails[0] = "";
-    }
-    var i = eventCompiler.arrayIndex;
-
-    eventCompiler.parameterArray = 10;
-
-    eventCompiler.eventExecutor = this.engineFunction;
-
-    var newEvent = "spriteArray[" + i + "].";
-
-    console.log(eventCompiler.eventListener);
-
-    if(eventCompiler.eventListener.targetFunction == "collision"){
-        console.log("COLLIDER" + eventCompiler.eventListener.parametersDetails[0]);
-        newEvent += "addCollisionEvent(spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.eventListener.parametersDetails[0];
-        console.log(newEvent);
-    }
-    else if (eventCompiler.listenerElement.elementName == "Keyboard") {
-        newEvent += "addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "', spriteArray[" + i + "]." + this.engineFunction;
-        eventCompiler.eventListener.parametersDetails.splice(0, 1);
-    }
-    else if(genericsArray.indexOf(eventCompiler.listenerElement.elementName) == -1){
-
-        newEvent += "addEvent(spriteArray[" + i + "]." + this.engineFunction + ", spriteArray[" + i + "]." + eventCompiler.eventListener.targetFunction;
-    }
-
-    else newEvent += "addEvent(spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.eventListener.targetFunction;
-
-    if (this.parametersDetails[0])newEvent += ", " + this.parametersDetails[0];
-
-    newEvent += ");";
-    canvasElements[i].addedEvents.push(newEvent);
-    console.log(canvasElements[i].addedEvents);
-
-    var eventString = {};
-
-    eventString.elementName = "On " + eventCompiler.listenerElement.elementName + " " + eventCompiler.eventListener.elementName + " - " + eventCompiler.eventExecutor + " on " + canvasElements[eventCompiler.arrayIndex].elementName;
-
-    eventString.elementClicked = function () {
-        console.log("Event Clicked");
-    };
-
-    updateEventList(eventString);
-
-    closeWindow();
-
-}
-
-function updateEventList(newEventString) {
-
-    eventsList.push(newEventString);
-
-    createList(eventsList, $("#eventsList"));
 
 }
 

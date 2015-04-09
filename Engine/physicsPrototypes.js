@@ -23,7 +23,7 @@ var Physics = window.Physics = function (element, scale) {
     this.world = new b2World(gravity, true);
     this.element = element;
     this.context = element.getContext("2d");
-    this.scale = scale || 20;
+    this.scale = 20;
     this.dtRemaining = 0;
     this.stepAmount = 1 / 60;
 
@@ -86,16 +86,17 @@ Physics.prototype.click = function (callback) {
 
     function handleClick(e) {
 
-        e.preventDefault();
+        //e.preventDefault();
         var point = {
             x: (e.offsetX || e.layerX) / self.scale,
             y: (e.offsetY || e.layerY) / self.scale
         };
-
+        console.log(point);
         self.world.QueryPoint(function (fixture) {
-            callback(fixture.GetBody(),
+            console.log(fixture.GetBody());
+            /*callback(fixture.GetBody(),
                 fixture,
-                point);
+                point);*/
         }, point);
     }
 
@@ -149,11 +150,10 @@ Physics.prototype.addScreenBounds = function(){
     var screenWidth = (physicsCanvas.canvas.width) / physics.scale;
     var screenHeight = (physicsCanvas.canvas.height) / physics.scale;
 
-    console.log(screenHeight);
-    new Body(physics, { type: "static", x: 0, y: 0, height: 0.5, width: screenWidth});
-    new Body(physics, { type: "static", x: 0, y: 0, height: screenHeight,  width: 0.5 });
-    new Body(physics, { type: "static", x: screenWidth, y: 0, height: screenHeight,  width: 0.5});
-    new Body(physics, { type: "static", x: 0, y: screenHeight - 1, height: 0.5, width: screenWidth });
+    new Body(physics, { type: "static", x: screenWidth / 2, y: 0.1, height: 0.5, width: screenWidth});
+    new Body(physics, { type: "static", x: 0.1, y: screenHeight / 2, height: screenHeight,  width: 0.5 });
+    new Body(physics, { type: "static", x: screenWidth, y: screenHeight / 2, height: screenHeight,  width: 0.5});
+    new Body(physics, { type: "static", x: screenWidth / 2, y: screenHeight, height: 0.5, width: screenWidth });
 
 };
 
@@ -227,14 +227,12 @@ var Body = window.Body = function (physics, details) {
 
 Body.prototype.checkCollisions = function(collidingObject){
 
-    console.log(this);
     for(var i = 0; i < this.collisionArray.length; i ++){
-        console.log(this.collisionArray[i]);
+
         if(this.collisionArray[i].collidingObject == collidingObject){
             //var listeningFunction = {functions: this.collisionArray[i].targetFunction, bodyObject: this};
             //listeningFunction.targetFunction.parameterArray = collidingObject.parameterArray;
             /*this.collisionArray.collided = {functions: this.targetFunction, bodyObject: this};
-            console.log(listeningFunction);
             listen(listeningFunction);*/
 
             this.collisionArray[i].targetFunction.apply(this, this.collisionArray[i].parameterArray);
@@ -246,7 +244,7 @@ Body.prototype.checkCollisions = function(collidingObject){
 
 Body.prototype.collision = function(){
 
-    console.log("COLLIDED");
+
 
 };
 
@@ -394,15 +392,14 @@ Body.prototype.rotateTowardsMouse = function () {
 
 Body.prototype.moveTowardsPoint = function (target, speed) {
 
+    var vector = new b2Vec2((target.body.GetWorldCenter().x - this.body.GetWorldCenter().x) * physics.scale * 50,
+        (target.body.GetWorldCenter().y - this.body.GetWorldCenter().y) * physics.scale * 50);
 
     if (target.inBounds(physicsCanvas.canvas) == true && target.inBounds(physicsCanvas.canvas) == true) {
 
         var vecLength = Math.sqrt((target.x * this.body.GetWorldCenter().x) + (target.x * this.body.GetWorldCenter().y));
 
-        this.body.ApplyImpulse({
-            x: ((target.x - this.body.GetPosition().x * physics.scale) / vecLength * speed),
-            y: ((target.y - this.body.GetPosition().y * physics.scale) / vecLength * speed)
-        }, this.body.GetWorldCenter());
+        this.body.ApplyImpulse(vector, this.body.GetWorldCenter());
 
     }
 
@@ -410,15 +407,14 @@ Body.prototype.moveTowardsPoint = function (target, speed) {
 
 Body.prototype.moveTowardsMouse = function (speed) {
 
+    var vector = new b2Vec2((mouse.x - this.body.GetWorldCenter().x) * physics.scale * speed,
+        (mouse.y - this.body.GetWorldCenter().y) * physics.scale * speed);
 
     //if (mouse.inBounds(physicsCanvas.canvas) == true && mouse.inBounds(physicsCanvas.canvas) == true) {
 
         var vecLength = Math.sqrt((mouse.x * this.body.GetWorldCenter().x) + (mouse.x * this.body.GetWorldCenter().y));
 
-        this.body.ApplyImpulse({
-            x: ((mouse.x - this.body.GetPosition().x * physics.scale) / vecLength * speed),
-            y: ((mouse.y - this.body.GetPosition().y * physics.scale) / vecLength * speed)
-        }, this.body.GetWorldCenter());
+        this.body.ApplyImpulse(vector, this.body.GetWorldCenter());
 
     //}
 

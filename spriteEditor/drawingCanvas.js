@@ -52,8 +52,7 @@ function setEraseTimer(){
 
 function eraseDrawing() {
 
-    context.fillStyle = 'white';
-    context.fillRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+    context.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
 
 }
 
