@@ -433,74 +433,41 @@ createList = function (array, JQMListElement, callback, callbackParamArray) {
 
         else {
 
+            var newHTML = "<div data-role = 'collapsible' data-inset='false' data-iconpos='right' style='width: 100%; padding-left: 3.3%'><h4>" + array[i].elementName + "</h4><ul data-role = 'listview'>";
             var collapsibles = [];
-
-            var divItem = document.createElement("div");
-
-            var ul = document.createElement("ul");
-
-            var anchor1 = document.createElement("h4");
-
-            var submitLi = document.createElement("li");
-            var submitButton = document.createElement("a");
-            $(submitButton).attr("data-type", "button");
-            submitButton.innerText = "Submit";
-            $(submitButton).button();
-
-            if (array[i].elementName) anchor1.innerText = array[i].elementName;
-            else console.log("Create List - Element Name not found for array object " + i);
-
-            divItem.appendChild(anchor1);
 
             for (var z = 0; z < array[i].parameters.length; z++) {
 
                 var parameterItem = array[i].parameters[z];
 
-                var collapsibleItem = document.createElement("li");
+                newHTML += "<li><label>" + parameterItem.label + "</label>";
 
-                var collapsibleInput;
-
-                if (parameterItem.inputType == "list") {
-
-                    collapsibleInput = insertList(parameterItem);
-
-                }
+                if (parameterItem.inputType == "list")newHTML = createSelectList(newHTML, parameterItem);
 
                 else if (parameterItem.inputType == "canvasElements") {
-
                     parameterItem.inputList = fillCanvasElements();
-                    collapsibleInput = insertElementsList();
+                    newHTML = createSelectList(newHTML, parameterItem);
                 }
 
                 else if (parameterItem.inputType == "keyList") {
-
                     parameterItem.inputList = fillKeys();
-                    collapsibleInput = insertList(parameterItem);
+                    newHTML = createSelectList(newHTML, parameterItem);
                 }
 
-                else {
+                 else if (parameterItem.inputType) newHTML += "<input type='" + parameterItem.inputType + "'></input>";
 
-                    collapsibleInput = document.createElement("input");
-                    if (parameterItem.inputType)collapsibleInput.type = parameterItem.inputType;
-
-                }
-
-                var collapsibleLabel = document.createElement("label");
-                collapsibleLabel.innerHTML = parameterItem.label;
-
-                collapsibleItem.appendChild(collapsibleLabel);
-                collapsibleItem.appendChild(collapsibleInput);
-
-                ul.appendChild(collapsibleItem);
-
-                collapsibles.push(collapsibleInput);
+                newHTML += "</input></li>";
 
             }
 
+            $(listItem).append(newHTML);
+            newHTML += "<a data-role='button' id = '" + z + "'>Submit</a>";
+
+            console.log($("#" + z + ""));
             (function (el, collapsibles) {
 
-                submitButton.onclick = function () {
-
+                $("#" + parameterItem.label + "").onclick = function () {
+                    console.log("CLCICKCIK");
                     var parametersDetails = [];
 
                     for (var y = 0; y < collapsibles.length; y++) {
@@ -515,20 +482,10 @@ createList = function (array, JQMListElement, callback, callbackParamArray) {
                 };
             })(i, collapsibles);
 
+            newHTML += "</ul></div>";
+            JQMListElement.append(newHTML);
 
-            submitLi.appendChild(submitButton);
-
-            ul.appendChild(submitLi);
-
-            divItem.appendChild(ul);
-            refreshList($(ul));
-            listItem.appendChild(divItem);
-
-            $(divItem).attr("data-role", "collapsible");
-            $(divItem).attr("data-inset", false);
-            $(divItem).collapsible();
-
-            JQMListElement.append(listItem);
+            $('div[data-role=collapsible]').collapsible();
 
         }
 
@@ -540,6 +497,26 @@ createList = function (array, JQMListElement, callback, callbackParamArray) {
     else return callbackParamArray;
 
 };
+
+function createSelectList(newHTML, parameterItem) {
+    newHTML += "<select>";
+
+    newHTML = createHTMLList(newHTML, parameterItem);
+
+    newHTML += "</select>";
+    return newHTML;
+}
+
+function createHTMLList(newHTML, parameterItem){
+
+    for(var inputs = 0; inputs < parameterItem.inputList.length; inputs ++){
+
+        newHTML += "<option value = '" + parameterItem.inputList[inputs] + "'>" + parameterItem.inputList[inputs] + "</option>";
+    }
+
+    return newHTML;
+
+}
 
 function fillCanvasElements() {
 
