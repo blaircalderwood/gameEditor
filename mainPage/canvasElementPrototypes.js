@@ -53,6 +53,12 @@ function CanvasElement(x, y, width, height, targetCanvas, image, elementName, dr
 
 }
 
+function CanvasGroup(groupName, elements){
+
+    this.elementName = groupName;
+    this.elements = elements || [];
+}
+
 CanvasElement.prototype.dragElement = function () {
 
     this.x += mouse.x - mouse.oldX;

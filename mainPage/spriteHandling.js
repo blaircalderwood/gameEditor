@@ -15,7 +15,7 @@ function loadCanvasDrawing() {
             var renameText = $("#renameText");
             canvasElements.push(new CanvasElement(mainCanvas.width / 2, mainCanvas.height / 2,
                 tempImage.width, tempImage.height, mainCanvas, tempImage, renameText.val(), true, true));
-            createList(canvasElements, $("#elementList"));
+            showElementsList();
             renameText.val("");
         };
 
@@ -43,5 +43,38 @@ function renameSprite(){
         }
 
     })
+
+}
+
+function addNewGroup(){
+
+    var groupDialog = $("#newGroupDialog");
+
+    groupDialog.dialog({
+        buttons: {
+            "Save": function () {
+
+                var groupText = $("#renameGroupText").val();
+
+                if(groupText !== "") {
+
+                    setGroupName(groupText);
+                    $(this).dialog("close");
+                }
+                else{
+                    groupDialog.innerHTML = "Please enter a valid element name";
+                }
+            }
+
+        }
+
+    })
+
+}
+
+function setGroupName(groupName){
+
+    canvasGroups.push(new CanvasGroup(groupName));
+    showGroupsList();
 
 }

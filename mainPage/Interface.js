@@ -118,7 +118,9 @@ function showElementSettings() {
 
 function showElementsList() {
 
-    createList(canvasElements, $("#elementList"));
+    var tempElements = canvasElements.slice();
+    tempElements.push({elementName: "Add New Element", elementClicked: showWidget});
+    createList(tempElements, $("#elementList"));
     $("#showElementsButton").addClass('ui-btn-active');
 
 }
@@ -128,11 +130,6 @@ function showGroupsList() {
     var tempGroups = canvasGroups.slice();
     tempGroups.push({elementName: "Add New Group", elementClicked: addNewGroup});
     createList(tempGroups, $("#elementList"));
-
-}
-
-function addNewGroup() {
-
 
 }
 
@@ -343,6 +340,10 @@ function clearCanvases() {
 
 function showWidget(newShownWindow) {
 
+    var drawDiv = $("#drawDiv");
+
+    if (!newShownWindow) newShownWindow = drawDiv;
+
     shownWindow = newShownWindow;
     newShownWindow.show();
 
@@ -457,7 +458,7 @@ createList = function (array, JQMListElement, callback, callbackParamArray) {
 
                 newHTML += "</input></li>";
 
-                collapsibles ++;
+                collapsibles++;
 
             }
 
@@ -467,7 +468,7 @@ createList = function (array, JQMListElement, callback, callbackParamArray) {
             newHTML += "</ul></div>";
             JQMListElement.append(newHTML);
 
-            (function(i, collapsibles) {
+            (function (i, collapsibles) {
                 $("#" + i + "Submit").button().bind('click', function () {
 
                     var parametersDetails = [];
