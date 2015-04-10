@@ -75,6 +75,6 @@ function addNewGroup(){
 function setGroupName(groupName){
 
     canvasGroups.push(new CanvasGroup(groupName));
-    showGroupsList();
+    createGroupsList($("#elementList"));
 
 }

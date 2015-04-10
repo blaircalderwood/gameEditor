@@ -405,6 +405,39 @@ function checkShortcuts(e) {
     }
 }
 
+function createGroupsList(JQMListElement){
+
+    JQMListElement.empty();
+
+    var canvasElementsArray = fillCanvasElements();
+
+    var newHTML = "";
+
+    for(var j = 0; j < canvasGroups.length; j ++) {
+
+        newHTML += "<div data-role = 'collapsible' data-inset='false' data-iconpos='right' style='width: 100%; padding-left: 3.3%'><h4>" +
+        canvasGroups[j].elementName + "</h4><ul data-role = 'listview'>";
+
+        for (var i = 0; i < canvasElementsArray.length; i++) {
+
+            newHTML += "<li><input type='checkbox'>" + canvasElementsArray[i] + "</input></li></ul></div>";
+
+        }
+
+        newHTML += "</div>";
+
+    }
+
+    newHTML += "<li><a data-role='button' id='addNewGroupButton' onclick='addNewGroup()'>Add New Group</a></li></ul>";
+    JQMListElement.append(newHTML);
+    $("#addNewGroupButton").button();
+    $('div[data-role=collapsible]').collapsible();
+    refreshList(JQMListElement);
+
+
+
+}
+
 createList = function (array, JQMListElement, callback, callbackParamArray) {
 
     JQMListElement.empty();
