@@ -101,7 +101,7 @@ function loadInterface() {
 
 }
 
-function showWorldSettings(){
+function showWorldSettings() {
 
     $("#worldSettingsButton").addClass('ui-btn-active');
     $("#elementSettings").hide();
@@ -109,21 +109,21 @@ function showWorldSettings(){
 
 }
 
-function showElementSettings(){
+function showElementSettings() {
 
     $("#elementSettings").show();
     $("#worldSettings").hide();
 
 }
 
-function showElementsList(){
+function showElementsList() {
 
     createList(canvasElements, $("#elementList"));
     $("#showElementsButton").addClass('ui-btn-active');
 
 }
 
-function showGroupsList(){
+function showGroupsList() {
 
     var tempGroups = canvasGroups.slice();
     tempGroups.push({elementName: "Add New Group", elementClicked: addNewGroup});
@@ -131,15 +131,14 @@ function showGroupsList(){
 
 }
 
-function addNewGroup(){
-
+function addNewGroup() {
 
 
 }
 
-function changeType(){
+function changeType() {
 
-    if($("#staticCheck").is(":checked") == true) canvasElements[selectedElNo].type = "static";
+    if ($("#staticCheck").is(":checked") == true) canvasElements[selectedElNo].type = "static";
     else canvasElements[selectedElNo].type = "dynamic";
 }
 
@@ -434,7 +433,7 @@ createList = function (array, JQMListElement, callback, callbackParamArray) {
         else {
 
             var newHTML = "<div data-role = 'collapsible' data-inset='false' data-iconpos='right' style='width: 100%; padding-left: 3.3%'><h4>" + array[i].elementName + "</h4><ul data-role = 'listview'>";
-            var collapsibles = [];
+            var collapsibles = 0;
 
             for (var z = 0; z < array[i].parameters.length; z++) {
 
@@ -446,44 +445,48 @@ createList = function (array, JQMListElement, callback, callbackParamArray) {
 
                 else if (parameterItem.inputType == "canvasElements") {
                     parameterItem.inputList = fillCanvasElements();
-                    newHTML = createSelectList(newHTML, parameterItem);
+                    newHTML = createSelectList(newHTML, parameterItem, z);
                 }
 
                 else if (parameterItem.inputType == "keyList") {
                     parameterItem.inputList = fillKeys();
-                    newHTML = createSelectList(newHTML, parameterItem);
+                    newHTML = createSelectList(newHTML, parameterItem, z);
                 }
 
-                 else if (parameterItem.inputType) newHTML += "<input type='" + parameterItem.inputType + "'></input>";
+                else if (parameterItem.inputType) newHTML += "<input id='collapsibles" + z + "' type='" + parameterItem.inputType + "'></input>";
 
                 newHTML += "</input></li>";
+
+                collapsibles ++;
 
             }
 
             $(listItem).append(newHTML);
-            newHTML += "<a data-role='button' id = '" + z + "'>Submit</a>";
-
-            console.log($("#" + z + ""));
-            (function (el, collapsibles) {
-
-                $("#" + parameterItem.label + "").onclick = function () {
-                    console.log("CLCICKCIK");
-                    var parametersDetails = [];
-
-                    for (var y = 0; y < collapsibles.length; y++) {
-                        console.log(collapsibles[y].value);
-                        parametersDetails[y] = collapsibles[y].value;
-                    }
-                    array[el].parametersDetails = parametersDetails;
-                    console.log(array[el]);
-                    if (array[el].elementClicked)array[el].elementClicked();
-                    else console.log("Create List - Element does not have clicked function");
-
-                };
-            })(i, collapsibles);
+            newHTML += "<a data-role='button' id = '" + i + "Submit'>Submit</a>";
 
             newHTML += "</ul></div>";
             JQMListElement.append(newHTML);
+
+            (function(i, collapsibles) {
+                $("#" + i + "Submit").button().bind('click', function () {
+
+                    var parametersDetails = [];
+
+                    for (var y = 0; y < collapsibles; y++) {
+
+                        var newParam = $("#collapsibles" + y);
+
+                        parametersDetails[y] = newParam[0].value;
+                    }
+                    array[i].parametersDetails = parametersDetails;
+                    console.log(array[i]);
+                    if (array[i].elementClicked)array[i].elementClicked();
+                    else console.log("Create List - Element does not have clicked function");
+
+                    console.log(parametersDetails);
+                });
+
+            }(i, collapsibles));
 
             $('div[data-role=collapsible]').collapsible();
 
@@ -498,8 +501,8 @@ createList = function (array, JQMListElement, callback, callbackParamArray) {
 
 };
 
-function createSelectList(newHTML, parameterItem) {
-    newHTML += "<select>";
+function createSelectList(newHTML, parameterItem, z) {
+    newHTML += "<select id='collapsibles" + z + "'>";
 
     newHTML = createHTMLList(newHTML, parameterItem);
 
@@ -507,9 +510,9 @@ function createSelectList(newHTML, parameterItem) {
     return newHTML;
 }
 
-function createHTMLList(newHTML, parameterItem){
+function createHTMLList(newHTML, parameterItem) {
 
-    for(var inputs = 0; inputs < parameterItem.inputList.length; inputs ++){
+    for (var inputs = 0; inputs < parameterItem.inputList.length; inputs++) {
 
         newHTML += "<option value = '" + parameterItem.inputList[inputs] + "'>" + parameterItem.inputList[inputs] + "</option>";
     }
