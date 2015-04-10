@@ -450,10 +450,10 @@ createList = function (array, JQMListElement, callback, callbackParamArray) {
 
                 else if (parameterItem.inputType == "keyList") {
                     parameterItem.inputList = fillKeys();
-                    newHTML = createSelectList(newHTML, parameterItem, z);
+                    newHTML = createSelectList(newHTML, parameterItem, i, z);
                 }
 
-                else if (parameterItem.inputType) newHTML += "<input id='collapsibles" + z + "' type='" + parameterItem.inputType + "'></input>";
+                else if (parameterItem.inputType) newHTML += "<input id='" + i + "collapsibles" + z + "' type='" + parameterItem.inputType + "'></input>";
 
                 newHTML += "</input></li>";
 
@@ -474,7 +474,7 @@ createList = function (array, JQMListElement, callback, callbackParamArray) {
 
                     for (var y = 0; y < collapsibles; y++) {
 
-                        var newParam = $("#collapsibles" + y);
+                        var newParam = $("#" + i + "collapsibles" + y);
 
                         parametersDetails[y] = newParam[0].value;
                     }
@@ -501,8 +501,8 @@ createList = function (array, JQMListElement, callback, callbackParamArray) {
 
 };
 
-function createSelectList(newHTML, parameterItem, z) {
-    newHTML += "<select id='collapsibles" + z + "'>";
+function createSelectList(newHTML, parameterItem, i, z) {
+    newHTML += "<select id='" + i + "collapsibles" + z + "'>";
 
     newHTML = createHTMLList(newHTML, parameterItem);
 
