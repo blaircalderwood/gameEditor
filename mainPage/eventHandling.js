@@ -82,6 +82,7 @@ function showExecutorElements() {
 
 function showExecutorTasks() {
 
+    eventCompiler.targetElement = this;
     eventCompiler.arrayIndex = this.arrayIndex;
     createList(eventElementsList(this.executorEvents, compileEvent, false, false), $("#addEventTask"));
 
@@ -97,10 +98,32 @@ function updateEventList(newEventString) {
 
 function compileGroupEvent(){
 
-    for(var i = 0; i < this.elements.length; i ++){
+    console.log(this);
+    var listenerIndex = canvasGroups.indexOf(eventCompiler.listenerElement);
+    var i;
 
-        compileEvent.apply(this);
+    if(listenerIndex !== -1){
+
+        for(i = 0; i < canvasGroups[listenerIndex].elements.length; i ++){
+            eventCompiler.listenerElement = canvasGroups[listenerIndex].elements[i];
+            eventCompiler.arrayIndex = canvasElements.indexOf(this);
+            console.log(eventCompiler.arrayIndex);
+            //eventCompiler.targetArrayIndex =
+            compileEvent.apply(this);
+        }
     }
+    /*console.log(this);
+    for(i = 0; i < this.elements.length; i ++){
+
+        this.elements[i].eventExecutor = this.eventExecutor;
+        this.elements[i].eventListener = this.eventListener;
+        this.elements[i].listenerElement = this.listenerElement;
+        this.elements[i].parametersDetails = this.parametersDetails;
+
+        compileEvent.apply(this.elements[i]);
+
+    }*/
+
 }
 
 function compileEvent() {
@@ -113,6 +136,7 @@ function compileEvent() {
         this.parametersDetails[0] = "";
     }
     var i = eventCompiler.arrayIndex;
+    var targetIndex = eventCompiler.targetArrayIndex || i;
 
     eventCompiler.parameterArray = 10;
 
@@ -146,7 +170,7 @@ function compileEvent() {
 
     var eventString = {};
 
-    eventString.elementName = "On " + eventCompiler.listenerElement.elementName + " " + eventCompiler.eventListener.elementName + " - " + eventCompiler.eventExecutor + " on " + canvasElements[eventCompiler.arrayIndex].elementName;
+    eventString.elementName = eventCompiler.listenerElement.elementName + " " + eventCompiler.eventListener.elementName + " - " + eventCompiler.eventExecutor + " on " + canvasElements[eventCompiler.arrayIndex].elementName;
 
     eventString.elementClicked = function () {
         console.log("Event Clicked");
