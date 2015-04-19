@@ -5,18 +5,19 @@ var compileText = "";
  * @param array
  * @param onClickFunction
  * @param showGenerics
+ * @param showGroups
  * @returns {Array}
  */
 
-function eventElementsList(array, onClickFunction, showGenerics) {
+function eventElementsList(array, onClickFunction, showGenerics, showGroups) {
 
     var targetList = [];
 
-    var j = 0;
+    var j = 0, item = 0;
 
-    if (showGenerics == true) {
+    if (showGenerics && showGenerics == true) {
 
-        for(var item = 0; item < genericsArray.length; item ++)targetList.push(genericsArray[item]);
+        for(item = 0; item < genericsArray.length; item ++)targetList.push(genericsArray[item]);
         for (j = 0; j < targetList.length; j++) {
             targetList[j].elementClicked = onClickFunction;
         }
@@ -36,6 +37,13 @@ function eventElementsList(array, onClickFunction, showGenerics) {
 
     }
 
+    if(showGroups && showGroups == true){
+
+        for(item = 0; item < canvasGroups.length; item ++)targetList.push(canvasGroups[item]);
+        for (var l = k; l < targetList.length; l ++) targetList[l].elementClicked = onClickFunction;
+
+    }
+
     return targetList;
 
 }
@@ -51,14 +59,15 @@ function genericsArrayNames(){
 function showListenerElements() {
 
     showWidget($("#eventCreatorDiv"));
-    createList(eventElementsList(canvasElements, showListenerTasks, true), $("#addEventListener"));
+    $("#addEventTask").empty();
+    createList(eventElementsList(canvasElements, showListenerTasks, true, true), $("#addEventListener"));
 
 }
 
 function showListenerTasks() {
 
     eventCompiler.listenerElement = this;
-    createList(eventElementsList(this.listenerEvents, showExecutorElements, false), $("#addEventTask"));
+    createList(eventElementsList(this.listenerEvents, showExecutorElements, false, false), $("#addEventTask"));
 
 }
 
@@ -67,14 +76,14 @@ function showExecutorElements() {
     eventCompiler.eventListener = this;
 
     $("#addEventTask").empty();
-    createList(eventElementsList(canvasElements, showExecutorTasks, false), $("#addEventListener"));
+    createList(eventElementsList(canvasElements, showExecutorTasks, false, true), $("#addEventListener"));
 
 }
 
 function showExecutorTasks() {
 
     eventCompiler.arrayIndex = this.arrayIndex;
-    createList(eventElementsList(this.executorEvents, compileEvent, false), $("#addEventTask"));
+    createList(eventElementsList(this.executorEvents, compileEvent, false, false), $("#addEventTask"));
 
 }
 

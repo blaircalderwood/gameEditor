@@ -415,7 +415,7 @@ function createGroupsList(JQMListElement){
 
     for(var j = 0; j < canvasGroups.length; j ++) {
 
-        newHTML += "<div data-role = 'collapsible' data-inset='false' data-iconpos='right' style='width: 100%; padding-left: 6.3%'><h4>" +
+        newHTML += "<div data-role = 'collapsible' data-inset='false' data-iconpos='right' style='width: 100%; padding-left: 6.2%'><h4>" +
         canvasGroups[j].elementName + "</h4><ul data-role = 'listview'>";
 
         for (var i = 0; i < canvasElementsArray.length; i++) {
@@ -428,9 +428,17 @@ function createGroupsList(JQMListElement){
 
     }
 
-    newHTML += "<li><a data-role='button' id='addNewGroupButton' onclick='addNewGroup()'>Add New Group</a></li></ul>";
     JQMListElement.append(newHTML);
-    $("#addNewGroupButton").button();
+
+    var newGroupButton = document.createElement("a");
+    newGroupButton.innerText = "Add New Group";
+
+    var newListItem = document.createElement("li");
+    newListItem.appendChild(newGroupButton);
+    JQMListElement.append(newListItem);
+
+    newListItem.onclick = addNewGroup;
+
     $('div[data-role=collapsible]').collapsible();
     refreshList(JQMListElement);
 
