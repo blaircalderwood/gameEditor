@@ -95,6 +95,14 @@ function updateEventList(newEventString) {
 
 }
 
+function compileGroupEvent(){
+
+    for(var i = 0; i < this.elements.length; i ++){
+
+        compileEvent.apply(this);
+    }
+}
+
 function compileEvent() {
 
     var genericsNames = genericsArrayNames();

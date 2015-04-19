@@ -57,6 +57,10 @@ function CanvasGroup(groupName, elements){
 
     this.elementName = groupName;
     this.elements = elements || [];
+    this.listenerEvents = spriteEvents;
+    this.executorEvents = spriteExecutors;
+    this.addedEvents = [];
+
 }
 
 CanvasElement.prototype.dragElement = function () {

@@ -405,6 +405,15 @@ function checkShortcuts(e) {
     }
 }
 
+function addToGroup(item){
+
+    item = $(item);
+
+    canvasGroups[item.data('group')].elements.push(canvasElements[item.data('element')]);
+
+    console.log(canvasGroups);
+}
+
 function createGroupsList(JQMListElement){
 
     JQMListElement.empty();
@@ -413,6 +422,8 @@ function createGroupsList(JQMListElement){
 
     var newHTML = "";
 
+    var newCheckbox, newCollapsibleItem;
+
     for(var j = 0; j < canvasGroups.length; j ++) {
 
         newHTML += "<div data-role = 'collapsible' data-inset='false' data-iconpos='right' style='width: 100%; padding-left: 6.2%'><h4>" +
@@ -420,11 +431,11 @@ function createGroupsList(JQMListElement){
 
         for (var i = 0; i < canvasElementsArray.length; i++) {
 
-            newHTML += "<li><input type='checkbox'>" + canvasElementsArray[i] + "</input></li></ul></div>";
+                newHTML += "<li><input type='checkbox' data-group='" + j + "' data-element='" + i + "' onchange='addToGroup(this)'>" + canvasElementsArray[i] + "</input></li>";
 
         }
 
-        newHTML += "</div>";
+        newHTML += "</ul></div>";
 
     }
 
