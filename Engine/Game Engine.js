@@ -517,14 +517,15 @@ function createMouseJoint() {
 
 function listen(listeningFunction) {
 
+    if(listeningFunction.functions && listeningFunction.functions.length > 0)console.log(listeningFunction.functions);
     if (listeningFunction.functions) {
         for (var i = 0; i < listeningFunction.functions.length; i++) {
             listeningFunction.functions[i].apply(listeningFunction.functions[i].bodyObject, listeningFunction.functions[i].parameterArray);
         }
     }
-    else {
-        listeningFunction.functions = [];
-    }
+
+    else listeningFunction.functions = [];
+
 
 }
 
@@ -537,20 +538,22 @@ function listen(listeningFunction) {
 
 Body.prototype.addEvent = function (targetFunction, listener, parameterArray) {
 
+    var newFunction = targetFunction.bind(this);
+
     if (parameterArray && parameterArray.length > -1) {
-        targetFunction.parameterArray = parameterArray;
+        newFunction.parameterArray = parameterArray;
     }
     else {
-        targetFunction.parameterArray = [parameterArray];
+        newFunction.parameterArray = [parameterArray];
     }
 
-    targetFunction.bodyObject = this;
+    newFunction.bodyObject = this;
 
     if (listener.functions == undefined) {
         listener.functions = [];
     }
 
-    listener.functions.push(targetFunction);
+    listener.functions.push(newFunction);
 
 };
 
@@ -580,10 +583,12 @@ Body.prototype.addKeyUpEvent = function (key, targetFunction, parameterArray) {
 
 Body.prototype.addCollisionEvent = function(targetFunction, parameterArray){
 
+    var newFunction = targetFunction.bind(this);
+
     if(!Array.isArray(parameterArray))parameterArray = [parameterArray];
     console.log(parameterArray);
 
-    this.collisionArray.push({collidingObject: parameterArray[0], targetFunction: targetFunction});
+    this.collisionArray.push({collidingObject: parameterArray[0], targetFunction: newFunction});
 
     //parameterArray.splice(0, 1);
 
@@ -600,26 +605,27 @@ Body.prototype.addCollisionEvent = function(targetFunction, parameterArray){
  */
 
 function addKey(key, targetFunction, parameterArray) {
-
+console.log(this);
+    var newFunction = targetFunction.bind(this);
     var newKey = {};
     newKey.id = key;
 
     if (parameterArray && parameterArray.length > -1) {
-        targetFunction.parameterArray = parameterArray;
+        newFunction.parameterArray = parameterArray;
     }
     else {
-        targetFunction.parameterArray = [parameterArray];
+        newFunction.parameterArray = [parameterArray];
     }
 
-    targetFunction.bodyObject = this;
+    newFunction.bodyObject = this;
 
     var controlPos = controlArray.indexOf(newKey);
 
     if (controlPos == -1) {
-        newKey.functions = [targetFunction];
+        newKey.functions = [newFunction];
     }
     else if (controlPos > -1) {
-        newKey.functions.push(targetFunction);
+        newKey.functions.push(newFunction);
     }
 
     return newKey;

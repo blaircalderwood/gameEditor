@@ -466,7 +466,7 @@ createList = function (array, JQMListElement, callback, callbackParamArray) {
         if (!array[i].parameters) {
 
             var anchor = document.createElement("a");
-            if (array[i].elementName) anchor.innerText = array[i].elementName;
+            if (array[i].elementName) anchor.innerText = anchor.title = array[i].elementName;
             else console.log("Create List - Element Name not found for array object " + i);
 
             listItem.appendChild(anchor);
@@ -495,8 +495,8 @@ createList = function (array, JQMListElement, callback, callbackParamArray) {
                 if (parameterItem.inputType == "list")newHTML = createSelectList(newHTML, parameterItem);
 
                 else if (parameterItem.inputType == "canvasElements") {
-                    parameterItem.inputList = fillCanvasElements();
-                    newHTML = createSelectList(newHTML, parameterItem, z);
+                    parameterItem.inputList = fillCanvasElements(true);
+                    newHTML = createSelectList(newHTML, parameterItem, i, z);
                 }
 
                 else if (parameterItem.inputType == "keyList") {
@@ -508,10 +508,10 @@ createList = function (array, JQMListElement, callback, callbackParamArray) {
 
                 newHTML += "</input></li>";
 
-                collapsibles++;
-
             }
 
+            collapsibles = array[i].parameters.length;
+            console.log(collapsibles);
             $(listItem).append(newHTML);
             newHTML += "<a data-role='button' id = '" + i + "Submit'>Submit</a>";
 
@@ -527,14 +527,13 @@ createList = function (array, JQMListElement, callback, callbackParamArray) {
 
                         var newParam = $("#" + i + "collapsibles" + y);
 
-                        parametersDetails[y] = newParam[0].value;
+                        parametersDetails[y] = newParam.val();
                     }
                     array[i].parametersDetails = parametersDetails;
                     console.log(array[i]);
                     if (array[i].elementClicked)array[i].elementClicked();
                     else console.log("Create List - Element does not have clicked function");
 
-                    console.log(parametersDetails);
                 });
 
             }(i, collapsibles));
@@ -572,11 +571,19 @@ function createHTMLList(newHTML, parameterItem) {
 
 }
 
-function fillCanvasElements() {
+function fillCanvasElements(groups) {
 
     var targetArray = [];
 
-    for (var q = 0; q < canvasElements.length; q++)targetArray.push(canvasElements[q].elementName);
+    for (var i = 0; i < canvasElements.length; i++){
+        targetArray.push(canvasElements[i].elementName);
+    }
+
+    if(groups == true){
+        for(var j = 0; j < canvasGroups.length; j ++){
+            targetArray.push(canvasGroups[j].elementName);
+        }
+    }
 
     return targetArray;
 

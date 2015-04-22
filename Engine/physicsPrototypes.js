@@ -10,6 +10,7 @@ var b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
 var b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
 var gravity = new b2Vec2(0, 0);
 var toDestroy = [];
+var screenBounds = [];
 
 // Physics set up functions are based on the tutorial found at http://buildnewgames.com/box2dweb/
 
@@ -118,8 +119,13 @@ Physics.prototype.collision = function () {
 
         var contactOne = contact.GetFixtureA().GetBody().GetUserData();
         var contactTwo = contact.GetFixtureB().GetBody().GetUserData();
-        contactOne.checkCollisions(contactTwo);
-        contactTwo.checkCollisions(contactOne);
+
+        if(screenBounds.indexOf(contactOne) == -1 && screenBounds.indexOf(contactTwo) == -1) {
+            contactOne.checkCollisions(contactTwo);
+            contactTwo.checkCollisions(contactOne);
+            contactOne.contact(contactTwo);
+            contactTwo.contact(contactOne);
+        }
 
         //listen(contact.checkCollisions)
     };
@@ -150,10 +156,10 @@ Physics.prototype.addScreenBounds = function(){
     var screenWidth = (physicsCanvas.canvas.width) / physics.scale;
     var screenHeight = (physicsCanvas.canvas.height) / physics.scale;
 
-    new Body(physics, { type: "static", x: screenWidth / 2, y: 0.1, height: 0.5, width: screenWidth});
-    new Body(physics, { type: "static", x: 0.1, y: screenHeight / 2, height: screenHeight,  width: 0.5 });
-    new Body(physics, { type: "static", x: screenWidth, y: screenHeight / 2, height: screenHeight,  width: 0.5});
-    new Body(physics, { type: "static", x: screenWidth / 2, y: screenHeight, height: 0.5, width: screenWidth });
+    screenBounds = [new Body(physics, { type: "static", x: screenWidth / 2, y: 0.1, height: 0.5, width: screenWidth}),
+    new Body(physics, { type: "static", x: 0.1, y: screenHeight / 2, height: screenHeight,  width: 0.5 }),
+    new Body(physics, { type: "static", x: screenWidth, y: screenHeight / 2, height: screenHeight,  width: 0.5}),
+    new Body(physics, { type: "static", x: screenWidth / 2, y: screenHeight, height: 0.5, width: screenWidth })];
 
 };
 
@@ -234,7 +240,7 @@ Body.prototype.checkCollisions = function(collidingObject){
             //listeningFunction.targetFunction.parameterArray = collidingObject.parameterArray;
             /*this.collisionArray.collided = {functions: this.targetFunction, bodyObject: this};
             listen(listeningFunction);*/
-
+            console.log(this);
             this.collisionArray[i].targetFunction.apply(this, this.collisionArray[i].parameterArray);
 
         }
@@ -244,7 +250,7 @@ Body.prototype.checkCollisions = function(collidingObject){
 
 Body.prototype.collision = function(){
 
-
+    console.log("COLLIDED");
 
 };
 
@@ -272,6 +278,7 @@ Body.prototype.SetAirFriction = function (friction, angularDamping) {
 
 Body.prototype.contact = function(collidingObject){
 
+    console.log(collidingObject);
     listen(this.contact);
 };
 

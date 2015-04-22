@@ -17,7 +17,7 @@ function eventElementsList(array, onClickFunction, showGenerics, showGroups) {
 
     if (showGenerics && showGenerics == true) {
 
-        for(item = 0; item < genericsArray.length; item ++)targetList.push(genericsArray[item]);
+        for (item = 0; item < genericsArray.length; item++)targetList.push(genericsArray[item]);
         for (j = 0; j < targetList.length; j++) {
             targetList[j].elementClicked = onClickFunction;
         }
@@ -37,10 +37,10 @@ function eventElementsList(array, onClickFunction, showGenerics, showGroups) {
 
     }
 
-    if(showGroups && showGroups == true){
+    if (showGroups && showGroups == true) {
 
-        for(item = 0; item < canvasGroups.length; item ++)targetList.push(canvasGroups[item]);
-        for (var l = k; l < targetList.length; l ++) targetList[l].elementClicked = onClickFunction;
+        for (item = 0; item < canvasGroups.length; item++)targetList.push(canvasGroups[item]);
+        for (var l = k; l < targetList.length; l++) targetList[l].elementClicked = onClickFunction;
 
     }
 
@@ -48,10 +48,10 @@ function eventElementsList(array, onClickFunction, showGenerics, showGroups) {
 
 }
 
-function genericsArrayNames(){
+function genericsArrayNames() {
 
     var targetList = [];
-    for(var item = 0; item < genericsArray.length; item ++)targetList.push(genericsArray[item].elementName);
+    for (var item = 0; item < genericsArray.length; item++)targetList.push(genericsArray[item].elementName);
     return targetList;
 
 }
@@ -84,7 +84,7 @@ function showExecutorTasks() {
 
     eventCompiler.targetElement = this;
     eventCompiler.arrayIndex = this.arrayIndex;
-    createList(eventElementsList(this.executorEvents, compileEvent, false, false), $("#addEventTask"));
+    createList(eventElementsList(this.executorEvents, compileGroupEvent, false, false), $("#addEventTask"));
 
 }
 
@@ -96,33 +96,92 @@ function updateEventList(newEventString) {
 
 }
 
-function compileGroupEvent(){
+function canvasGroupLoop(thisObject, collidingObject){
 
-    console.log(this);
+  for(var i = 0; i < canvasGroups[collidingObject].elements.length; i ++){
+      eventCompiler.eventListener.parametersDetails[0] = canvasGroups[collidingObject].elements[i];
+      console.log(thisObject);
+      compileEvent.apply(thisObject);
+  }
+}
+function compileGroupEvent() {
+
     var listenerIndex = canvasGroups.indexOf(eventCompiler.listenerElement);
-    var i;
+    var executorIndex = canvasGroups.indexOf(eventCompiler.targetElement);
+    var i, k;
+    var collidingObject = -1;
 
-    if(listenerIndex !== -1){
-
-        for(i = 0; i < canvasGroups[listenerIndex].elements.length; i ++){
-            eventCompiler.listenerElement = canvasGroups[listenerIndex].elements[i];
-            eventCompiler.arrayIndex = canvasElements.indexOf(this);
-            console.log(eventCompiler.arrayIndex);
-            //eventCompiler.targetArrayIndex =
-            compileEvent.apply(this);
+    for(var l = 0; l < canvasGroups.length; l ++){
+        if(eventCompiler.eventListener.parametersDetails && canvasGroups[l].elementName == eventCompiler.eventListener.parametersDetails[0]){
+            collidingObject = l;
         }
     }
+
+    /*for(var j = 0; j < canvasGroups.length; j ++){
+     listenerIndex = canvasGroups[j].elements.indexOf(eventCompiler.listenerElement);
+     console.log(canvasGroups[j].elements, eventCompiler.listenerElement);
+     if(listenerIndex > -1){
+     console.log(j);
+     j = canvasGroups.length;
+     }
+     }*/
+
+    if (listenerIndex == -1 && executorIndex !== -1) {
+
+        for (k = 0; k < canvasGroups[executorIndex].elements.length; k++) {
+
+            eventCompiler.targetElement = canvasGroups[executorIndex].elements[k];
+            eventCompiler.arrayIndex = k;
+            console.log(eventCompiler.arrayIndex);
+            //eventCompiler.targetArrayIndex =
+            if(collidingObject !== -1) canvasGroupLoop(this, collidingObject);
+            else compileEvent.apply(this);
+
+        }
+    }
+
+    else if (listenerIndex !== -1 && executorIndex == -1) {
+
+        for (i = 0; i < canvasGroups[listenerIndex].elements.length; i++) {
+
+            eventCompiler.listenerElement = canvasGroups[listenerIndex].elements[i];
+            console.log(eventCompiler.arrayIndex);
+            if(collidingObject !== -1) canvasGroupLoop(this, collidingObject);
+            else compileEvent.apply(this);
+
+        }
+    }
+
+    else if (listenerIndex !== -1 && executorIndex !== -1) {
+
+        for (i = 0; i < canvasGroups[listenerIndex].elements.length; i++) {
+            for (k = 0; k < canvasGroups[executorIndex].elements.length; k++) {
+
+                eventCompiler.listenerElement = canvasGroups[listenerIndex].elements[i];
+                eventCompiler.targetElement = canvasGroups[executorIndex].elements[k];
+                eventCompiler.arrayIndex = k;
+                console.log(eventCompiler.arrayIndex);
+                //eventCompiler.targetArrayIndex =
+                if(collidingObject !== -1) canvasGroupLoop(this, collidingObject);
+                else compileEvent.apply(this);
+
+            }
+        }
+    }
+
+    else compileEvent.apply(this);
+
     /*console.log(this);
-    for(i = 0; i < this.elements.length; i ++){
+     for(i = 0; i < this.elements.length; i ++){
 
-        this.elements[i].eventExecutor = this.eventExecutor;
-        this.elements[i].eventListener = this.eventListener;
-        this.elements[i].listenerElement = this.listenerElement;
-        this.elements[i].parametersDetails = this.parametersDetails;
+     this.elements[i].eventExecutor = this.eventExecutor;
+     this.elements[i].eventListener = this.eventListener;
+     this.elements[i].listenerElement = this.listenerElement;
+     this.elements[i].parametersDetails = this.parametersDetails;
 
-        compileEvent.apply(this.elements[i]);
+     compileEvent.apply(this.elements[i]);
 
-    }*/
+     }*/
 
 }
 
@@ -130,43 +189,54 @@ function compileEvent() {
 
     var genericsNames = genericsArrayNames();
 
-    console.log(genericsNames);
+    console.log(this.parametersDetails);
     if (!this.parametersDetails) {
         this.parametersDetails = [];
         this.parametersDetails[0] = "";
     }
-    var i = eventCompiler.arrayIndex;
-    var targetIndex = eventCompiler.targetArrayIndex || i;
+    var executorIndex = eventCompiler.arrayIndex;
+
+    var listenerIndex = canvasElements.indexOf(eventCompiler.listenerElement);
+    if (listenerIndex == -1) listenerIndex = executorIndex;
+    console.log(listenerIndex);
 
     eventCompiler.parameterArray = 10;
 
     eventCompiler.eventExecutor = this.engineFunction;
 
-    var newEvent = "spriteArray[" + i + "].";
+    var newEvent = "spriteArray[" + executorIndex + "].";
 
     console.log(eventCompiler.eventListener);
 
-    if(eventCompiler.eventListener.targetFunction == "collision"){
-        newEvent += "addCollisionEvent(spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.eventListener.parametersDetails[0];
+    if (eventCompiler.eventListener.targetFunction == "collision") {
+
+        var collidingObject = -1;
+        for (var f = 0; f < canvasElements.length; f++) {
+            console.log(eventCompiler.eventListener.parametersDetails[0].elementName);
+            if (canvasElements[f].elementName == eventCompiler.eventListener.parametersDetails[0].elementName){
+                collidingObject = f;
+                newEvent += "addCollisionEvent(spriteArray[" + executorIndex + "]." + this.engineFunction + ", spriteArray[" + collidingObject + "]";
+                f = canvasElements.length;
+            }
+        }
+
         console.log(newEvent);
     }
 
     else if (eventCompiler.listenerElement.elementName == "Keyboard") {
-        newEvent += "addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "', spriteArray[" + i + "]." + this.engineFunction;
-        eventCompiler.eventListener.parametersDetails.splice(0, 1);
+        newEvent += "addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "', spriteArray[" + executorIndex + "]." + this.engineFunction;
     }
 
-    else if(genericsNames.indexOf(eventCompiler.listenerElement.elementName) == -1){
-        newEvent += "addEvent(spriteArray[" + i + "]." + this.engineFunction + ", spriteArray[" + i + "]." + eventCompiler.eventListener.targetFunction;
+    else if (genericsNames.indexOf(eventCompiler.listenerElement.elementName) == -1) {
+        newEvent += "addEvent(spriteArray[" + executorIndex + "]." + this.engineFunction + ", spriteArray[" + listenerIndex + "]." + eventCompiler.eventListener.targetFunction;
     }
 
-    else newEvent += "addEvent(spriteArray[" + i + "]." + this.engineFunction + ", " + eventCompiler.eventListener.targetFunction;
+    else newEvent += "addEvent(spriteArray[" + executorIndex + "]." + this.engineFunction + ", " + eventCompiler.eventListener.targetFunction;
 
     if (this.parametersDetails[0])newEvent += ", " + this.parametersDetails[0];
 
     newEvent += ");";
-    canvasElements[i].addedEvents.push(newEvent);
-    console.log(canvasElements[i].addedEvents);
+    canvasElements[executorIndex].addedEvents.push(newEvent);
 
     var eventString = {};
 
@@ -209,7 +279,7 @@ function compile() {
 
     }
 
-    for(i = 0; i < canvasElements.length; i ++){
+    for (i = 0; i < canvasElements.length; i++) {
 
         for (var j = 0; j < canvasElements[i].addedEvents.length; j++) {
 
@@ -218,12 +288,11 @@ function compile() {
         }
 
 
-
         //compileText += "spriteArray[0].addEvent(spriteArray[1].destroy, spriteArray[0].contact);"
 
     }
 
-    if($("#bounceWalls").is(":checked") == true) compileText += "physics.addScreenBounds();";
+    if ($("#bounceWalls").is(":checked") == true) compileText += "physics.addScreenBounds();";
 
     compileText += "startEngine();";
 
