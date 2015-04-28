@@ -60,14 +60,14 @@ function showListenerElements() {
 
     showWidget($("#eventCreatorDiv"));
     $("#addEventTask").empty();
-    createList(eventElementsList(canvasElements, showListenerTasks, true, true), $("#addEventListener"));
+    generalFunctions.createList(eventElementsList(canvasElements, showListenerTasks, true, true), $("#addEventListener"));
 
 }
 
 function showListenerTasks() {
 
     eventCompiler.listenerElement = this;
-    createList(eventElementsList(this.listenerEvents, showExecutorElements, false, false), $("#addEventTask"));
+    generalFunctions.createList(eventElementsList(this.listenerEvents, showExecutorElements, false, false), $("#addEventTask"));
 
 }
 
@@ -76,7 +76,7 @@ function showExecutorElements() {
     eventCompiler.eventListener = this;
 
     $("#addEventTask").empty();
-    createList(eventElementsList(canvasElements, showExecutorTasks, false, true), $("#addEventListener"));
+    generalFunctions.createList(eventElementsList(canvasElements, showExecutorTasks, false, true), $("#addEventListener"));
 
 }
 
@@ -84,7 +84,7 @@ function showExecutorTasks() {
 
     eventCompiler.targetElement = this;
     eventCompiler.arrayIndex = this.arrayIndex;
-    createList(eventElementsList(this.executorEvents, compileGroupEvent, false, false), $("#addEventTask"));
+    generalFunctions.createList(eventElementsList(this.executorEvents, compileGroupEvent, false, false), $("#addEventTask"));
 
 }
 
@@ -92,7 +92,7 @@ function updateEventList(newEventString) {
 
     eventsList.push(newEventString);
 
-    createList(eventsList, $("#eventsList"));
+    generalFunctions.createList(eventsList, $("#eventsList"));
 
 }
 

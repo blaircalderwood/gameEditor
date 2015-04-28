@@ -120,7 +120,7 @@ function showElementsList() {
 
     var tempElements = canvasElements.slice();
     tempElements.push({elementName: "Add New Element", elementClicked: showWidget});
-    createList(tempElements, $("#elementList"));
+    generalFunctions.createList(tempElements, $("#elementList"));
     $("#showElementsButton").addClass('ui-btn-active');
 
 }
@@ -129,7 +129,7 @@ function showGroupsList() {
 
     var tempGroups = canvasGroups.slice();
     tempGroups.push({elementName: "Add New Group", elementClicked: addNewGroup});
-    createList(tempGroups, $("#elementList"));
+    generalFunctions.createList(tempGroups, $("#elementList"));
 
 }
 
@@ -454,102 +454,6 @@ function createGroupsList(JQMListElement){
     refreshList(JQMListElement);
 
 }
-
-createList = function (array, JQMListElement, callback, callbackParamArray) {
-
-    JQMListElement.empty();
-
-    for (var i = 0; i < array.length; i++) {
-
-        var listItem = document.createElement("li");
-
-        if (!array[i].parameters) {
-
-            var anchor = document.createElement("a");
-            if (array[i].elementName) anchor.innerText = anchor.title = array[i].elementName;
-            else console.log("Create List - Element Name not found for array object " + i);
-
-            listItem.appendChild(anchor);
-            JQMListElement.append(listItem);
-
-            (function (el) {
-                listItem.onclick = function () {
-                    if (array[el].elementClicked)array[el].elementClicked();
-                    else console.log("Create List - Element does not have clicked function");
-                };
-            })(i);
-
-        }
-
-        else {
-
-            var newHTML = "<div data-role = 'collapsible' data-inset='false' data-iconpos='right' style='width: 100%; padding-left: 3.3%'><h4>" + array[i].elementName + "</h4><ul data-role = 'listview'>";
-            var collapsibles = 0;
-
-            for (var z = 0; z < array[i].parameters.length; z++) {
-
-                var parameterItem = array[i].parameters[z];
-
-                newHTML += "<li><label>" + parameterItem.label + "</label>";
-
-                if (parameterItem.inputType == "list")newHTML = createSelectList(newHTML, parameterItem);
-
-                else if (parameterItem.inputType == "canvasElements") {
-                    parameterItem.inputList = fillCanvasElements(true);
-                    newHTML = createSelectList(newHTML, parameterItem, i, z);
-                }
-
-                else if (parameterItem.inputType == "keyList") {
-                    parameterItem.inputList = fillKeys();
-                    newHTML = createSelectList(newHTML, parameterItem, i, z);
-                }
-
-                else if (parameterItem.inputType) newHTML += "<input id='" + i + "collapsibles" + z + "' type='" + parameterItem.inputType + "'></input>";
-
-                newHTML += "</input></li>";
-
-            }
-
-            collapsibles = array[i].parameters.length;
-            console.log(collapsibles);
-            $(listItem).append(newHTML);
-            newHTML += "<a data-role='button' id = '" + i + "Submit'>Submit</a>";
-
-            newHTML += "</ul></div>";
-            JQMListElement.append(newHTML);
-
-            (function (i, collapsibles) {
-                $("#" + i + "Submit").button().bind('click', function () {
-
-                    var parametersDetails = [];
-
-                    for (var y = 0; y < collapsibles; y++) {
-
-                        var newParam = $("#" + i + "collapsibles" + y);
-
-                        parametersDetails[y] = newParam.val();
-                    }
-                    array[i].parametersDetails = parametersDetails;
-                    console.log(array[i]);
-                    if (array[i].elementClicked)array[i].elementClicked();
-                    else console.log("Create List - Element does not have clicked function");
-
-                });
-
-            }(i, collapsibles));
-
-            $('div[data-role=collapsible]').collapsible();
-
-        }
-
-    }
-
-    refreshList(JQMListElement);
-
-    if (callback)execCallback(callback, callbackParamArray);
-    else return callbackParamArray;
-
-};
 
 function createSelectList(newHTML, parameterItem, i, z) {
     newHTML += "<select id='" + i + "collapsibles" + z + "'>";

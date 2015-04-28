@@ -166,6 +166,6 @@ CanvasElement.prototype.deleteElement = function () {
 
     this.unHighlight();
     canvasElements.splice(canvasElements.indexOf(this), 1);
-    createList(canvasElements, $("#elementList"));
+    generalFunctions.createList(canvasElements, $("#elementList"));
 
 };
