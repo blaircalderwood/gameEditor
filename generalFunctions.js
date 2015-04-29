@@ -11,7 +11,7 @@ generalFunctions.createList = function (array, JQMListElement, callback, callbac
         if (!array[i].parameters) {
 
             var anchor = document.createElement("a");
-            if (array[i].elementName) anchor.innerText = anchor.title = array[i].elementName;
+            if (array[i].elementName) anchor.innerText = anchor.title = anchor.textContent = array[i].elementName;
             else console.log("Create List - Element Name not found for array object " + i);
 
             listItem.appendChild(anchor);
