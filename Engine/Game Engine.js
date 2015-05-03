@@ -1,7 +1,7 @@
 var gameElementsArray = [], buttonsArray = [], textArray = [], backgroundsArray = [], canvasArray = [], spriteArray = [],
     keyArray = [], pressedKeysArray = [], releasedKeysArray = [], destroyArray = [], controlArray = [],
-    controlReleasedArray = [];
-var exampleCanvas, backgroundCanvas, physicsCanvas;
+    controlReleasedArray = [], FPS = [], FPSAverage = [], FPSTimer, FPSIterations = 0, frameCounter = 0;
+var exampleCanvas, backgroundCanvas, physicsCanvas, gamepadConnected = false;
 var mouse = {x: 0, y: 0, width: 10, height: 10, savedX: -1, savedY: -1}, mouseBody;
 var physics;
 var lastFrame = new Date().getTime();
@@ -160,6 +160,24 @@ window.onload = function () {
 
     imagesLoaded();
 
+    FPSTimer = setInterval(function(){
+
+        FPSIterations ++;
+
+        FPSAverage.push(frameCounter);
+        frameCounter = 0;
+
+        if(FPSIterations >= 30){
+         console.log(FPSAverage);
+         FPSIterations = 0;
+         }
+
+    }, 1000);
+
+    if(navigator.getGamepads()[0])gamepadConnected = true;
+
+    redraw();
+
 };
 
 /** Starts the execution of the game engine
@@ -167,8 +185,6 @@ window.onload = function () {
  */
 
 var startEngine = function() {
-
-    requestAnimationFrame(redraw);
 
     createMouseJoint();
 
@@ -178,6 +194,7 @@ var startEngine = function() {
 
     physics.collision();
     physics.click();
+
 };
 
 /** Loads all required canvases from DOM for future manipulation
@@ -259,9 +276,11 @@ var redraw = function () {
     checkPressedKeys();
     checkReleasedKeys();
 
-    requestAnimationFrame(redraw);
+    if(gamepadConnected)checkGamepadKeys();
 
     listen(redraw);
+
+    requestAnimationFrame(redraw);
 
 };
 
@@ -274,7 +293,6 @@ function physicsLoop() {
     var tm = new Date().getTime();
 
     var dt = (tm - lastFrame) / 1000;
-    var dt = (tm - lastFrame) / 1000;
 
     if (dt > 1 / 15) {
         dt = 1 / 15;
@@ -283,6 +301,8 @@ function physicsLoop() {
     physics.step(dt);
 
     lastFrame = tm;
+
+    frameCounter ++;
 
 }
 
@@ -517,7 +537,6 @@ function createMouseJoint() {
 
 function listen(listeningFunction) {
 
-    if(listeningFunction.functions && listeningFunction.functions.length > 0)console.log(listeningFunction.functions);
     if (listeningFunction.functions) {
         for (var i = 0; i < listeningFunction.functions.length; i++) {
             listeningFunction.functions[i].apply(listeningFunction.functions[i].bodyObject, listeningFunction.functions[i].parameterArray);
@@ -688,7 +707,12 @@ function checkKeys(actualKeys, keysToCheck) {
 
         for (var i = 0; i < actualKeys.length; i++) {
             for (var k = 0; k < keysToCheck.length; k++) {
-                if (actualKeys[i] == keysToCheck[k].id.toASCII()) {
+
+                if(actualKeys[i].search("Button") && keysToCheck[k].search("Button")){
+                    console.log("Gamepad button pressed");
+                }
+
+                else if (actualKeys[i] == keysToCheck[k].id.toASCII()) {
                     result.push(keysToCheck[k]);
                 }
             }

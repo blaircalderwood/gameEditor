@@ -278,7 +278,7 @@ Body.prototype.SetAirFriction = function (friction, angularDamping) {
 
 Body.prototype.contact = function(collidingObject){
 
-    console.log(collidingObject);
+    //console.log(collidingObject);
     listen(this.contact);
 };
 
@@ -417,13 +417,7 @@ Body.prototype.moveTowardsMouse = function (speed) {
     var vector = new b2Vec2((mouse.x - this.body.GetWorldCenter().x) * physics.scale * speed,
         (mouse.y - this.body.GetWorldCenter().y) * physics.scale * speed);
 
-    //if (mouse.inBounds(physicsCanvas.canvas) == true && mouse.inBounds(physicsCanvas.canvas) == true) {
-
-        var vecLength = Math.sqrt((mouse.x * this.body.GetWorldCenter().x) + (mouse.x * this.body.GetWorldCenter().y));
-
         this.body.ApplyImpulse(vector, this.body.GetWorldCenter());
-
-    //}
 
 };
 
