@@ -49,6 +49,11 @@ generalFunctions.createList = function (array, JQMListElement, callback, callbac
                     newHTML = createSelectList(newHTML, parameterItem, i, z);
                 }
 
+                else if (parameterItem.inputType == "buttonList"){
+                    parameterItem.inputList = fillButtons();
+                    newHTML = createSelectList(newHTML, parameterItem, i, z);
+                }
+
                 else if (parameterItem.inputType) newHTML += "<input id='" + i + "collapsibles" + z + "' type='" + parameterItem.inputType + "'></input>";
 
                 newHTML += "</input></li>";

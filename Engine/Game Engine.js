@@ -1,5 +1,5 @@
 var gameElementsArray = [], buttonsArray = [], textArray = [], backgroundsArray = [], canvasArray = [], spriteArray = [],
-    keyArray = [], pressedKeysArray = [], releasedKeysArray = [], destroyArray = [], controlArray = [],
+    keyArray = [], pressedKeysArray = [], releasedKeysArray = [], destroyArray = [], controlArray = [], gamepadArray = [],
     controlReleasedArray = [], FPS = [], FPSAverage = [], FPSTimer, FPSIterations = 0, frameCounter = 0;
 var exampleCanvas, backgroundCanvas, physicsCanvas, gamepadConnected = false;
 var mouse = {x: 0, y: 0, width: 10, height: 10, savedX: -1, savedY: -1}, mouseBody;
@@ -586,7 +586,7 @@ Body.prototype.addEvent = function (targetFunction, listener, parameterArray) {
  */
 
 Body.prototype.addKeyDownEvent = function (key, targetFunction, parameterArray) {
-    controlArray.push(addKey.apply(this, [key, targetFunction, parameterArray]));
+    controlArray.push(addKey.apply(this, [key, targetFunction, parameterArray, controlArray]));
 };
 
 /** Add an event that is triggered when a keyboard key is released
@@ -597,7 +597,7 @@ Body.prototype.addKeyDownEvent = function (key, targetFunction, parameterArray) 
  */
 
 Body.prototype.addKeyUpEvent = function (key, targetFunction, parameterArray) {
-    controlReleasedArray.push(addKey.apply(this, [key, targetFunction, parameterArray]));
+    controlReleasedArray.push(addKey.apply(this, [key, targetFunction, parameterArray, controlArray]));
 };
 
 Body.prototype.addCollisionEvent = function(targetFunction, parameterArray){
@@ -620,10 +620,11 @@ Body.prototype.addCollisionEvent = function(targetFunction, parameterArray){
  * @param key
  * @param targetFunction
  * @param parameterArray
+ * @param keyArray
  * @returns {{}}
  */
 
-function addKey(key, targetFunction, parameterArray) {
+function addKey(key, targetFunction, parameterArray, keyArray) {
 console.log(this);
     var newFunction = targetFunction.bind(this);
     var newKey = {};
@@ -638,7 +639,7 @@ console.log(this);
 
     newFunction.bodyObject = this;
 
-    var controlPos = controlArray.indexOf(newKey);
+    var controlPos = keyArray.indexOf(newKey);
 
     if (controlPos == -1) {
         newKey.functions = [newFunction];
@@ -708,13 +709,10 @@ function checkKeys(actualKeys, keysToCheck) {
         for (var i = 0; i < actualKeys.length; i++) {
             for (var k = 0; k < keysToCheck.length; k++) {
 
-                if(actualKeys[i].search("Button") && keysToCheck[k].search("Button")){
-                    console.log("Gamepad button pressed");
-                }
-
-                else if (actualKeys[i] == keysToCheck[k].id.toASCII()) {
+                if (actualKeys[i] == keysToCheck[k].id.toASCII() || actualKeys[i] == keysToCheck[k].id) {
                     result.push(keysToCheck[k]);
                 }
+
             }
         }
 

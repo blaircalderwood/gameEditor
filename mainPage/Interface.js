@@ -21,6 +21,14 @@ var backgroundCanvas, mainCanvas,
             {elementName: "Key Up", targetFunction: "keyUp", parameters: [{label: "Key", inputType: "keyList"}]}
         ]
     },
+    gamepad = {
+        events: [], elementName: "Gamepad", listenerEvents: [
+            {
+                elementName: "Button Down",
+                targetFunction: "keyDown",
+                parameters: [{label: "Button", inputType: "buttonList"}]
+            }
+    ]},
     system = {
         events: [], elementName: "System", listenerEvents: [
             {elementName: "Redraw", targetFunction: "redraw"},
@@ -34,7 +42,7 @@ var backgroundCanvas, mainCanvas,
     worldGravity = {horizontal: 0, vertical: 0},
     behavioursShown, eventCompiler = {eventListener: {}, eventExecutor: {}};
 
-var genericsArray = [mouse, keyboard, system];
+var genericsArray = [mouse, keyboard, gamepad, system];
 
 var compileText = "";
 
@@ -405,7 +413,7 @@ function checkShortcuts(e) {
     }
 }
 
-function addToGroup(item){
+function addToGroup(item) {
 
     item = $(item);
 
@@ -414,7 +422,7 @@ function addToGroup(item){
     console.log(canvasGroups);
 }
 
-function createGroupsList(JQMListElement){
+function createGroupsList(JQMListElement) {
 
     JQMListElement.empty();
 
@@ -424,14 +432,14 @@ function createGroupsList(JQMListElement){
 
     var newCheckbox, newCollapsibleItem;
 
-    for(var j = 0; j < canvasGroups.length; j ++) {
+    for (var j = 0; j < canvasGroups.length; j++) {
 
         newHTML += "<div data-role = 'collapsible' data-inset='false' data-iconpos='right' style='width: 100%; padding-left: 6.2%'><h4>" +
         canvasGroups[j].elementName + "</h4><ul data-role = 'listview'>";
 
         for (var i = 0; i < canvasElementsArray.length; i++) {
 
-                newHTML += "<li><input type='checkbox' data-group='" + j + "' data-element='" + i + "' onchange='addToGroup(this)'>" + canvasElementsArray[i] + "</input></li>";
+            newHTML += "<li><input type='checkbox' data-group='" + j + "' data-element='" + i + "' onchange='addToGroup(this)'>" + canvasElementsArray[i] + "</input></li>";
 
         }
 
@@ -479,12 +487,12 @@ function fillCanvasElements(groups) {
 
     var targetArray = [];
 
-    for (var i = 0; i < canvasElements.length; i++){
+    for (var i = 0; i < canvasElements.length; i++) {
         targetArray.push(canvasElements[i].elementName);
     }
 
-    if(groups == true){
-        for(var j = 0; j < canvasGroups.length; j ++){
+    if (groups == true) {
+        for (var j = 0; j < canvasGroups.length; j++) {
             targetArray.push(canvasGroups[j].elementName);
         }
     }
@@ -497,6 +505,11 @@ function fillKeys() {
     return ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
         "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+}
+
+function fillButtons(){
+    return ["A", "B", "X", "Y", "LB", "RB", "LT", "RT", "back", "start", "L analogue down", "R analogue down",
+        "D Up", "D down", "D left", "D right"];
 }
 
 function insertList(target) {

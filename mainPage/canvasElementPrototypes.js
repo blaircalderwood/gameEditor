@@ -1,23 +1,23 @@
 var spriteExecutors = [
     {elementName: "Rotate", engineFunction: "rotate"},
     {elementName: "Move Left", engineFunction: "moveLeft", parameters: [
-        {label: "Speed", inputType: "number"}
+        {label: "Speed (m/s)", inputType: "number"}
     ]},
     {elementName: "Move Right", engineFunction: "moveRight", parameters: [
-        {label: "Speed", inputType: "number"}
+        {label: "Speed (m/s)", inputType: "number"}
     ]},
     {elementName: "Move Up", engineFunction: "moveUp", parameters: [
-        {label: "Speed", inputType: "number"}
+        {label: "Speed (m/s)", inputType: "number"}
     ]},
     {elementName: "Move Down", engineFunction: "moveDown", parameters: [
-        {label: "Speed", inputType: "number"}
+        {label: "Speed (m/s)", inputType: "number"}
     ]},
     {elementName: "Rotate Towards Mouse", engineFunction: "rotateTowardsMouse"},
     {elementName: "Rotate Towards Object", engineFunction: "rotateTowardsPoint", parameters: [
         {label: "Target Object", inputType: "canvasElements"}
     ]},
     {elementName: "Move Towards Mouse", engineFunction: "moveTowardsMouse", parameters: [
-        {label: "Speed", inputType: "number"}
+        {label: "Speed (m/s)", inputType: "number"}
     ]},
     {elementName: "Move Towards Object", engineFunction: "moveTowardsPoint", parameters: [
         {label: "Target Object", inputType: "canvasElements"}

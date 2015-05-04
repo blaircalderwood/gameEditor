@@ -227,6 +227,10 @@ function compileEvent() {
         newEvent += "addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "', spriteArray[" + executorIndex + "]." + this.engineFunction;
     }
 
+    else if (eventCompiler.listenerElement.elementName == "Gamepad"){
+        newEvent += "addGamepadEvent('" + eventCompiler.eventListener.parametersDetails[0] + "', spriteArray[" + executorIndex + "]." + this.engineFunction;
+    }
+
     else if (genericsNames.indexOf(eventCompiler.listenerElement.elementName) == -1) {
         newEvent += "addEvent(spriteArray[" + executorIndex + "]." + this.engineFunction + ", spriteArray[" + listenerIndex + "]." + eventCompiler.eventListener.targetFunction;
     }
