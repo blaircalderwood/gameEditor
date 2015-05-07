@@ -80,6 +80,7 @@ function CanvasRectangle(x, y, width, height, targetCanvas, colour, type) {
 
 function loadInterface() {
 
+    $(".UIWindow").hide();
     backgroundCanvas = document.getElementById("backgroundCanvas");
     backgroundCanvas.context = backgroundCanvas.getContext("2d");
 
@@ -350,6 +351,8 @@ function showWidget(newShownWindow) {
 
     var drawDiv = $("#drawDiv");
 
+    drawDiv.css({left: $(window).width() / 4});
+    drawDiv.height($("#backgroundCanvas").height() / 1.5);
     if (!newShownWindow) newShownWindow = drawDiv;
 
     shownWindow = newShownWindow;

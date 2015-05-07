@@ -1,14 +1,13 @@
 .UIWindow{
     z-index: 100;
     position: absolute;
-    left: 25%;
-    top: 25%;
     width: 50%;
     height: 50%;
+
     border: double;
     border-color: #005599;
     border-width: 4px;
-    display: none;
+
 }
 
 .UIHeader{
