@@ -195,7 +195,7 @@ function compileEvent() {
             console.log(eventCompiler.eventListener.parametersDetails[0].elementName);
             if (canvasElements[f].elementName == eventCompiler.eventListener.parametersDetails[0]){
                 collidingObject = f;
-                newEvent += "addCollisionEvent(spriteArray[" + executorIndex + "]." + this.engineFunction + ", spriteArray[" + collidingObject + "]";
+                newEvent += "addCollisionEvent('" + this.engineFunction + "', spriteArray[" + collidingObject + "]";
                 f = canvasElements.length;
             }
         }
@@ -204,18 +204,18 @@ function compileEvent() {
     }
 
     else if (eventCompiler.listenerElement.elementName == "Keyboard") {
-        newEvent += "addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "', spriteArray[" + executorIndex + "]." + this.engineFunction;
+        newEvent += "addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "','" + this.engineFunction + "'";
     }
 
     else if (eventCompiler.listenerElement.elementName == "Gamepad"){
-        newEvent += "addGamepadEvent('" + eventCompiler.eventListener.parametersDetails[0] + "', spriteArray[" + executorIndex + "]." + this.engineFunction;
+        newEvent += "addGamepadEvent('" + eventCompiler.eventListener.parametersDetails[0] + "','" + this.engineFunction + "'";
     }
 
     else if (genericsNames.indexOf(eventCompiler.listenerElement.elementName) == -1) {
-        newEvent += "addEvent(spriteArray[" + executorIndex + "]." + this.engineFunction + ", spriteArray[" + listenerIndex + "]." + eventCompiler.eventListener.targetFunction;
+        newEvent += "addEvent('" + this.engineFunction + "', spriteArray[" + listenerIndex + "]." + eventCompiler.eventListener.targetFunction;
     }
 
-    else newEvent += "addEvent(spriteArray[" + executorIndex + "]." + this.engineFunction + ", " + eventCompiler.eventListener.targetFunction;
+    else newEvent += "addEvent('" + this.engineFunction + "', " + eventCompiler.eventListener.targetFunction;
 
     if (this.parametersDetails[0])newEvent += ", " + this.parametersDetails[0];
 
@@ -251,7 +251,7 @@ function compile() {
 
         compileText += "firstBody = new Body(physics, {" +
         "type: '" + canvasElements[i].type + "'," +
-        "shape: " + canvasElements[i].shape + "," +
+        "shape: '" + canvasElements[i].shape + "'," +
         "radius: " + (canvasElements[i].width / 2) + "/ physics.scale," +
         "x:  " + (canvasElements[i].x + (canvasElements[i].width / 2)) + "/ physics.scale," +
         "y: " + (canvasElements[i].y + (canvasElements[i].height / 2)) + "/ physics.scale," +

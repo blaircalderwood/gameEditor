@@ -434,6 +434,21 @@ Body.prototype.destroy = function(){
     toDestroy.push(this.body);
 };
 
+Body.prototype.copyObject = function(x, y){
+
+    spriteArray.push(new Body(physics, {type: 'dynamic', shape: this.details.shape, radius: this.details.radius,
+        x: x / physics.scale, y: y / physics.scale, width: this.details.width, height: this.details.height, image: this.details.image}));
+
+    for(var i = 0; i < eventsArray.length; i ++){
+        if(eventsArray[i].bodyObject == this && eventsArray[i].functionName !== "copyObject"){
+            console.log(eventsArray[i].functionName);
+            spriteArray[spriteArray.length -1].addEvent(eventsArray[i].functionName, eventsArray[i].listener, eventsArray[i].parameterArray);
+
+        }
+    }
+
+};
+
 /** Default body prototype values for use if no detail is given
  *
  * @type {{shape: string, width: number, height: number, radius: number}}

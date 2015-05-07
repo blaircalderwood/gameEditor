@@ -1,5 +1,5 @@
 var gameElementsArray = [], buttonsArray = [], textArray = [], backgroundsArray = [], canvasArray = [], spriteArray = [],
-    keyArray = [], pressedKeysArray = [], releasedKeysArray = [], destroyArray = [], controlArray = [], gamepadArray = [],
+    eventsArray = [], pressedKeysArray = [], releasedKeysArray = [], destroyArray = [], controlArray = [], gamepadArray = [],
     controlReleasedArray = [], FPS = [], FPSAverage = [], FPSTimer, FPSIterations = 0, frameCounter = 0;
 var exampleCanvas, backgroundCanvas, physicsCanvas, gamepadConnected = false;
 var mouse = {x: 0, y: 0, width: 10, height: 10, savedX: -1, savedY: -1}, mouseBody;
@@ -168,7 +168,7 @@ window.onload = function () {
         frameCounter = 0;
 
         if(FPSIterations >= 30){
-         console.log(FPSAverage);
+         //console.log(FPSAverage);
          FPSIterations = 0;
          }
 
@@ -539,12 +539,10 @@ function listen(listeningFunction) {
 
     if (listeningFunction.functions) {
         for (var i = 0; i < listeningFunction.functions.length; i++) {
-            listeningFunction.functions[i].apply(listeningFunction.functions[i].bodyObject, listeningFunction.functions[i].parameterArray);
+            listeningFunction.functions[i].apply(listeningFunction.elements[i], listeningFunction.functions[i].parameterArray);
+            //listeningFunction.functions[i](listeningFunction.functions[i].parameterArray);
         }
     }
-
-    else listeningFunction.functions = [];
-
 
 }
 
@@ -557,8 +555,8 @@ function listen(listeningFunction) {
 
 Body.prototype.addEvent = function (targetFunction, listener, parameterArray) {
 
-    var newFunction = targetFunction.bind(this);
-
+    var newFunction = eval("this." + targetFunction);
+    console.log(newFunction);
     if (parameterArray && parameterArray.length > -1) {
         newFunction.parameterArray = parameterArray;
     }
@@ -566,13 +564,24 @@ Body.prototype.addEvent = function (targetFunction, listener, parameterArray) {
         newFunction.parameterArray = [parameterArray];
     }
 
+    newFunction.listener = listener;
+    newFunction.functionName = targetFunction;
     newFunction.bodyObject = this;
 
     if (listener.functions == undefined) {
         listener.functions = [];
+        listener.elements = [];
     }
 
     listener.functions.push(newFunction);
+    listener.elements.push(this);
+
+    eventsArray.push(newFunction);
+    var arrayIndex = spriteArray.indexOf(this);
+
+    if(spriteArray[arrayIndex].functions == undefined) spriteArray[arrayIndex].functions = [];
+
+    spriteArray[arrayIndex].functions.push(newFunction);
 
 };
 
@@ -586,7 +595,11 @@ Body.prototype.addEvent = function (targetFunction, listener, parameterArray) {
  */
 
 Body.prototype.addKeyDownEvent = function (key, targetFunction, parameterArray) {
-    controlArray.push(addKey.apply(this, [key, targetFunction, parameterArray, controlArray]));
+
+    var newFunction = addKey.apply(this, [key, targetFunction, parameterArray, controlArray]);
+
+    controlArray.push(newFunction);
+
 };
 
 /** Add an event that is triggered when a keyboard key is released
@@ -602,7 +615,7 @@ Body.prototype.addKeyUpEvent = function (key, targetFunction, parameterArray) {
 
 Body.prototype.addCollisionEvent = function(targetFunction, parameterArray){
 
-    var newFunction = targetFunction.bind(this);
+    var newFunction = eval("this." + targetFunction);
 
     if(!Array.isArray(parameterArray))parameterArray = [parameterArray];
     console.log(parameterArray);
@@ -612,6 +625,10 @@ Body.prototype.addCollisionEvent = function(targetFunction, parameterArray){
     //parameterArray.splice(0, 1);
 
     this.collisionArray.parameterArray = parameterArray;
+
+    newFunction.functionName = targetFunction;
+
+    eventsArray.push(newFunction);
 
 };
 
@@ -625,8 +642,8 @@ Body.prototype.addCollisionEvent = function(targetFunction, parameterArray){
  */
 
 function addKey(key, targetFunction, parameterArray, keyArray) {
-console.log(this);
-    var newFunction = targetFunction.bind(this);
+
+    var newFunction = eval("this." + targetFunction);
     var newKey = {};
     newKey.id = key;
 
@@ -638,6 +655,7 @@ console.log(this);
     }
 
     newFunction.bodyObject = this;
+    newFunction.functionName = targetFunction;
 
     var controlPos = keyArray.indexOf(newKey);
 
@@ -648,6 +666,10 @@ console.log(this);
         newKey.functions.push(newFunction);
     }
 
+    eventsArray.push(newFunction);
+    if(newKey.elements = [])newKey.elements = [];
+
+    newKey.elements.push(this);
     return newKey;
 
 }
