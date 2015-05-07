@@ -318,7 +318,6 @@ function redrawSprite(el) {
         var halfWidth = el.width / 2;
         var halfHeight = el.height / 2;
 
-        //console.log(el.rotation);
         el.targetCanvas.context.translate(el.x + halfWidth, el.y + halfHeight);
         el.targetCanvas.context.rotate(el.rotation);
 

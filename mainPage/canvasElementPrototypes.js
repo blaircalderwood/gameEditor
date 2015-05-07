@@ -22,6 +22,8 @@ var spriteExecutors = [
     {elementName: "Move Towards Object", engineFunction: "moveTowardsPoint", parameters: [
         {label: "Target Object", inputType: "canvasElements"}
     ]},
+    {elementName: "Copy Object", engineFunction: "copyObject", parameters: [{label: "X Coordinate", inputType: "number"},
+        {label: "Y Coordinate", inputType: "number"}]},
     {elementName: "Destroy Object", engineFunction: "destroy"}
 ];
 
