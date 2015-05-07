@@ -29,7 +29,7 @@
       onload="loadInterface()" onkeydown="checkShortcuts(event)">
 
 <div id="menuDiv" style="background-color: dimgray;
-    position: absolute; top: 0; left: 0; width: 100%; height: 2%; font-size: smaller">
+    position: fixed; top: 0; left: 0; width: 100%; height: 2%; font-size: smaller">
     <a id="fileMenuButton" style="color: white" onclick="showTopMenu(showFileMenu, 'fileMenu')"
        onmouseover="if(menuShown)showFileMenu();">File</a>
     <a id="editMenuButton" style="color: white" onclick="showTopMenu(showEditMenu, 'editMenu')"
@@ -43,7 +43,7 @@
         <a data-role="button" id="runGameButton"
            onclick="compile()" data-icon="play" title="Compile and run the game">Run</a>
         <a data-role="button" id="newElementButton" onclick="showWidget($('#drawDiv'))" data-icon="plus">New Element</a>
-        <a data-role="button" id="tutorialsButton" onclick="showWidget($('#drawDiv'))" data-icon="book">Tutorials</a>
+        <a data-role="button" id="tutorialsButton" href="../Tutorials/index.html" target="_blank" data-icon="book">Tutorials</a>
     </div>
 
 </div>
@@ -114,8 +114,8 @@
 
 </div>
 
-<canvas id="backgroundCanvas" style="position: absolute; top: 7%; left: 14%; width: 72%; height: 93%;"></canvas>
-<canvas id="mainCanvas" style="position: absolute; top: 17%; left: 17%; z-index: 10;"></canvas>
+<canvas id="backgroundCanvas" style="position: fixed; top: 7%; left: 14%; width: 72%; height: 93%;"></canvas>
+<canvas id="mainCanvas" style="position: fixed; top: 17%; left: 17%; z-index: 10;"></canvas>
 <canvas id="tempCanvas" style="visibility: hidden"></canvas>
 
 <div id="behaviourDiv">
@@ -124,7 +124,7 @@
 
 <div id="drawDiv" class="ui-widget-content UIWindow">
     <div align="right" id="drawHeader" class="ui-widget-header UIHeader">
-        <button class="closeButton" onclick="confirmCloseWindow()">Delete and Close</button>
+        <button class="closeButton" onclick="confirmCloseWindow()" style="height: 100%; top: -30%;">Delete and Close</button>
     </div>
     <iframe id="drawingIFrame" width="99%" height="94%" src="../spriteEditor/canvasDrawing.html"
             class="ui-widget-content"></iframe>

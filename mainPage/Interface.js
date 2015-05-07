@@ -40,7 +40,7 @@ var backgroundCanvas, mainCanvas,
     behaviours = {}, behaviourArray = [], plusImage, topMenu = "", menuShown = false,
     rightMenu, shownWindow, selectedElNo,
     worldGravity = {horizontal: 0, vertical: 0},
-    behavioursShown, eventCompiler = {eventListener: {}, eventExecutor: {}};
+    behavioursShown, eventCompiler = {eventListener: {}, eventExecutor: {}, arrayIndex: 0};
 
 var genericsArray = [mouse, keyboard, gamepad, system];
 

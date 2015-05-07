@@ -104,6 +104,7 @@ function canvasGroupLoop(thisObject, collidingObject){
       compileEvent.apply(thisObject);
   }
 }
+
 function compileGroupEvent() {
 
     var listenerIndex = canvasGroups.indexOf(eventCompiler.listenerElement);
@@ -116,15 +117,6 @@ function compileGroupEvent() {
             collidingObject = l;
         }
     }
-
-    /*for(var j = 0; j < canvasGroups.length; j ++){
-     listenerIndex = canvasGroups[j].elements.indexOf(eventCompiler.listenerElement);
-     console.log(canvasGroups[j].elements, eventCompiler.listenerElement);
-     if(listenerIndex > -1){
-     console.log(j);
-     j = canvasGroups.length;
-     }
-     }*/
 
     if (listenerIndex == -1 && executorIndex !== -1) {
 
@@ -171,18 +163,6 @@ function compileGroupEvent() {
 
     else compileEvent.apply(this);
 
-    /*console.log(this);
-     for(i = 0; i < this.elements.length; i ++){
-
-     this.elements[i].eventExecutor = this.eventExecutor;
-     this.elements[i].eventListener = this.eventListener;
-     this.elements[i].listenerElement = this.listenerElement;
-     this.elements[i].parametersDetails = this.parametersDetails;
-
-     compileEvent.apply(this.elements[i]);
-
-     }*/
-
 }
 
 function compileEvent() {
@@ -213,7 +193,7 @@ function compileEvent() {
         var collidingObject = -1;
         for (var f = 0; f < canvasElements.length; f++) {
             console.log(eventCompiler.eventListener.parametersDetails[0].elementName);
-            if (canvasElements[f].elementName == eventCompiler.eventListener.parametersDetails[0].elementName){
+            if (canvasElements[f].elementName == eventCompiler.eventListener.parametersDetails[0]){
                 collidingObject = f;
                 newEvent += "addCollisionEvent(spriteArray[" + executorIndex + "]." + this.engineFunction + ", spriteArray[" + collidingObject + "]";
                 f = canvasElements.length;
@@ -271,7 +251,7 @@ function compile() {
 
         compileText += "firstBody = new Body(physics, {" +
         "type: '" + canvasElements[i].type + "'," +
-        "shape: 'circle'," +
+        "shape: " + canvasElements[i].shape + "," +
         "radius: " + (canvasElements[i].width / 2) + "/ physics.scale," +
         "x:  " + (canvasElements[i].x + (canvasElements[i].width / 2)) + "/ physics.scale," +
         "y: " + (canvasElements[i].y + (canvasElements[i].height / 2)) + "/ physics.scale," +

@@ -50,6 +50,7 @@ function CanvasElement(x, y, width, height, targetCanvas, image, elementName, dr
     this.executorEvents = spriteExecutors;
     this.addedEvents = [];
     this.type = "dynamic";
+    this.shape = "block";
 
 }
 

@@ -39,7 +39,7 @@
 .sideMenu{
 
     background-color: slategray;
-    position: absolute;
+    position: fixed;
     width: 14%;
     height: 93%;
     top: 7%;

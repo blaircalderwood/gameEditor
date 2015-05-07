@@ -52,9 +52,7 @@ function mouseDownListener(e) {
 
     }
 
-    if ($("#clickMenu:hover").length > 0) {
         removeRightMenu();
-    }
 
     if (menuShown)removeTopMenu();
 }
@@ -71,8 +69,7 @@ $(document).bind("contextmenu", function (event) {
 
     var menu = $("<ul id='menu'>" +
     "<li><a onmousedown='showDrawPage()'> New Element</a></li>" +
-    "<li>Edit</li>" +
-    "<li>Delete</li>" +
+    "<li><a onmousedown='showListenerElements()'>New Event</a></li>" +
     "</ul></div>");
 
     var rightMenu = $("<div id='clickMenu' style='position: absolute; font-size: 14px; z-index: 100;'>").css({
