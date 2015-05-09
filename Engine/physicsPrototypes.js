@@ -385,8 +385,7 @@ Body.prototype.rotateTowardsPoint = function (target) {
 
 Body.prototype.rotateTowardsMouse = function () {
 
-    this.body.SetAngle(tanAngle({x: mouse.x, y: mouse.y},
-        {x: this.body.GetWorldCenter().x * physics.scale, y: this.body.GetWorldCenter().y * physics.scale}));
+    this.body.SetAngle(tanAngle(mouse, {x: this.body.GetWorldCenter().x, y: this.body.GetWorldCenter().y}));
 
 };
 
@@ -572,8 +571,13 @@ Body.prototype.bounceOffWalls = function () {
 
 Body.prototype.shoot = function (target, destroyOnCollision) {
 
+    var tanAngles = tanAngle({x: this.body.GetWorldCenter().x, y: this.body.GetWorldCenter().y}, target) + (Math.PI / 2);
+    console.log(tanAngles);
+    var xCoord = (Math.cos(tanAngles) * 5.1) + this.body.GetWorldCenter().x;
+    var yCoord = (Math.sin(tanAngles) * 5.1) + this.body.GetWorldCenter().y;
+
     var bullet = new Body(physics, {type: 'dynamic', shape: "circle", radius: 1,
-        x: this.body.GetWorldCenter().x, y: this.body.GetWorldCenter().y, width: 2, height: 2, image: bulletImage});
+        x: xCoord, y: yCoord, width: 2, height: 2, image: bulletImage});
 
     if(target == mouse)bullet.moveTowardsMouse(200);
     else bullet.moveTowardsPoint(target, 200);

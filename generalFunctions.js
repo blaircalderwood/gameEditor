@@ -167,6 +167,6 @@ String.prototype.toASCII = function () {
 
 function tanAngle(object1, object2) {
 
-    return Math.atan2(object1.x - object2.x, object2.y - object1.y) - (Math.PI / 3);
+    return Math.atan2(object1.x - object2.x, object2.y - object1.y);
 
 }
