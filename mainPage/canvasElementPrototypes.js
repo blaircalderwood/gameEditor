@@ -19,6 +19,9 @@ var spriteExecutors = [
     {elementName: "Move Towards Mouse", engineFunction: "moveTowardsMouse", parameters: [
         {label: "Speed (m/s)", inputType: "number"}
     ]},
+    {elementName: "Shoot Towards Mouse", engineFunction: "shootTowardsMouse", parameters: [
+        {label: "Speed (m/s)", inputType: "number"}
+    ]},
     {elementName: "Move Towards Object", engineFunction: "moveTowardsPoint", parameters: [
         {label: "Target Object", inputType: "canvasElements"}
     ]},

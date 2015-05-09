@@ -45,27 +45,27 @@ window.onload = function () {
 
     imagesLoaded();
 
-    if(navigator.getGamepads()[0])gamepadConnected = true;
+    if (navigator.getGamepads()[0])gamepadConnected = true;
 
     redraw();
 
 };
 
-FPS.recordFPS = function(repeat){
+FPS.recordFPS = function (repeat) {
 
     this.recording = true;
 
-    this.timer = setInterval(function(){
+    this.timer = setInterval(function () {
 
-        FPS.iterations ++;
+        FPS.iterations++;
 
         FPS.average.push(FPS.frameCounter);
         FPS.frameCounter = 0;
 
-        if(FPS.iterations >= 30){
+        if (FPS.iterations >= 30) {
             console.log(FPS.average);
             FPS.iterations = 0;
-            if(!repeat)clearInterval(FPS.timer);
+            if (!repeat)clearInterval(FPS.timer);
         }
 
     }, 1000);
@@ -76,7 +76,7 @@ FPS.recordFPS = function(repeat){
  *
  */
 
-var startEngine = function() {
+var startEngine = function () {
 
     createMouseJoint();
 
@@ -96,7 +96,7 @@ var startEngine = function() {
 function setUpCanvases() {
 
     physicsCanvas = new CanvasElement("physicsCanvas", 0, 0, 1280, 682);
-    exampleCanvas = new CanvasElement("exampleCanvas", 0, 0,  1280, 682);
+    exampleCanvas = new CanvasElement("exampleCanvas", 0, 0, 1280, 682);
     canvasArray.push(exampleCanvas);
 
     backgroundCanvas = new CanvasElement("backgroundCanvas", 0, 0, $(window).width(), $(window).height());
@@ -122,7 +122,7 @@ var redraw = function () {
     checkPressedKeys();
     checkReleasedKeys();
 
-    if(gamepadConnected)checkGamepadKeys();
+    if (gamepadConnected)checkGamepadKeys();
 
     listen(redraw);
 
@@ -148,7 +148,7 @@ function physicsLoop() {
 
     lastFrame = tm;
 
-    if(FPS.recording) FPS.frameCounter ++;
+    if (FPS.recording) FPS.frameCounter++;
 
 }
 
@@ -165,9 +165,9 @@ function imagesLoaded() {
     bulletImage = new Image();
     bulletImage.src = "../Images/bullet.png";
 
-    bulletImage.onload = function(){
+    bulletImage.onload = function () {
         console.log("Bullet Loaded");
-        counter ++;
+        counter++;
     };
 
     for (var i = 0; i < spriteArray.length; i++) {
@@ -230,6 +230,7 @@ function listen(listeningFunction) {
 
 Body.prototype.addEvent = function (targetFunction, listener, parameterArray) {
 
+    console.log(this);
     var newFunction = eval("this." + targetFunction);
     console.log(newFunction);
     if (parameterArray && parameterArray.length > -1) {
@@ -254,9 +255,15 @@ Body.prototype.addEvent = function (targetFunction, listener, parameterArray) {
     eventsArray.push(newFunction);
     var arrayIndex = spriteArray.indexOf(this);
 
-    if(spriteArray[arrayIndex].functions == undefined) spriteArray[arrayIndex].functions = [];
+    if (spriteArray[arrayIndex].functions == undefined) spriteArray[arrayIndex].functions = [];
+
+    if (listener == this.contact) {
+        if (!spriteArray[arrayIndex].contactFunctions) spriteArray[arrayIndex].contactFunctions = [];
+        spriteArray[arrayIndex].contactFunctions.push(newFunction);
+    }
 
     spriteArray[arrayIndex].functions.push(newFunction);
+
 
 };
 
@@ -288,11 +295,11 @@ Body.prototype.addKeyUpEvent = function (key, targetFunction, parameterArray) {
     controlReleasedArray.push(addKey.apply(this, [key, targetFunction, parameterArray, controlArray]));
 };
 
-Body.prototype.addCollisionEvent = function(targetFunction, parameterArray){
+Body.prototype.addCollisionEvent = function (targetFunction, parameterArray) {
 
     var newFunction = eval("this." + targetFunction);
 
-    if(!Array.isArray(parameterArray))parameterArray = [parameterArray];
+    if (!Array.isArray(parameterArray))parameterArray = [parameterArray];
     console.log(parameterArray);
 
     this.collisionArray.push({collidingObject: parameterArray[0], targetFunction: newFunction});

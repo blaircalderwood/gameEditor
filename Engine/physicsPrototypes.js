@@ -70,6 +70,7 @@ Physics.prototype.step = function (dt) {
     }
 
     for(var i = 0; i < toDestroy.length; i ++){
+        spriteArray.splice(spriteArray.indexOf(toDestroy[i]));
         physics.world.DestroyBody(toDestroy[i]);
     }
     toDestroy = [];
@@ -122,8 +123,9 @@ Physics.prototype.collision = function () {
         if(screenBounds.indexOf(contactOne) == -1 && screenBounds.indexOf(contactTwo) == -1) {
             contactOne.checkCollisions(contactTwo);
             contactTwo.checkCollisions(contactOne);
-            contactOne.contact(contactTwo);
-            contactTwo.contact(contactOne);
+            console.log(contactOne);
+            console.log(contactTwo);
+
         }
 
         //listen(contact.checkCollisions)
@@ -230,7 +232,15 @@ var Body = window.Body = function (physics, details) {
 
 };
 
+Body.prototype.contact = function(){};
+
 Body.prototype.checkCollisions = function(collidingObject){
+
+    if(this.contactFunctions) {
+        for (var j = 0; j < this.contactFunctions.length; j++) {
+            this.contactFunctions[j].apply(this);
+        }
+    }
 
     for(var i = 0; i < this.collisionArray.length; i ++){
 
@@ -273,12 +283,6 @@ Body.prototype.SetAirFriction = function (friction, angularDamping) {
         this.body.SetAngularVelocity(this.body.GetAngularVelocity() * angularDamping);
     }
 
-};
-
-Body.prototype.contact = function(collidingObject){
-
-    //console.log(collidingObject);
-    listen(this.contact);
 };
 
 /** Set maximum object speed
@@ -569,30 +573,25 @@ Body.prototype.bounceOffWalls = function () {
  * @param destroyOnCollision
  */
 
-Body.prototype.shoot = function (target, destroyOnCollision) {
+Body.prototype.shootTowardsMouse = function (speed) {
 
+    var target = mouse;
+    var bulletWidth = bulletImage.width / physics.scale;
     var tanAngles = tanAngle({x: this.body.GetWorldCenter().x, y: this.body.GetWorldCenter().y}, target) + (Math.PI / 2);
-    console.log(tanAngles);
-    var xCoord = (Math.cos(tanAngles) * 5.1) + this.body.GetWorldCenter().x;
-    var yCoord = (Math.sin(tanAngles) * 5.1) + this.body.GetWorldCenter().y;
+    var xCoord = (Math.cos(tanAngles) * (this.details.radius + (bulletWidth / 2) + 0.01)) + this.body.GetWorldCenter().x;
+    var yCoord = (Math.sin(tanAngles) * (this.details.radius +  + (bulletWidth / 2) + 0.01)) + this.body.GetWorldCenter().y;
 
-    var bullet = new Body(physics, {type: 'dynamic', shape: "circle", radius: 1,
-        x: xCoord, y: yCoord, width: 2, height: 2, image: bulletImage});
+    var bullet = new Body(physics, {type: 'dynamic', shape: "circle", radius: bulletWidth / 2,
+        x: xCoord, y: yCoord, width: bulletWidth, height: bulletImage.height / physics.scale, image: bulletImage, bullet: true});
 
-    if(target == mouse)bullet.moveTowardsMouse(200);
-    else bullet.moveTowardsPoint(target, 200);
+    if(target == mouse)bullet.moveTowardsMouse(speed);
+    else bullet.moveTowardsPoint(target, speed);
 
     bullet.isBullet = true;
     spriteArray.push(bullet);
 
-    if (destroyOnCollision) {
-
-        //this.collision();
-        /*this.listener.BeginContact = function(contact){
-         destroyArray.push(this);
-         }*/
-
-    }
+    var newLength = Number(spriteArray.length - 1);
+    spriteArray[newLength].addEvent('destroy', spriteArray[newLength].contact);
 
 };
 
