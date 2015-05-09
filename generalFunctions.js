@@ -144,3 +144,29 @@ function execCallback(callback, callbackParamArray) {
     else callback();
 
 }
+
+//String functions
+
+/** Returns an ASCII value when given a keyboard key
+ *
+ * @returns {number}
+ */
+
+String.prototype.toASCII = function () {
+    return this.toUpperCase().charCodeAt(0);
+};
+
+//Number Functions
+
+/** Returns the tangent between two objects
+ *
+ * @param object1
+ * @param object2
+ * @returns {number}
+ */
+
+function tanAngle(object1, object2) {
+
+    return Math.atan2(object1.x - object2.x, object2.y - object1.y) - (Math.PI / 3);
+
+}

@@ -75,10 +75,28 @@
 
 }
 
+#addBehaviourDiv{
+
+    position: fixed;
+    bottom: 12%;
+    left: 25%;
+    height: 40%;
+    width: 30%;
+    z-index: 100;
+    background-color: #005982;
+    box-shadow: 10px 10px 5px #454545;
+
+}
+
+.gridItem{
+
+}
+
 #behaviourDiv{
 
     position: fixed;
-    bottom: -25%; left: 25%;
+    bottom: -25%;
+    left: 25%;
     height: 12%;
     width: 50%;
     z-index: 100;

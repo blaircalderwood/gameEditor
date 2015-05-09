@@ -80,7 +80,11 @@ function CanvasRectangle(x, y, width, height, targetCanvas, colour, type) {
 
 function loadInterface() {
 
-    $(".UIWindow").hide();
+    var UIWindow = $(".UIWindow");
+
+    UIWindow.hide();
+    $("#addBehaviourDiv").hide();
+
     backgroundCanvas = document.getElementById("backgroundCanvas");
     backgroundCanvas.context = backgroundCanvas.getContext("2d");
 
@@ -94,8 +98,6 @@ function loadInterface() {
     setUpBackground();
 
     setInterval(redraw, 17);
-
-    var UIWindow = $(".UIWindow");
 
     UIWindow.resizable({handles: "n, e, s, w, ne, se, sw, nw"}).draggable();
 

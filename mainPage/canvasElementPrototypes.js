@@ -154,14 +154,24 @@ CanvasElement.prototype.unHighlight = function () {
 
 };
 
-CanvasElement.prototype.showBehaviourBar = function (targetBehaviours) {
+CanvasElement.prototype.showBehaviourBar = function () {
 
     $("#behaviourDiv").show().animate({bottom: 0});
-    //behavioursShown = this.id;
+    $("#addBehaviourButton").bind('click', this.showAddBehaviour);
+
+};
+
+CanvasElement.prototype.showAddBehaviour = function(){
+
+    var addBehaviourDiv = $("#addBehaviourDiv");
+
+    if($(addBehaviourDiv).is(":visible")) addBehaviourDiv.hide();
+    else addBehaviourDiv.show();
 
 };
 
 function hideBehaviourBar() {
+    $("#addBehaviourDiv").hide();
     $("#behaviourDiv").animate({bottom: '-25%'});
 }
 

@@ -4,7 +4,6 @@ var b2Body = Box2D.Dynamics.b2Body;
 var b2FixtureDef = Box2D.Dynamics.b2FixtureDef;
 var b2Fixture = Box2D.Dynamics.b2Fixture;
 var b2World = Box2D.Dynamics.b2World;
-var b2MassData = Box2D.Collision.Shapes.b2MassData;
 var b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
 var b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
 var b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
@@ -434,19 +433,13 @@ Body.prototype.destroy = function(){
     toDestroy.push(this.body);
 };
 
-Body.prototype.destroyOutsideBounds(){
-
-
-}
 Body.prototype.copyObject = function(x, y){
 
-    console.log(eventsArray);
     spriteArray.push(new Body(physics, {type: 'dynamic', shape: this.details.shape, radius: this.details.radius,
         x: x / physics.scale, y: y / physics.scale, width: this.details.width, height: this.details.height, image: this.details.image}));
 
     for(var i = 0; i < eventsArray.length; i ++){
         if(eventsArray[i].bodyObject.details.image == this.details.image && eventsArray[i].functionName !== "copyObject"){
-            console.log("ALALALALALAA");
             console.log(eventsArray[i].functionName);
             spriteArray[spriteArray.length -1].addEvent(eventsArray[i].functionName, eventsArray[i].listener, eventsArray[i].parameterArray);
             break;
@@ -577,10 +570,16 @@ Body.prototype.bounceOffWalls = function () {
  * @param destroyOnCollision
  */
 
-Body.prototype.bulletBehaviour = function (velocity, angleInRads, destroyOnCollision) {
+Body.prototype.shoot = function (target, destroyOnCollision) {
 
-    this.body.SetAngle(angleInRads);
-    this.body.SetLinearVelocity(velocity);
+    var bullet = new Body(physics, {type: 'dynamic', shape: "circle", radius: 1,
+        x: this.body.GetWorldCenter().x, y: this.body.GetWorldCenter().y, width: 2, height: 2, image: bulletImage});
+
+    if(target == mouse)bullet.moveTowardsMouse(200);
+    else bullet.moveTowardsPoint(target, 200);
+
+    bullet.isBullet = true;
+    spriteArray.push(bullet);
 
     if (destroyOnCollision) {
 
@@ -590,6 +589,7 @@ Body.prototype.bulletBehaviour = function (velocity, angleInRads, destroyOnColli
          }*/
 
     }
+
 };
 
 /** Add a behaviour (e.g. turret) to a given object

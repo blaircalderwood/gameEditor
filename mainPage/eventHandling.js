@@ -125,7 +125,6 @@ function compileGroupEvent() {
             eventCompiler.targetElement = canvasGroups[executorIndex].elements[k];
             eventCompiler.arrayIndex = k;
             console.log(eventCompiler.arrayIndex);
-            //eventCompiler.targetArrayIndex =
             if(collidingObject !== -1) canvasGroupLoop(this, collidingObject);
             else compileEvent.apply(this);
 
@@ -153,7 +152,6 @@ function compileGroupEvent() {
                 eventCompiler.targetElement = canvasGroups[executorIndex].elements[k];
                 eventCompiler.arrayIndex = k;
                 console.log(eventCompiler.arrayIndex);
-                //eventCompiler.targetArrayIndex =
                 if(collidingObject !== -1) canvasGroupLoop(this, collidingObject);
                 else compileEvent.apply(this);
 
@@ -188,16 +186,29 @@ function compileEvent() {
 
     console.log(eventCompiler.eventListener);
 
-    if (eventCompiler.eventListener.targetFunction == "collision") {
+    function checkObject(f, j) {
 
+        if (canvasElements[f].elementName == eventCompiler.eventListener.parametersDetails[0][j]) {
+            collidingObject = f;
+            newEvent += "addCollisionEvent('" + this.engineFunction + "', spriteArray[" + collidingObject + "]";
+        }
+
+    }
+
+    if (eventCompiler.eventListener.targetFunction == "collision") {
+        console.log(eventCompiler.eventListener.parametersDetails[0]);
         var collidingObject = -1;
         for (var f = 0; f < canvasElements.length; f++) {
             console.log(eventCompiler.eventListener.parametersDetails[0].elementName);
-            if (canvasElements[f].elementName == eventCompiler.eventListener.parametersDetails[0]){
-                collidingObject = f;
-                newEvent += "addCollisionEvent('" + this.engineFunction + "', spriteArray[" + collidingObject + "]";
-                f = canvasElements.length;
+            if(Array.isArray(eventCompiler.eventListener.parametersDetails[0])){
+                console.log("CHECKCHECK");
+                for(var j = 0; j < eventCompiler.eventListener.parametersDetails[0].length; j ++){
+
+                    checkObject.call(this, f, j);
+                }
+
             }
+            else checkObject.call(this, f);
         }
 
         console.log(newEvent);
