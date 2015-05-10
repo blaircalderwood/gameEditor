@@ -126,6 +126,8 @@ function addKey(key, targetFunction, parameterArray, keyArray) {
 
 document.onkeydown = function (e) {
 
+    anyKeyDown();
+
     if (pressedKeysArray.indexOf(e.keyCode) == -1) {
         pressedKeysArray.push(e.keyCode);
     }
@@ -138,9 +140,20 @@ document.onkeydown = function (e) {
  */
 
 document.onkeyup = function (e) {
+
+    anyKeyUp();
+
     pressedKeysArray.splice(pressedKeysArray.indexOf(e.keyCode), 1);
     releasedKeysArray.push(e.keyCode);
 };
+
+function anyKeyDown(){
+    listen(anyKeyDown);
+}
+
+function anyKeyUp(){
+    listen(anyKeyUp);
+}
 
 /** Check which keys are currently being pressed
  *

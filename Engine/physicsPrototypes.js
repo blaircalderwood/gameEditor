@@ -285,6 +285,10 @@ Body.prototype.SetAirFriction = function (friction, angularDamping) {
 
 };
 
+Body.prototype.stop = function(){
+    this.body.SetLinearVelocity(new b2Vec2(0, 0));
+};
+
 /** Set maximum object speed
  *
  * @param threshold
