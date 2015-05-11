@@ -137,6 +137,27 @@ generalFunctions.loadImages = function (callback, callbackParamArray, images) {
 
 };
 
+/** Get data from the server and execute a callback upon receiving.
+ *
+ * @param url - Server URL
+ * @param callback - Function to execute when data is recieved from the server.
+ */
+
+generalFunctions.getAjax = function(url, callback){
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            async: "true",
+            contentType: "application/json",
+            dataType: 'jsonp',
+            success: callback || function () {
+                console.log("Recieved data");
+            }
+        });
+
+};
+
 function execCallback(callback, callbackParamArray) {
 
     console.log(callbackParamArray);

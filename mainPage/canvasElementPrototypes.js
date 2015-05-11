@@ -27,6 +27,8 @@ var spriteExecutors = [
     ]},
     {elementName: "Copy Object", engineFunction: "copyObject", parameters: [{label: "X Coordinate", inputType: "number"},
         {label: "Y Coordinate", inputType: "number"}]},
+    {elementName: "Post position to server", engineFunction: "posToServer", parameters: [{label: "Server URL", inputType: "text"}]},
+    {elementName: "Get position from server", engineFunction: "posFromServer", parameters: [{label: "Server URL", inputType: "text"}]},
     {elementName: "Destroy Object", engineFunction: "destroy"}
 ];
 
