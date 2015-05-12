@@ -455,8 +455,8 @@ Body.prototype.posFromServer = function(serverURL){
 
     generalFunctions.getAjax(serverURL + "/getPos?objectId=" + spriteArray.indexOf(this), function(data){
 
-        this.body.x = data.x;
-        this.body.y = data.y;
+        this.body.SetPosition(data.x);
+        this.body.y.SetPosition(data.y);
 
     })
 
@@ -464,7 +464,7 @@ Body.prototype.posFromServer = function(serverURL){
 
 Body.prototype.posToServer = function(serverURL){
 
-    generalFunctions.getAjax(serverURL + "/putPos?objectId=" + spriteArray.indexOf(this) + "&x=" + this.body.x + "&y=" + this.body.y, function(data){
+    generalFunctions.getAjax(serverURL + "/putPos?objectId=" + spriteArray.indexOf(this) + "&x=" + this.body.GetWorldCenter().x + "&y=" + this.body.GetWorldCenter().y, function(data){
         console.log("Position submitted to server");
     });
 };
