@@ -214,7 +214,7 @@ function listen(listeningFunction) {
 
     if (listeningFunction.functions) {
         for (var i = 0; i < listeningFunction.functions.length; i++) {
-            listeningFunction.functions[i].apply(listeningFunction.elements[i], listeningFunction.functions[i].parameterArray);
+            listeningFunction.functions[i].apply(listeningFunction.elements[i], [listeningFunction.functions[i].parameterArray]);
             //listeningFunction.functions[i](listeningFunction.functions[i].parameterArray);
         }
     }

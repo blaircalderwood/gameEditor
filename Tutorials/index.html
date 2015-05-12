@@ -11,6 +11,9 @@
 
     <script src="../jQuery/jquery-2.1.1.min.js"></script>
     <script src="../jQuery/jquery.mobile-1.4.5.min.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="../styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="../styles/jsdoc-default.css">
 </head>
 <body>
 
@@ -18,9 +21,12 @@
 
     <div data-role="panel" id="menuPanel" data-position="left" data-display="push">
         <ul data-role="listview" id="navigationMenu" data-theme="d">
-            <li><a>Pool Game</a></li>
-            <li><a>Catapult Game</a></li>
-            <li><a>Platform Game</a></li>
+            <li><a href="#newObject">Creating a new object</a></li>
+            <li><a href="#changeSettings">Changing settings</a></li>
+            <li><a href="#addEvents">Adding events</a></li>
+            <li><a href="#createGroups">Creating groups</a></li>
+            <li><a href="#runGame">Running the game</a></li>
+            <li><a href="#multiplayer">Creating a multiplayer game</a></li>
         </ul>
     </div>
 
@@ -28,7 +34,164 @@
     </div>
 </div>
 
-<script>window.onload = function() {
+<div data-role="page" id="newObject" data-theme="a">
+
+    <div data-role="content" data-theme="b">
+        <p class="tutorialParagraph"> To create a new object you must open the Sprite Editor. This can be accessed in 
+        three separate ways. You can access it from the toolbar at the top of the screen, from the Add New Element button
+            in the elements list at the side of the screen or by right clicking and selecting Add New Element.</p>
+        
+        <img src="demoImages/spriteEditor1.png">
+
+        <p class="tutorialParagraph">When the Sprite Editor is on screen it will look similar to the image below. The
+            toolbar towards the top of the Sprite Editor contains all of the tools that can be used to create images on
+            the below drawing canvas. It also contains settings to fine tune these tools such as the colour of paint, the line width and the font size.</p>
+
+        </div>
+
+</div>
+<div data-role="page" id="multiplayer" data-theme="a">
+
+    <div data-role="panel" data-position="left" data-display="push">
+        <ul data-role="listview" data-theme="d">
+            <li><a href="#multiplayer">Creating a multiplayer game</a></li>
+            <li><a>Catapult Game</a></li>
+            <li><a>Platform Game</a></li>
+        </ul>
+    </div>
+
+    <div data-role="content" data-theme="b">
+        <p class="tutorialParagraph">To create a multiplayer game you will need two components - a game and a server. The server will store all of
+            the data such as object positions. The game will then send and receive data from the server which describes
+            the position of other players. You can control which data is sent to the server and when by creating
+            events in the game editor. This tutorial will provide you will a sample server and steps on how to establish
+            contact with this server in order to create a multiplayer game.<br></p>
+
+        <p class="tutorialParagraph">First, a server needs to be created to store all of the data and send it to the game when needed. Cloud
+            server services, such as c9.io, are very effective when used as multiplayer servers.
+            Below is an example of some Node.js programming code that can be copied and used to run a server.<br></p>
+
+        <div data-role="collapsible"><h3>View Server Code</h3>
+            <section class="tutorialCode">
+
+                <article>
+
+                            <pre class="prettyprint source linenums"><code>
+
+var express = require("express");
+var app = module.exports = express();
+
+app.configure(function() {
+    app.set('views', __dirname + '/views');
+    app.set('view engine', 'jade');
+    app.use(express.bodyParser());
+    app.use(express.methodOverride());
+    app.use(app.router);
+    app.use(express.static(__dirname + '/public'));
+});
+
+
+var objectArray = [];
+
+app.get('/getPos', function(req, res){
+
+   var arrayIndex = posInArray(req.query.objectID);
+
+   if(arrayIndex !== false){
+
+    console.log(arrayIndex);
+      var returnObject = JSON.stringify({x: objectArray[arrayIndex].x, y: objectArray[arrayIndex].y});
+        res.jsonp(returnObject);
+   }
+
+   else res.jsonp("Object not found");
+
+
+})
+
+app.get('/putPos', function(req, res){
+
+    var newObject = {};
+
+    newObject.name = req.query.objectID;
+    newObject.x = req.query.x;
+    newObject.y = req.query.y;
+
+
+    var arrayIndex = posInArray(newObject.name);
+
+    console.log(arrayIndex);
+       if(arrayIndex !== false) objectArray[arrayIndex] = newObject;
+
+       else objectArray.push(newObject);
+
+    res.jsonp("Position saved");
+
+    console.log(objectArray);
+})
+
+function posInArray(objectID){
+
+    for(var i = 0; i < objectArray.length; i ++){
+
+       if(objectArray[i].name == objectID){
+           return i;
+       }
+   }
+   return false;
+
+}
+
+app.listen(process.env.PORT);
+
+                            </code></pre>
+
+                </article>
+            </section>
+
+        </div>
+
+        <h3>Posting the data to a server</h3>
+
+        <p class="tutorialParagraph">The next step is to create your game and add all of the events and objects that are needed.
+            When this is done you should add an event to post the data to the server. This will save the position of an
+            object so the other player's game can access it and display it on their screen. This data can be posted using
+        any event listener. For example, the game could be instructed to post the data every time the mouse is moved.
+            The amount of times data is posted should be kept to a minimum to ensure the game runs as fast as possible.<br></p>
+
+        <p class="tutorialParagraph">To post data to the server open the Event Creator by pressing the Add New Event button. You can then select any
+            event listener by selecting an object from the left list and then a listener from the right. This is demonstrated in the image below.</p>
+
+        <img src="demoImages/eventCreator1.png">
+
+        <p class="tutorialParagraph">When a listener has been selected you will be taken to the second event creator screen. The object you wish
+            to post to the server should be selected on the left list. You should then select Post Position To Server.
+        When asked for the server URL please enter the URL in which your server is located. Most cloud server websites
+            will provide you with this information. Please ensure that there is no forward slash at the end of the URL.</p>
+
+        <img src="demoImages/eventCreator2.png">
+
+        <h3>Getting the data from a server</h3>
+
+        <p>The process of getting an object's position from the server is very similar to posting to the server.
+            First an event listener will be selected on the first Event Creator page. The data from the server will be
+            called each time this event occurs. For example, it could be called each time the user presses a key.</p>
+
+        <p>On the next Event Creator screen you will select the object that you wish to obtain the position of. You will 
+            then select Get position from server on the right list. The process of entering the URL is identical to the 
+            one used when sending the data to the server.</p>
+        
+        <img src="demoImages/eventCreator3.png">
+
+        <p>Whenever this event is called it will fetch the positional data from the server and automatically update the
+            object's on screen positioning. If two players are running the same version of the game control of one
+            object could be assigned to one player and control of a second object could be assigned to the other.
+            Each game can then post updates on their own position and get updates on the other player's position.</p>
+
+    </div>
+</div>
+
+<script>window.onload = function () {
     $("#menuPanel").panel("open");
 }
 </script>

@@ -453,10 +453,21 @@ Body.prototype.copyObject = function(x, y){
 
 Body.prototype.posFromServer = function(serverURL){
 
-    generalFunctions.getAjax(serverURL + "/getPos?objectId=" + spriteArray.indexOf(this), function(data){
+    console.log(this.body);
 
-        this.body.SetPosition(data.x);
-        this.body.y.SetPosition(data.y);
+    var newBody = this;
+
+    generalFunctions.getAjax(serverURL + "getPos?objectID=" + spriteArray.indexOf(this), function(data){
+
+        if(data !== "Object not found") {
+
+            data = JSON.parse(data);
+            console.log(Number(data.x));
+            newBody.body.SetPosition(new b2Vec2(Number(data.x), Number(data.y)));
+            //this.body.SetPosition(Number(data.y));
+
+        }
+        console.log(data);
 
     })
 
@@ -464,8 +475,8 @@ Body.prototype.posFromServer = function(serverURL){
 
 Body.prototype.posToServer = function(serverURL){
 
-    generalFunctions.getAjax(serverURL + "/putPos?objectId=" + spriteArray.indexOf(this) + "&x=" + this.body.GetWorldCenter().x + "&y=" + this.body.GetWorldCenter().y, function(data){
-        console.log("Position submitted to server");
+    generalFunctions.getAjax(serverURL + "putPos?objectID=" + spriteArray.indexOf(this) + "&x=" + this.body.GetWorldCenter().x + "&y=" + this.body.GetWorldCenter().y, function(data){
+        console.log(data);
     });
 };
 
