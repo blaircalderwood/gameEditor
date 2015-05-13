@@ -371,6 +371,10 @@ Body.prototype.moveDown = function (velocity) {
     this.body.SetLinearVelocity(new b2Vec2(0, velocity));
 };
 
+Body.prototype.stop = function(){
+    this.body.SetLinearVelocity(new b2Vec2(0, 0));
+};
+
 /** Rotate towards another object
  *
  * @param target
