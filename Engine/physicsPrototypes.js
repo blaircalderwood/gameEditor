@@ -359,7 +359,7 @@ Body.prototype.moveLeft = function (velocity) {
 
 /** Move an object right
  *
- * @param velocity
+ * @param velocity - Speed of new object movement
  */
 
 Body.prototype.moveRight = function (velocity) {
@@ -369,7 +369,7 @@ Body.prototype.moveRight = function (velocity) {
 
 /** Move an object upwards
  *
- * @param velocity
+ * @param velocity - Speed of new object movement
  */
 
 Body.prototype.moveUp = function (velocity) {
@@ -379,7 +379,7 @@ Body.prototype.moveUp = function (velocity) {
 
 /** Move an object downwards
  *
- * @param velocity
+ * @param velocity - Speed of new object movement
  */
 
 Body.prototype.moveDown = function (velocity) {
@@ -387,13 +387,17 @@ Body.prototype.moveDown = function (velocity) {
     this.body.SetLinearVelocity(new b2Vec2(0, velocity));
 };
 
+/**Stop object movement
+ *
+ */
+
 Body.prototype.stop = function(){
     this.body.SetLinearVelocity(new b2Vec2(0, 0));
 };
 
 /** Rotate towards another object
  *
- * @param target
+ * @param target - Object to rotate towards
  */
 
 Body.prototype.rotateTowardsPoint = function (target) {
@@ -415,8 +419,8 @@ Body.prototype.rotateTowardsMouse = function () {
 
 /** Move towards another object
  *
- * @param target
- * @param speed
+ * @param target - Object to move towards
+ * @param speed - Speed to move at
  */
 
 Body.prototype.moveTowardsPoint = function (target, speed) {
@@ -434,6 +438,11 @@ Body.prototype.moveTowardsPoint = function (target, speed) {
 
 };
 
+/** Move towards the mouse
+ *
+ * @param speed - Speed to move at
+ */
+
 Body.prototype.moveTowardsMouse = function (speed) {
 
     var vector = new b2Vec2((mouse.x - this.body.GetWorldCenter().x) * physics.scale * speed,
@@ -445,16 +454,26 @@ Body.prototype.moveTowardsMouse = function (speed) {
 
 /** Set friction for top down games
  *
- * @param friction
+ * @param friction - New friction value
  */
 
 Body.prototype.setTopDownFriction = function (friction) {
     this.body.SetLinearDamping(friction);
 };
 
+/** Destroy object
+ *
+ */
+
 Body.prototype.destroy = function(){
     toDestroy.push(this.body);
 };
+
+/** Copy object to a new position
+ *
+ * @param x - X Coordinate of new object
+ * @param y - Y Coordinate of new object
+ */
 
 Body.prototype.copyObject = function(x, y){
 
@@ -471,9 +490,12 @@ Body.prototype.copyObject = function(x, y){
 
 };
 
-Body.prototype.posFromServer = function(serverURL){
+/**Get the position of an object from the server
+ *
+ * @param serverURL - Location of server
+ */
 
-    console.log(this.body);
+Body.prototype.posFromServer = function(serverURL){
 
     var newBody = this;
 
@@ -484,7 +506,6 @@ Body.prototype.posFromServer = function(serverURL){
             data = JSON.parse(data);
             console.log(Number(data.x));
             newBody.body.SetPosition(new b2Vec2(Number(data.x), Number(data.y)));
-            //this.body.SetPosition(Number(data.y));
 
         }
         console.log(data);
@@ -493,28 +514,15 @@ Body.prototype.posFromServer = function(serverURL){
 
 };
 
+/** Send the position of an object to the server
+ *
+ * @param serverURL - Location of server
+ */
+
 Body.prototype.posToServer = function(serverURL){
 
     generalFunctions.getAjax(serverURL + "putPos?objectID=" + spriteArray.indexOf(this) + "&x=" + this.body.GetWorldCenter().x + "&y=" + this.body.GetWorldCenter().y, function(data){
         console.log(data);
-    });
-};
-
-Body.prototype.posFromServer = function(serverURL){
-
-    generalFunctions.getAjax(serverURL + "/getPos?objectId=" + spriteArray.indexOf(this), function(data){
-
-        this.body.x = data.x;
-        this.body.y = data.y;
-
-    })
-
-};
-
-Body.prototype.posToServer = function(serverURL){
-
-    generalFunctions.getAjax(serverURL + "/putPos?objectId=" + spriteArray.indexOf(this) + "&x=" + this.body.x + "&y=" + this.body.y, function(data){
-        console.log("Position submitted to server");
     });
 };
 
@@ -554,7 +562,7 @@ Body.prototype.definitionDefaults = {
 
 /** Draw a given physics body on screen
  *
- * @param context
+ * @param context - Canvas context
  */
 
 Body.prototype.draw = function (context) {
@@ -633,11 +641,9 @@ Body.prototype.bounceOffWalls = function () {
 
 };
 
-/** Give an object a bullet behaviour for higher accuracy collision checking
+/** Shoot a bullet towards the mouse
  *
- * @param velocity
- * @param angleInRads
- * @param destroyOnCollision
+ * @param speed - Velocity of bullet
  */
 
 Body.prototype.shootTowardsMouse = function (speed) {
@@ -659,73 +665,5 @@ Body.prototype.shootTowardsMouse = function (speed) {
 
     var newLength = Number(spriteArray.length - 1);
     spriteArray[newLength].addEvent('destroy', spriteArray[newLength].contact);
-
-};
-
-/** Add a behaviour (e.g. turret) to a given object
- *
- * @param behaviourFunction
- * @param parameter1
- * @param parameter2
- * @param parameter3
- */
-
-Body.prototype.addBehaviour = function (behaviourFunction, parameter1, parameter2, parameter3) {
-
-    var parameters = [];
-    var behaviour = {};
-
-    if (parameter1) {
-        parameters.push(parameter1);
-        if (parameter2) {
-            parameters.push(parameter2);
-            if (parameter3) {
-                parameters.push(parameter3);
-            }
-        }
-    }
-    behaviour.targetFunction = behaviourFunction;
-    behaviour.parameters = parameters;
-
-    this.behaviours.push(behaviour);
-
-};
-
-/** Remove a behaviour from a given object
- *
- * @param behaviourFunction
- */
-
-Body.prototype.removeBehaviour = function (behaviourFunction) {
-
-    var indexNo = this.behaviours.indexOf(behaviourFunction);
-    if (indexNo !== -1) {
-        this.behaviours.splice(indexNo, 1);
-    }
-
-};
-
-/** Execute any object behaviours
- *
- */
-Body.prototype.executeBehaviours = function () {
-
-    for (var i = 0; i < this.behaviours.length; i++) {
-
-        this.targetFunction = this.behaviours[i].targetFunction;
-
-        if (this.behaviours[i].parameters.length >= 3) {
-            this.targetFunction(this.behaviours[i].parameters[0], this.behaviours[i].parameters[1], this.behaviours[i].parameters[2]);
-        }
-        else if (this.behaviours[i].parameters.length == 2) {
-            this.targetFunction(this.behaviours[i].parameters[0], this.behaviours[i].parameters[1]);
-        }
-        else if (this.behaviours[i].parameters.length == 1) {
-            this.targetFunction(this.behaviours[i].parameters[0]);
-        }
-        else {
-            this.targetFunction();
-        }
-    }
 
 };
