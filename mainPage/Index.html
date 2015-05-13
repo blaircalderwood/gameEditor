@@ -52,11 +52,11 @@
 
     <div style="height: 90%; width: 100%; overflow-x: auto">
         <ul data-role="listview" id="eventsList" data-filter="true" data-filter-placeholder="Search Events"
-            style="font-size: small">
+            style="font-size: small" class="interfaceList">
         </ul>
     </div>
 
-    <ul data-role="listview" style="position: absolute; bottom: 2%; width: 100%;">
+    <ul data-role="listview" style="position: absolute; bottom: 2%; width: 100%;" class="interfaceList">
         <li data-icon="plus"><a onclick="showListenerElements()">Add New Event</a></li>
     </ul>
 
@@ -72,7 +72,7 @@
             </ul>
         </div>
         <ul data-role="listview" id="elementList" data-filter="true"
-            data-filter-placeholder="Search Elements" data-mini="true"></ul>
+            data-filter-placeholder="Search Elements" data-mini="true" class="interfaceList"></ul>
     </div>
     <div class="rightMenuItem">
 
@@ -85,7 +85,7 @@
         </div>
         <div data-role="content" id="worldSettings">
             <ul data-role="listview" id="settingsList" data-filter="true"
-                data-filter-placeholder="Search Settings" data-mini="true">
+                data-filter-placeholder="Search Settings" data-mini="true" class="interfaceList">
 
                 <li><label for="worldGravSetX">World Gravity X (m/s/s)</label><input type="number" id="worldGravSetX"
                                                                                      data-mini="true"
@@ -102,7 +102,7 @@
 
         <div data-role="content" id="elementSettings">
             <ul data-role="listview" id="elementSettingsList" data-filter="true"
-                data-filter-placeholder="Search Settings">
+                data-filter-placeholder="Search Settings" class="interfaceList">
 
                 <li><label for="staticCheck">Static</label><input id="staticCheck" type="checkbox"
                                                                   onchange="changeType()"></li>
@@ -182,14 +182,14 @@
     <div class="ui-grid-a" data-role="content">
         <div class="ui-block-a" style="width: 50%">
             <ul data-role="listview" id="addEventListener" data-filter="true"
-                data-filter-placeholder="Search Listener Elements" data-theme="a" style="overflow-x: auto;">
+                data-filter-placeholder="Search Listener Elements" data-theme="a" style="overflow-x: auto;" class="interfaceList">
                 <li><a>No game elements to display</a></li>
             </ul>
         </div>
 
         <div class="ui-block-b" style="width: 50%">
             <ul data-role="listview" id="addEventTask" data-filter="true"
-                data-filter-placeholder="Search Listener Tasks" data-theme="b" style="overflow-y: auto">
+                data-filter-placeholder="Search Listener Tasks" data-theme="b" style="overflow-y: auto" class="interfaceList">
                 <li><a>Select an element to continue</a></li>
 
             </ul>

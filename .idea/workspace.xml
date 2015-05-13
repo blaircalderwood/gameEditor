@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2a747012-de30-46eb-850b-4c129a7b349a" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Tutorials/demoImages/addGroups1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Tutorials/demoImages/createEvent1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Tutorials/demoImages/createEvent2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Tutorials/demoImages/eventCreator1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Tutorials/demoImages/eventCreator2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Tutorials/demoImages/eventCreator3.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Tutorials/demoImages/settings1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Tutorials/demoImages/settings2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Tutorials/demoImages/spriteEditor1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Tutorials/demoImages/spriteEditor2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/B00221116.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Tutorials/prettify-jsdoc.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Tutorials/prettify-tomorrow.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/Game Engine.js" afterPath="$PROJECT_DIR$/Engine/Game Engine.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/Index.html" afterPath="$PROJECT_DIR$/mainPage/Index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/Interface.js" afterPath="$PROJECT_DIR$/mainPage/Interface.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/UIStyles.css" afterPath="$PROJECT_DIR$/UIStyles.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/canvasElementPrototypes.js" afterPath="$PROJECT_DIR$/mainPage/canvasElementPrototypes.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/eventHandling.js" afterPath="$PROJECT_DIR$/mainPage/eventHandling.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gameEditor.iml" afterPath="$PROJECT_DIR$/.idea/gameEditor.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generalFunctions.js" afterPath="$PROJECT_DIR$/generalFunctions.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tutorials/index.html" afterPath="$PROJECT_DIR$/Tutorials/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/inputOutput.js" afterPath="$PROJECT_DIR$/Engine/inputOutput.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/physicsPrototypes.js" afterPath="$PROJECT_DIR$/Engine/physicsPrototypes.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+    </list>
+    <ignored path="gameEditor.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="gameEditor" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="gh-pages" />
+      </map>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/Engine/testGame.js" />
+        <option value="$PROJECT_DIR$/spriteEditor/canvasDrawing.html" />
+        <option value="$PROJECT_DIR$/spriteEditor/drawingCanvas.js" />
+        <option value="$PROJECT_DIR$/spriteEditor/UIStyles.css" />
+        <option value="$PROJECT_DIR$/mainPage/spriteHandling.js" />
+        <option value="$PROJECT_DIR$/Engine/fpsMeter.js" />
+        <option value="$PROJECT_DIR$/API/global.html" />
+        <option value="$PROJECT_DIR$/API/mainCode/global.html" />
+        <option value="$PROJECT_DIR$/mainPage/inputOutput.js" />
+        <option value="$PROJECT_DIR$/Engine/index.html" />
+        <option value="$PROJECT_DIR$/UIStyles.css" />
+        <option value="$PROJECT_DIR$/mainPage/Index.html" />
+        <option value="$PROJECT_DIR$/generalFunctions.js" />
+        <option value="$PROJECT_DIR$/Engine/Game Engine.js" />
+        <option value="$PROJECT_DIR$/mainPage/Interface.js" />
+        <option value="$PROJECT_DIR$/Engine/inputOutput.js" />
+        <option value="$PROJECT_DIR$/mainPage/canvasElementPrototypes.js" />
+        <option value="$PROJECT_DIR$/mainPage/eventHandling.js" />
+        <option value="$PROJECT_DIR$/Engine/physicsPrototypes.js" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+  </component>
+  <component name="NamedScopeManager">
+    <order />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gameEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gameEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gameEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gameEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gameEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Tutorials" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gameEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gameEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="spriteEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gameEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gameEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mainPage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gameEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gameEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Images" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gameEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gameEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Engine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="FullScreen" value="false" />
+    <property name="DefaultHtmlFileTemplate" value="Html5" />
+    <property name="last_opened_file_path" value="H:/Users/Blair/Chrome Downloads/jsdoc-master/jsdoc-master/jsdoc.js" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="296" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="296" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="298" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="966" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="297" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="295" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="298" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="966" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
+    <property name="SearchEverywhereHistoryKey" value="dest&#9;null&#9;null&#10;addCo&#9;null&#9;null&#10;contact&#9;null&#9;null&#10;rota&#9;null&#9;null&#10;shoot&#9;null&#9;null&#10;showB&#9;null&#9;null&#10;hideB&#9;null&#9;null&#10;showBe&#9;null&#9;null&#10;copy&#9;null&#9;null&#10;copyObj&#9;null&#9;null&#10;list&#9;null&#9;null&#10;mouseMoveLi&#9;null&#9;null&#10;mouseMoveL&#9;null&#9;null&#10;addEv&#9;null&#9;null&#10;addEven&#9;null&#9;null&#10;addEve&#9;null&#9;null&#10;showW&#9;null&#9;null&#10;checkK&#9;null&#9;null&#10;red&#9;null&#9;null&#10;canvasG&#9;null&#9;null&#10;showLis&#9;null&#9;null&#10;createList&#9;null&#9;null&#10;showWi&#9;null&#9;null&#10;loadIn&#9;null&#9;null&#10;showEle&#9;null&#9;null&#10;elementList&#9;null&#9;null&#10;mouseJoint&#9;null&#9;null" />
+    <property name="settings.editor.selected.configurable" value="tasks.servers" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Blair\Webstorm Projects\gameEditor" />
+      <recent name="C:\Users\Blair\Webstorm Projects\gameEditor\API" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Blair\Webstorm Projects\gameEditor\Engine" />
+      <recent name="C:\Users\Blair\Webstorm Projects\gameEditor\API\mainCode" />
+      <recent name="C:\Users\Blair\Webstorm Projects\gameEditor\API" />
+      <recent name="C:\Users\Blair\Webstorm Projects\generalFunctions" />
+      <recent name="C:\Users\Blair\Webstorm Projects\gameEditor\" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="JsTestDriver-test-runner" factoryName="JsTestDriver">
+      <setting name="configLocationType" value="CONFIG_FILE" />
+      <setting name="settingsFile" value="" />
+      <setting name="serverType" value="INTERNAL" />
+      <setting name="preferredDebugBrowser" value="Chrome" />
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" value="" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <pass-parent-envs>true</pass-parent-envs>
+      <envs />
+      <method />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2a747012-de30-46eb-850b-4c129a7b349a" name="Default" comment="" />
+      <created>1426100226933</created>
+      <option name="number" value="Default" />
+      <updated>1426100226933</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Merged from main branch. Event system changes">
+      <created>1426103418382</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1426103418382</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Image upload now automatically resized to canvas size.">
+      <created>1426106858148</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1426106858148</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Image upload now automatically resized to canvas size.">
+      <created>1426106943586</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1426106943586</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Image upload now automatically resized to canvas size.">
+      <created>1426107168797</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1426107168797</updated>
+    </task>
+    <task id="LOCAL-00005" summary="gh-pages commit">
+      <created>1426449833662</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1426449833662</updated>
+    </task>
+    <task id="LOCAL-00006" summary="gh-pages fix">
+      <created>1426450956779</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1426450956779</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Optimised event string creation">
+      <created>1427051694141</created>
+      <option name="number" value="00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1427051694141</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Fixed drawing canvas resize issue">
+      <created>1427205812474</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1427205812474</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Drawing canvas now resets on exit">
+      <created>1427206690241</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1427206690241</updated>
+    </task>
+    <task id="LOCAL-00010" summary="ECS parameters labels and input types implemented">
+      <created>1427208683193</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1427208683193</updated>
+    </task>
+    <task id="LOCAL-00011" summary="ECS parameter selection now includes support for lists. Automatic filling of ECS parameter lists with canvas elements also supported.">
+      <created>1427211871961</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1427211871961</updated>
+    </task>
+    <task id="LOCAL-00012" summary="ECS parameter selection now includes support for lists. Automatic filling of ECS parameter lists with canvas elements also supported.">
+      <created>1427213918205</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1427213918205</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Added index file for future pages commits">
+      <created>1427213995926</created>
+      <option name="number" value="00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1427213995926</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Canvas elements parameters now functional">
+      <created>1427217446383</created>
+      <option name="number" value="00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1427217446383</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Rotate towards point now working via ECS">
+      <created>1427287161586</created>
+      <option name="number" value="00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1427287161586</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Collision detection implemented in game engine - needs tied to interface.">
+      <created>1427295030090</created>
+      <option name="number" value="00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1427295030090</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Collision detection tied to interface. Collision detection for specific pairs of objects still to be implemented.">
+      <created>1427297808931</created>
+      <option name="number" value="00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1427297808931</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Bounce off walls setting implemented">
+      <created>1427822548451</created>
+      <option name="number" value="00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1427822548451</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Event Creation lists no longer overlap">
+      <created>1428498724170</created>
+      <option name="number" value="00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1428498724170</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Split interface js files up into more manageable chunks">
+      <created>1428500224679</created>
+      <option name="number" value="00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1428500224679</updated>
+    </task>
+    <task id="LOCAL-00021" summary="All sprite elements drawn now have transparent backgrounds">
+      <created>1428504504110</created>
+      <option name="number" value="00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1428504504111</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Rectified problem with mouse events">
+      <created>1428506849112</created>
+      <option name="number" value="00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1428506849113</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Move towards mouse accuracy improved">
+      <created>1428510636126</created>
+      <option name="number" value="00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1428510636127</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Added group tab to elements list">
+      <created>1428587680634</created>
+      <option name="number" value="00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1428587680634</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Fixed canvas resizing issue">
+      <created>1428588076899</created>
+      <option name="number" value="00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1428588076899</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Started work on more efficient html display technique for event creation system">
+      <created>1428614280812</created>
+      <option name="number" value="00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1428614280812</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Event creation system display problem fixed">
+      <created>1428670826547</created>
+      <option name="number" value="00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1428670826547</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Fixed issue with event creation parameters">
+      <created>1428674399626</created>
+      <option name="number" value="00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1428674399626</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Add New Element and Add New Group buttons inserted into respective right hand side lists">
+      <created>1428677846163</created>
+      <option name="number" value="00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1428677846163</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Added collapsible lists for each group">
+      <created>1428683605571</created>
+      <option name="number" value="00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1428683605571</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Groups list display problem fixed">
+      <created>1429452022044</created>
+      <option name="number" value="00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1429452022044</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Event Creation System can now show groups of elements">
+      <created>1429454918388</created>
+      <option name="number" value="00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1429454918388</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Elements now added to groups upon checkbox selection">
+      <created>1429461214983</created>
+      <option name="number" value="00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1429461214983</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Started work on grouped element event creation">
+      <created>1429471344971</created>
+      <option name="number" value="00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1429471344971</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Grouped element events improvement">
+      <created>1429737675329</created>
+      <option name="number" value="00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1429737675329</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Placed createList in the General Functions file">
+      <created>1430231386853</created>
+      <option name="number" value="00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1430231386853</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Updated for GH-Pages">
+      <created>1430309722835</created>
+      <option name="number" value="00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1430309722835</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Started work on gamepad implementation">
+      <created>1430677033460</created>
+      <option name="number" value="00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1430677033460</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Gamepad buttons working and fully implemented into interface">
+      <created>1430744361428</created>
+      <option name="number" value="00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1430744361428</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Fixed Sprite Editor resizing issue">
+      <created>1431002732761</created>
+      <option name="number" value="00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1431002732761</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Fixed Sprite Editor window resizing issue">
+      <created>1431013363982</created>
+      <option name="number" value="00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1431013363982</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Created Copy Object function">
+      <created>1431027986917</created>
+      <option name="number" value="00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1431027986917</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Fully implemented Copy Object function in interface">
+      <created>1431036120070</created>
+      <option name="number" value="00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1431036120070</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Implemented Shoot function">
+      <created>1431186941373</created>
+      <option name="number" value="00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1431186941373</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Fixed issue with Rotate Towards Mouse function">
+      <created>1431193348478</created>
+      <option name="number" value="00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1431193348478</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Shoot Towards Mouse now fully implemented">
+      <created>1431205054723</created>
+      <option name="number" value="00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1431205054723</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Any Key Down, Any Key Up and Stop Object functions fully implemented">
+      <created>1431269576508</created>
+      <option name="number" value="00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1431269576508</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13322802" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30378377" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3284974" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901832" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Move towards mouse accuracy improved" />
+    <MESSAGE value="Added group tab to elements list" />
+    <MESSAGE value="Fixed canvas resizing issue" />
+    <MESSAGE value="Started work on more efficient html display technique for event creation system" />
+    <MESSAGE value="Event creation system display problem fixed" />
+    <MESSAGE value="Fixed issue with event creation parameters" />
+    <MESSAGE value="Add New Element and Add New Group buttons inserted into respective right hand side lists" />
+    <MESSAGE value="Added collapsible lists for each group" />
+    <MESSAGE value="Groups list display problem fixed" />
+    <MESSAGE value="Event Creation System can now show groups of elements" />
+    <MESSAGE value="Elements now added to groups upon checkbox selection" />
+    <MESSAGE value="Started work on grouped element event creation" />
+    <MESSAGE value="Grouped element events improvement" />
+    <MESSAGE value="Placed createList in the General Functions file" />
+    <MESSAGE value="Updated for GH-Pages" />
+    <MESSAGE value="Started work on gamepad implementation" />
+    <MESSAGE value="Gamepad buttons working and fully implemented into interface" />
+    <MESSAGE value="Fixed Sprite Editor resizing issue" />
+    <MESSAGE value="Fixed Sprite Editor window resizing issue" />
+    <MESSAGE value="Created Copy Object function" />
+    <MESSAGE value="Fully implemented Copy Object function in interface" />
+    <MESSAGE value="Implemented Shoot function" />
+    <MESSAGE value="Fixed issue with Rotate Towards Mouse function" />
+    <MESSAGE value="Shoot Towards Mouse now fully implemented" />
+    <MESSAGE value="Any Key Down, Any Key Up and Stop Object functions fully implemented" />
+    <option name="LAST_COMMIT_MESSAGE" value="Any Key Down, Any Key Up and Stop Object functions fully implemented" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/../web-games-dev/API/scripts/prettify/lang-css.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../web-games-dev/API/mainCode/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.0">
+          <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../web-games-dev/API/mainCode/global.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.055859804">
+          <caret line="3" column="26" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/scopes/scope_settings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

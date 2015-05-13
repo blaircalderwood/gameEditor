@@ -285,10 +285,6 @@ Body.prototype.SetAirFriction = function (friction, angularDamping) {
 
 };
 
-Body.prototype.stop = function(){
-    this.body.SetLinearVelocity(new b2Vec2(0, 0));
-};
-
 /** Set maximum object speed
  *
  * @param threshold
@@ -453,6 +449,35 @@ Body.prototype.copyObject = function(x, y){
         }
     }
 
+};
+
+Body.prototype.posFromServer = function(serverURL){
+
+    console.log(this.body);
+
+    var newBody = this;
+
+    generalFunctions.getAjax(serverURL + "getPos?objectID=" + spriteArray.indexOf(this), function(data){
+
+        if(data !== "Object not found") {
+
+            data = JSON.parse(data);
+            console.log(Number(data.x));
+            newBody.body.SetPosition(new b2Vec2(Number(data.x), Number(data.y)));
+            //this.body.SetPosition(Number(data.y));
+
+        }
+        console.log(data);
+
+    })
+
+};
+
+Body.prototype.posToServer = function(serverURL){
+
+    generalFunctions.getAjax(serverURL + "putPos?objectID=" + spriteArray.indexOf(this) + "&x=" + this.body.GetWorldCenter().x + "&y=" + this.body.GetWorldCenter().y, function(data){
+        console.log(data);
+    });
 };
 
 /** Default body prototype values for use if no detail is given

@@ -18,9 +18,7 @@ var backgroundCanvas, mainCanvas,
     keyboard = {
         events: [], elementName: "Keyboard", listenerEvents: [
             {elementName: "Key Down", targetFunction: "keyDown", parameters: [{label: "Key", inputType: "keyList"}]},
-            {elementName: "Any Key Down", targetFunction: "anyKeyDown"},
-            {elementName: "Key Up", targetFunction: "keyUp", parameters: [{label: "Key", inputType: "keyList"}]},
-            {elementName: "Any Key Up", targetFunction: "anyKeyUp"}
+            {elementName: "Key Up", targetFunction: "keyUp", parameters: [{label: "Key", inputType: "keyList"}]}
         ]
     },
     gamepad = {

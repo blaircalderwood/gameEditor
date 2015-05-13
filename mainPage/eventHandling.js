@@ -214,7 +214,7 @@ function compileEvent() {
         console.log(newEvent);
     }
 
-    else if (eventCompiler.eventListener.targetFunction == "keyDown" || eventCompiler.eventListener.targetFunction == "keyUp") {
+    else if (eventCompiler.listenerElement.elementName == "Keyboard") {
         newEvent += "addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "','" + this.engineFunction + "'";
     }
 

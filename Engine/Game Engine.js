@@ -9,13 +9,13 @@ var physicsEnabled = true, engineStarted = false;
 
 var FPS = {average: [], iterations: 0, recording: false, frameCounter: 0};
 
-/** Creates a new in-game element which can be altered programatically
+/** Creates a new in-game canvas element
  *
- * @param DOMElement
- * @param x
- * @param y
- * @param width
- * @param height
+ * @param DOMElement - The canvas to be loaded
+ * @param x - The canvas' X coordinate
+ * @param y - The canvas' Y coordinate
+ * @param width - The canvas' width
+ * @param height - The canvas' height
  * @constructor
  */
 
@@ -50,6 +50,11 @@ window.onload = function () {
     redraw();
 
 };
+
+/**Records the FPS over 30 seconds and displays in the console. Used for testing purposes
+ *
+ * @param repeat - Set to true if the recording should continue after first display
+ */
 
 FPS.recordFPS = function (repeat) {
 
@@ -154,7 +159,7 @@ function physicsLoop() {
 
 /** Load all required images
  *
- * @returns {boolean}
+ * @returns {boolean} - Returns true if all images are loaded
  */
 
 function imagesLoaded() {
@@ -190,6 +195,11 @@ function imagesLoaded() {
     }
 }
 
+/** Start the game engine when all game images have finished loading
+ *
+ * @param images - Array of loaded images
+ */
+
 function finishedImageLoad(images) {
 
     for (var i = 0; i < images.length; i++) {
@@ -207,14 +217,14 @@ function finishedImageLoad(images) {
 
 /** Execute all associated functions when a particular event happens
  *
- * @param listeningFunction
+ * @param listeningFunction - Function that has just been executed
  */
 
 function listen(listeningFunction) {
 
     if (listeningFunction.functions) {
         for (var i = 0; i < listeningFunction.functions.length; i++) {
-            listeningFunction.functions[i].apply(listeningFunction.elements[i], listeningFunction.functions[i].parameterArray);
+            listeningFunction.functions[i].apply(listeningFunction.elements[i], [listeningFunction.functions[i].parameterArray]);
             //listeningFunction.functions[i](listeningFunction.functions[i].parameterArray);
         }
     }
@@ -267,8 +277,6 @@ Body.prototype.addEvent = function (targetFunction, listener, parameterArray) {
 
 };
 
-//TO DO: Support for shift, enter etc.
-
 /** Add an event that is trigger when a keyboard key is pressed
  *
  * @param key
@@ -294,6 +302,12 @@ Body.prototype.addKeyDownEvent = function (key, targetFunction, parameterArray) 
 Body.prototype.addKeyUpEvent = function (key, targetFunction, parameterArray) {
     controlReleasedArray.push(addKey.apply(this, [key, targetFunction, parameterArray, controlArray]));
 };
+
+/** Add an event that is called upon a collision between two objects
+ *
+ * @param targetFunction
+ * @param parameterArray
+ */
 
 Body.prototype.addCollisionEvent = function (targetFunction, parameterArray) {
 
