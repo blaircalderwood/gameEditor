@@ -480,6 +480,24 @@ Body.prototype.posToServer = function(serverURL){
     });
 };
 
+Body.prototype.posFromServer = function(serverURL){
+
+    generalFunctions.getAjax(serverURL + "/getPos?objectId=" + spriteArray.indexOf(this), function(data){
+
+        this.body.x = data.x;
+        this.body.y = data.y;
+
+    })
+
+};
+
+Body.prototype.posToServer = function(serverURL){
+
+    generalFunctions.getAjax(serverURL + "/putPos?objectId=" + spriteArray.indexOf(this) + "&x=" + this.body.x + "&y=" + this.body.y, function(data){
+        console.log("Position submitted to server");
+    });
+};
+
 /** Default body prototype values for use if no detail is given
  *
  * @type {{shape: string, width: number, height: number, radius: number}}
