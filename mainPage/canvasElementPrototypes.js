@@ -123,8 +123,9 @@ CanvasElement.prototype.dropElement = function () {
         this.elementClicked();
     }
 
-    if (canvasRects.length > 0)this.showBehaviourBar(this.behaviours);
-    else hideBehaviourBar();
+    //Behaviour bar not fully implemented
+    /*if (canvasRects.length > 0)this.showBehaviourBar(this.behaviours);
+    else hideBehaviourBar();*/
 
 };
 
