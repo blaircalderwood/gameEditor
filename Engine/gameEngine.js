@@ -1,4 +1,4 @@
-var gameElementsArray = [], canvasArray = [], spriteArray = [],
+var canvasArray = [], spriteArray = [],
     eventsArray = [], pressedKeysArray = [], releasedKeysArray = [], destroyArray = [], controlArray = [], gamepadArray = [],
     controlReleasedArray = [];
 var exampleCanvas, backgroundCanvas, physicsCanvas, gamepadConnected = false;
@@ -82,8 +82,6 @@ FPS.recordFPS = function (repeat) {
  */
 
 var startEngine = function () {
-
-    createMouseJoint();
 
     engineStarted = true;
 
@@ -233,9 +231,9 @@ function listen(listeningFunction) {
 
 /** Add an event to an in game object. This event will execute a given function when certain criteria is satisfied (e.g. a mouse click)
  *
- * @param targetFunction
- * @param listener
- * @param parameterArray
+ * @param targetFunction - Function to execute
+ * @param listener - Execute target function when this function is called
+ * @param parameterArray - Array of parameters to pass into target function
  */
 
 Body.prototype.addEvent = function (targetFunction, listener, parameterArray) {
@@ -279,9 +277,9 @@ Body.prototype.addEvent = function (targetFunction, listener, parameterArray) {
 
 /** Add an event that is trigger when a keyboard key is pressed
  *
- * @param key
- * @param targetFunction
- * @param parameterArray
+ * @param key - Execute the target function when this key is pressed
+ * @param targetFunction - Function to execute
+ * @param parameterArray - Array of parameters to pass into target function
  */
 
 Body.prototype.addKeyDownEvent = function (key, targetFunction, parameterArray) {
@@ -294,9 +292,9 @@ Body.prototype.addKeyDownEvent = function (key, targetFunction, parameterArray) 
 
 /** Add an event that is triggered when a keyboard key is released
  *
- * @param key
- * @param targetFunction
- * @param parameterArray
+ * @param key - Execute the target function when this key is released
+ * @param targetFunction - Function to execute
+ * @param parameterArray - Array of parameters to pass into target function
  */
 
 Body.prototype.addKeyUpEvent = function (key, targetFunction, parameterArray) {
@@ -305,8 +303,8 @@ Body.prototype.addKeyUpEvent = function (key, targetFunction, parameterArray) {
 
 /** Add an event that is called upon a collision between two objects
  *
- * @param targetFunction
- * @param parameterArray
+ * @param targetFunction - Function to execute upon collision
+ * @param parameterArray - Array of parameters to pass into target function
  */
 
 Body.prototype.addCollisionEvent = function (targetFunction, parameterArray) {
@@ -330,8 +328,8 @@ Body.prototype.addCollisionEvent = function (targetFunction, parameterArray) {
 
 /** Check if a given object is currently within the bounds of the canvas
  *
- * @param targetCanvas
- * @returns {boolean}
+ * @param targetCanvas - Canvas in which the object is situated
+ * @returns {boolean} - True if the object is in bounds
  */
 
 Body.prototype.inBounds = function (targetCanvas) {

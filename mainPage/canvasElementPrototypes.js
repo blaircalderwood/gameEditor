@@ -1,5 +1,5 @@
 var spriteExecutors = [
-    {elementName: "Rotate", engineFunction: "rotate"},
+    {elementName: "Stop", engineFunction: "stop"},
     {elementName: "Move Left", engineFunction: "moveLeft", parameters: [
         {label: "Speed (m/s)", inputType: "number"}
     ]},

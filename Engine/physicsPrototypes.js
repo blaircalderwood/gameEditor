@@ -31,7 +31,7 @@ var Physics = window.Physics = function (element, scale) {
 
 /** Called every frame to execute all relevant physics events
  *
- * @param dt
+ * @param dt - Frame rate
  */
 
 Physics.prototype.step = function (dt) {
@@ -79,7 +79,7 @@ Physics.prototype.step = function (dt) {
 
 /** Get point in game world when canvas is clicked
  *
- * @param callback
+ * @param callback - Function to execute upon click
  */
 
 Physics.prototype.click = function (callback) {
@@ -151,6 +151,10 @@ Physics.prototype.debug = function () {
     this.world.SetDebugDraw(this.debugDraw);
 
 };
+
+/**Add the ability to bounce off canvas walls
+ *
+ */
 
 Physics.prototype.addScreenBounds = function(){
 
@@ -232,7 +236,16 @@ var Body = window.Body = function (physics, details) {
 
 };
 
+/**Check for object contact - added to allow proper event handling
+ *
+ */
+
 Body.prototype.contact = function(){};
+
+/** Check for any in game collisions between objects
+ *
+ * @param collidingObject - Colliding object to check
+ */
 
 Body.prototype.checkCollisions = function(collidingObject){
 
@@ -256,6 +269,9 @@ Body.prototype.checkCollisions = function(collidingObject){
     }
 
 };
+/**Check for object collision - added to allow proper event handling
+ *
+ */
 
 Body.prototype.collision = function(){
 
@@ -265,8 +281,8 @@ Body.prototype.collision = function(){
 
 /** Set friction for use in top down games
  *
- * @param friction
- * @param angularDamping
+ * @param friction - New friction value
+ * @param angularDamping - Value of rotational friction
  * @constructor
  */
 
@@ -287,7 +303,7 @@ Body.prototype.SetAirFriction = function (friction, angularDamping) {
 
 /** Set maximum object speed
  *
- * @param threshold
+ * @param threshold - Maximum speed
  * @constructor
  */
 
@@ -311,7 +327,7 @@ Body.prototype.SetMovementThreshold = function (threshold) {
 
 /** Set maximum object rotation
  *
- * @param threshold
+ * @param threshold - Maximum rotation speed
  * @constructor
  */
 
@@ -333,7 +349,7 @@ Body.prototype.SetAngularThreshold = function (threshold) {
 
 /** Move an object left
  *
- * @param velocity
+ * @param velocity - Speed of new object movement
  */
 
 Body.prototype.moveLeft = function (velocity) {
