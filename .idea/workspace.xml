@@ -1,102 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2a747012-de30-46eb-850b-4c129a7b349a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/fonts/OpenSans-Bold-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Bold-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/fonts/OpenSans-Bold-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Bold-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/fonts/OpenSans-BoldItalic-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-BoldItalic-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/fonts/OpenSans-BoldItalic-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-BoldItalic-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/fonts/OpenSans-Italic-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Italic-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/fonts/OpenSans-Italic-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Italic-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/fonts/OpenSans-Light-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Light-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/fonts/OpenSans-Light-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Light-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/fonts/OpenSans-LightItalic-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-LightItalic-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/fonts/OpenSans-LightItalic-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-LightItalic-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/fonts/OpenSans-Regular-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Regular-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/fonts/OpenSans-Regular-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Regular-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/scripts/prettify/Apache-License-2.0.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/scripts/prettify/Apache-License-2.0.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/Game Engine/CanvasElement.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/canvasElementPrototypes/CanvasElement.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/canvasElementPrototypes/CanvasGroup.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/interface/CanvasRectangle.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/fonts/OpenSans-Bold-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Bold-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/fonts/OpenSans-BoldItalic-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-BoldItalic-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/fonts/OpenSans-Italic-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Italic-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/fonts/OpenSans-Light-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Light-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/fonts/OpenSans-LightItalic-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-LightItalic-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/fonts/OpenSans-Regular-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/fonts/OpenSans-Regular-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/drawingCanvas/Selected.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/canvasElementPrototypes/canvasElementPrototypes.js.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/drawingCanvas/drawingCanvas.js.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/eventHandling/eventHandling.js.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/Game Engine/gameEngine.js.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/generalFunctions/generalFunctions.js.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/Game Engine/global.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/canvasElementPrototypes/global.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/drawingCanvas/global.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/eventHandling/global.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/generalFunctions/global.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/inputOutput/global.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/interface/global.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/mainPageInputOutput/global.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/spriteHandling/global.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/global.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/Game Engine/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/canvasElementPrototypes/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/drawingCanvas/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/eventHandling/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/generalFunctions/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/inputOutput/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/interface/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/mainPageInputOutput/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/spriteHandling/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/inputOutput/inputOutput.js.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/mainPageInputOutput/inputOutput.js.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/interface/interface.js.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/styles/jsdoc-default.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/styles/jsdoc-default.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/scripts/prettify/lang-css.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/scripts/prettify/lang-css.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/scripts/linenumber.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/scripts/linenumber.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/styles/prettify-jsdoc.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/styles/prettify-jsdoc.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/styles/prettify-tomorrow.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/styles/prettify-tomorrow.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/scripts/prettify/prettify.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/scripts/prettify/prettify.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API/spriteHandling/spriteHandling.js.html" />
-      <change type="DELETED" beforePath="C:\Users\Blair\Webstorm Projects\gameEditor\Engine\testGame.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/Interface.js" afterPath="$PROJECT_DIR$/mainPage/Interface.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/canvasElementPrototypes.js" afterPath="$PROJECT_DIR$/mainPage/canvasElementPrototypes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spriteEditor/drawingCanvas.js" afterPath="$PROJECT_DIR$/spriteEditor/drawingCanvas.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/eventHandling.js" afterPath="$PROJECT_DIR$/mainPage/eventHandling.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generalFunctions.js" afterPath="$PROJECT_DIR$/generalFunctions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tutorials/index.html" afterPath="$PROJECT_DIR$/Tutorials/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/inputOutput.js" afterPath="$PROJECT_DIR$/mainPage/inputOutput.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Engine/physicsPrototypes.js" afterPath="$PROJECT_DIR$/Engine/physicsPrototypes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPage/spriteHandling.js" afterPath="$PROJECT_DIR$/mainPage/spriteHandling.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    <list default="true" id="2a747012-de30-46eb-850b-4c129a7b349a" name="Default" comment="Removed behaviour bar functionality">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spriteEditor/canvasDrawing.html" afterPath="$PROJECT_DIR$/spriteEditor/canvasDrawing.html" />
     </list>
     <ignored path="gameEditor.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -120,8 +26,18 @@
       <file leaf-file-name="canvasElementPrototypes.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mainPage/canvasElementPrototypes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="232" column="0" selection-start-line="232" selection-start-column="0" selection-end-line="232" selection-end-column="0" />
+            <state vertical-scroll-proportion="-13.153846">
+              <caret line="128" column="0" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="canvasDrawing.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/spriteEditor/canvasDrawing.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.44788086">
+              <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -130,11 +46,9 @@
       <file leaf-file-name="generalFunctions.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generalFunctions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-18.538462">
+            <state vertical-scroll-proportion="0.0">
               <caret line="200" column="44" selection-start-line="200" selection-start-column="44" selection-end-line="200" selection-end-column="44" />
-              <folding>
-                <marker date="1431511527235" expanded="true" signature="1411:1442" placeholder="..." />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -142,19 +56,42 @@
       <file leaf-file-name="generalFunctions.js.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/API/generalFunctions/generalFunctions.js.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-19.192308">
+            <state vertical-scroll-proportion="0.0">
               <caret line="252" column="6" selection-start-line="17" selection-start-column="0" selection-end-line="252" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/API/generalFunctions/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.38946164">
+            <state vertical-scroll-proportion="-0.0">
               <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mainPage/Index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-4.576923">
+              <caret line="7" column="50" selection-start-line="7" selection-start-column="50" selection-end-line="7" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Interface.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mainPage/Interface.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-11.192307">
+              <caret line="40" column="16" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="16" />
+              <folding>
+                <marker date="1431511867159" expanded="true" signature="5614:5664" placeholder="..." />
+                <marker date="1431511867159" expanded="true" signature="11651:11682" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -181,7 +118,6 @@
       <list>
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/Engine/testGame.js" />
-        <option value="$PROJECT_DIR$/spriteEditor/canvasDrawing.html" />
         <option value="$PROJECT_DIR$/spriteEditor/UIStyles.css" />
         <option value="$PROJECT_DIR$/Engine/fpsMeter.js" />
         <option value="$PROJECT_DIR$/API/global.html" />
@@ -199,7 +135,6 @@
         <option value="$PROJECT_DIR$/Engine/physicsPrototypes.js" />
         <option value="$PROJECT_DIR$/API/physicsPrototypes/Body_SetAirFriction.html" />
         <option value="$PROJECT_DIR$/API/physicsPrototypes/index.html" />
-        <option value="$PROJECT_DIR$/mainPage/canvasElementPrototypes.js" />
         <option value="$PROJECT_DIR$/API/canvasElementPrototypes/CanvasElement.html" />
         <option value="$PROJECT_DIR$/API/canvasElementPrototypes/index.html" />
         <option value="$PROJECT_DIR$/Tutorials/index.html" />
@@ -221,6 +156,8 @@
         <option value="$PROJECT_DIR$/generalFunctions.js" />
         <option value="$PROJECT_DIR$/API/generalFunctions/generalFunctions.js.html" />
         <option value="$PROJECT_DIR$/API/generalFunctions/index.html" />
+        <option value="$PROJECT_DIR$/mainPage/canvasElementPrototypes.js" />
+        <option value="$PROJECT_DIR$/spriteEditor/canvasDrawing.html" />
       </list>
     </option>
   </component>
@@ -260,8 +197,8 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -277,6 +214,34 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="gameEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gameEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gameEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="spriteEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gameEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gameEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mainPage" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -320,7 +285,7 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="966" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
-    <property name="SearchEverywhereHistoryKey" value="dest&#9;null&#9;null&#10;addCo&#9;null&#9;null&#10;contact&#9;null&#9;null&#10;rota&#9;null&#9;null&#10;shoot&#9;null&#9;null&#10;showB&#9;null&#9;null&#10;hideB&#9;null&#9;null&#10;showBe&#9;null&#9;null&#10;copy&#9;null&#9;null&#10;copyObj&#9;null&#9;null&#10;list&#9;null&#9;null&#10;mouseMoveLi&#9;null&#9;null&#10;mouseMoveL&#9;null&#9;null&#10;addEv&#9;null&#9;null&#10;addEven&#9;null&#9;null&#10;addEve&#9;null&#9;null&#10;showW&#9;null&#9;null&#10;checkK&#9;null&#9;null&#10;red&#9;null&#9;null&#10;canvasG&#9;null&#9;null&#10;showLis&#9;null&#9;null&#10;createList&#9;null&#9;null&#10;showWi&#9;null&#9;null&#10;loadIn&#9;null&#9;null&#10;showEle&#9;null&#9;null&#10;elementList&#9;null&#9;null&#10;mouseJoint&#9;null&#9;null" />
+    <property name="SearchEverywhereHistoryKey" value="showBeh&#9;null&#9;null&#10;dest&#9;null&#9;null&#10;addCo&#9;null&#9;null&#10;contact&#9;null&#9;null&#10;rota&#9;null&#9;null&#10;shoot&#9;null&#9;null&#10;showB&#9;null&#9;null&#10;hideB&#9;null&#9;null&#10;showBe&#9;null&#9;null&#10;copy&#9;null&#9;null&#10;copyObj&#9;null&#9;null&#10;list&#9;null&#9;null&#10;mouseMoveLi&#9;null&#9;null&#10;mouseMoveL&#9;null&#9;null&#10;addEv&#9;null&#9;null&#10;addEven&#9;null&#9;null&#10;addEve&#9;null&#9;null&#10;showW&#9;null&#9;null&#10;checkK&#9;null&#9;null&#10;red&#9;null&#9;null&#10;canvasG&#9;null&#9;null&#10;showLis&#9;null&#9;null&#10;createList&#9;null&#9;null&#10;showWi&#9;null&#9;null&#10;loadIn&#9;null&#9;null&#10;showEle&#9;null&#9;null&#10;elementList&#9;null&#9;null&#10;mouseJoint&#9;null&#9;null" />
     <property name="settings.editor.selected.configurable" value="tasks.servers" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
@@ -387,12 +352,6 @@
       <created>1426100226933</created>
       <option name="number" value="Default" />
       <updated>1426100226933</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Image upload now automatically resized to canvas size.">
-      <created>1426106858148</created>
-      <option name="number" value="00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1426106858148</updated>
     </task>
     <task id="LOCAL-00003" summary="Image upload now automatically resized to canvas size.">
       <created>1426106943586</created>
@@ -682,32 +641,38 @@
       <option name="project" value="LOCAL" />
       <updated>1431507118870</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Removed behaviour bar functionality">
+      <created>1431511999245</created>
+      <option name="number" value="00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1431511999245</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13322802" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32864866" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30312836" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3284974" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32864866" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -722,7 +687,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fixed canvas resizing issue" />
     <MESSAGE value="Started work on more efficient html display technique for event creation system" />
     <MESSAGE value="Event creation system display problem fixed" />
     <MESSAGE value="Fixed issue with event creation parameters" />
@@ -747,18 +711,34 @@
     <MESSAGE value="Any Key Down, Any Key Up and Stop Object functions fully implemented" />
     <MESSAGE value="Added tutorials" />
     <MESSAGE value="Implemented any key down, any key up and stop functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented any key down, any key up and stop functions" />
+    <MESSAGE value="Removed behaviour bar functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed behaviour bar functionality" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Engine/gameEngine.js">
+    <entry file="file://$PROJECT_DIR$/API/generalFunctions/generalFunctions.js.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="252" column="6" selection-start-line="17" selection-start-column="0" selection-end-line="252" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/API/generalFunctions/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Engine/gameEngine.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -794,7 +774,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.3076923">
           <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -802,7 +781,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.576923">
           <caret line="7" column="60" selection-start-line="7" selection-start-column="60" selection-end-line="7" selection-end-column="60" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -810,7 +788,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-16.653847">
           <caret line="377" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="381" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -818,7 +795,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.15542857">
           <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -826,7 +802,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.067428574">
           <caret line="206" column="60" selection-start-line="206" selection-start-column="60" selection-end-line="206" selection-end-column="60" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -834,7 +809,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.26171428">
           <caret line="364" column="23" selection-start-line="364" selection-start-column="23" selection-end-line="364" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -842,7 +816,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.96114284">
           <caret line="248" column="0" selection-start-line="248" selection-start-column="0" selection-end-line="248" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -850,15 +823,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.576923">
           <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/Index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4857143">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -866,7 +830,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4089347">
           <caret line="21" column="7" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -874,7 +837,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="159" column="0" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -882,7 +844,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -890,7 +851,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -906,7 +866,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-10.692307">
           <caret line="239" column="52" selection-start-line="239" selection-start-column="52" selection-end-line="239" selection-end-column="52" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -914,7 +873,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.14318442">
           <caret line="211" column="0" selection-start-line="211" selection-start-column="0" selection-end-line="211" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -962,7 +920,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-9.384615">
           <caret line="356" column="31" selection-start-line="356" selection-start-column="31" selection-end-line="356" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -978,7 +935,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5715922">
           <caret line="160" column="6" selection-start-line="17" selection-start-column="0" selection-end-line="160" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -986,7 +942,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -994,7 +949,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.058419243">
           <caret line="3" column="26" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1002,9 +956,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="116" column="56" selection-start-line="116" selection-start-column="56" selection-end-line="116" selection-end-column="56" />
-          <folding>
-            <marker date="1431509168750" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1012,7 +964,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1020,7 +971,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.627451">
           <caret line="628" column="6" selection-start-line="17" selection-start-column="0" selection-end-line="628" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1028,7 +978,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="2.2228773">
           <caret line="601" column="0" selection-start-line="601" selection-start-column="0" selection-end-line="601" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1036,7 +985,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.60366553">
           <caret line="127" column="6" selection-start-line="17" selection-start-column="0" selection-end-line="127" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1044,7 +992,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1052,7 +999,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.26804122">
           <caret line="91" column="0" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1060,7 +1006,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.742268">
           <caret line="292" column="16" selection-start-line="292" selection-start-column="16" selection-end-line="292" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1068,7 +1013,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.35849056">
           <caret line="451" column="0" selection-start-line="451" selection-start-column="0" selection-end-line="451" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1076,15 +1020,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6214623">
           <caret line="463" column="6" selection-start-line="17" selection-start-column="0" selection-end-line="463" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/spriteEditor/drawingCanvas.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.730812">
-          <caret line="407" column="26" selection-start-line="407" selection-start-column="26" selection-end-line="407" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1096,38 +1031,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/Interface.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39488322">
-          <caret line="567" column="9" selection-start-line="567" selection-start-column="9" selection-end-line="567" selection-end-column="9" />
-          <folding>
-            <marker date="1431510024487" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1431510024487" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mainPage/canvasElementPrototypes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="232" column="0" selection-start-line="232" selection-start-column="0" selection-end-line="232" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/generalFunctions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.538462">
+        <state vertical-scroll-proportion="0.0">
           <caret line="200" column="44" selection-start-line="200" selection-start-column="44" selection-end-line="200" selection-end-column="44" />
-          <folding>
-            <marker date="1431511527235" expanded="true" signature="1411:1442" placeholder="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/API/generalFunctions/generalFunctions.js.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-19.192308">
+        <state vertical-scroll-proportion="0.0">
           <caret line="252" column="6" selection-start-line="17" selection-start-column="0" selection-end-line="252" selection-end-column="6" />
           <folding />
         </state>
@@ -1135,8 +1049,51 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/API/generalFunctions/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38946164">
+        <state vertical-scroll-proportion="-0.0">
           <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/Index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.576923">
+          <caret line="7" column="50" selection-start-line="7" selection-start-column="50" selection-end-line="7" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/Interface.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.192307">
+          <caret line="40" column="16" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="16" />
+          <folding>
+            <marker date="1431511867159" expanded="true" signature="5614:5664" placeholder="..." />
+            <marker date="1431511867159" expanded="true" signature="11651:11682" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mainPage/canvasElementPrototypes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.153846">
+          <caret line="128" column="0" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spriteEditor/drawingCanvas.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.84421533">
+          <caret line="426" column="8" selection-start-line="426" selection-start-column="4" selection-end-line="426" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spriteEditor/canvasDrawing.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.44788086">
+          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
           <folding />
         </state>
       </provider>
