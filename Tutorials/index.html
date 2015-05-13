@@ -17,54 +17,158 @@
 </head>
 <body>
 
-<div data-role="page" id="homePage" data-theme="a">
-
-    <div data-role="panel" id="menuPanel" data-position="left" data-display="push">
-        <ul data-role="listview" id="navigationMenu" data-theme="d">
-            <li><a href="#newObject">Creating a new object</a></li>
-            <li><a href="#changeSettings">Changing settings</a></li>
-            <li><a href="#addEvents">Adding events</a></li>
-            <li><a href="#createGroups">Creating groups</a></li>
-            <li><a href="#runGame">Running the game</a></li>
-            <li><a href="#multiplayer">Creating a multiplayer game</a></li>
-        </ul>
-    </div>
-
-    <div data-role="content" data-theme="b">
-    </div>
-</div>
-
 <div data-role="page" id="newObject" data-theme="a">
 
-    <div data-role="content" data-theme="b">
-        <p class="tutorialParagraph"> To create a new object you must open the Sprite Editor. This can be accessed in 
+    <div data-role="header"><a data-type="button" data-icon="arrow-circle-right" onclick="$('#menuPanel').panel('toggle')"></a></div>
+    <div data-role="content" data-theme="b" class="tutorialContent">
+
+        <h1>Creating an Object</h1>
+
+        <p class="tutorialParagraph"> To create a new object you must open the Sprite Editor. This can be accessed in
         three separate ways. You can access it from the toolbar at the top of the screen, from the Add New Element button
             in the elements list at the side of the screen or by right clicking and selecting Add New Element.</p>
-        
+
         <img src="demoImages/spriteEditor1.png">
 
         <p class="tutorialParagraph">When the Sprite Editor is on screen it will look similar to the image below. The
             toolbar towards the top of the Sprite Editor contains all of the tools that can be used to create images on
             the below drawing canvas. It also contains settings to fine tune these tools such as the colour of paint, the line width and the font size.</p>
 
+        <img src="demoImages/spriteEditor2.png">
+
+        <p class="tutorialParagraph">Any mistakes made can be rectified using the undo and redo buttons. If you wish to insert your own images
+            this can be done by selecting the Upload Image button in the toolbar. This will allow you to select an image
+            file from your computer. The image will be automatically resized to fit on the canvas when it is inserted</p>
+
+        <p class="tutorialParagraph"> When you wish to insert the new object into your game you can close the window.
+            A dialog box will then be displayed asking whether you want to save or delete the new object. If you wish to
+            save the editor will then ask you to name your new object. This is done to ensure that you distinguish
+            between objects in the elements list.</p>
         </div>
 
 </div>
-<div data-role="page" id="multiplayer" data-theme="a">
 
-    <div data-role="panel" data-position="left" data-display="push">
-        <ul data-role="listview" data-theme="d">
-            <li><a href="#multiplayer">Creating a multiplayer game</a></li>
-            <li><a>Catapult Game</a></li>
-            <li><a>Platform Game</a></li>
-        </ul>
+<div data-role="page" id="addEvents" data-theme="a">
+
+    <div data-role="header"><a data-type="button" data-icon="arrow-circle-right" onclick="$('#menuPanel').panel('toggle')"></a></div>
+
+    <div data-role="content" data-theme="b" class="tutorialContent">
+
+    <h1>Adding Events</h1>
+
+    <p class="tutorialParagraph">A game cannot consist of objects on their own. There needs to be some functionality and interaction between the
+        game and the player. This is where events come in. Events let you carry out specific tasks, such as moving an
+        object, each time an event occurs. For example, event could be one that occurs every time the mouse is moved or
+        every time a key is pressed.</p>
+
+    <p class="tutorialParagraph">To add a new event to the game you can either click on the Add New Event button situated
+    at the bottom left side of the screen or you can right click and select Add New Event.</p>
+
+    <img src="demoImages/createEvent1.png">
+
+        <h3>Adding the Event Listener</h3>
+
+        <p class="tutorialParagraph">The first list that you are presented with after opening the Event Creator is the listener object list. This
+        list contains all of the game's objects and other elements such as mouse, keyboard and gamepad. You can select
+        any element from this list to become your listener element. This will open another list specific to this element.
+        Here you can select a listener function.</p>
+
+        <img src="demoImages/eventCreator1.png">
+
+        <p class="tutorialParagraph">The listener function refers to an event that happens in game, such as the mouse being moved,
+        each time this event happens the event that is chosen in the next Event Creator screen will be executed.</p>
+
+        <h3>Adding the Event Executor</h3>
+
+        <p class="tutorialParagraph">A similar screen to the first is shown after you select an event listener. This is
+        the executor screen. It displays a list of all objects that contain executor functions. An executor function is one
+        that is carried out when some event listener criteria is satisfied. An example of this would be the selection of
+        Mouse Move as an event listener and Rotate Towards Mouse on a game object as an event executor. This would rotate
+        the given object to face towards the mouse each time the mouse moves.</p>
+
+        <img src="demoImages/createEvent2.png">
+
+        <p class="tutorialParagraph">Once the event executor has been selected the Event Creator window will close and
+        your next event will be displayed in the events list on the left of the main Creation Screen.</p>
+
+        </div>
+
     </div>
 
-    <div data-role="content" data-theme="b">
+<div data-role="page" id="addGroups" data-theme="a">
+
+    <div data-role="header"><a data-type="button" data-icon="arrow-circle-right" onclick="$('#menuPanel').panel('toggle')"></a></div>
+
+    <div data-role="content" data-theme="b" class="tutorialContent">
+
+        <h1>Adding Groups</h1>
+
+        <p class="tutorialParagraph">Groups can be used to hold several elements at once. Groups of elements in the same
+        manner to single elements when creating events. This saves a vast amount of time as only one event needs to be
+        added to provide functionality to a whole group of elements.</p>
+
+        <h3>Creating a Group</h3>
+
+        <p>Once you have created some (but not necessarily all) of the elements you wish to add to a group you can select
+        the groups tab in the top right corner of the screen. Pressing Add New Group below this tab will present you
+         with the option of naming your group. Once your group has been named it will be displayed in the groups list.
+         Clicking on the new group in this list will display a list of all objects currently in the game. Ticking the
+        boxes next to elements will add them to the new group. This group will then be displayed in the Event Creator lists
+        to allow you to create events that relate to all elements in the group.</p>
+
+        <img src="demoImages/addGroups1.png">
+
+        </div>
+
+</div>
+
+<div data-role="page" id="changeSettings" data-theme="a">
+
+    <div data-role="header"><a data-type="button" data-icon="arrow-circle-right" onclick="$('#menuPanel').panel('toggle')"></a></div>
+
+    <div data-role="content" data-theme="b" class="tutorialContent">
+
+        <h1>Changing Game Settings</h1>
+
+        <p class="tutorialParagraph">There are several game settings that can be altered from the area to the bottom left of the main creation screen.
+            These settings are grouped into two categories - world settings and element settings. World settings affect each
+            object in the game while element settings are specific to one object.</p>
+
+            <h3>World Settings</h3>
+
+        <p class="tutorialParagraph">World settings control the game environment. These controls include the ability
+         to alter the gravity in game and the ability to make objects bounce off of walls so they never leave the game area.
+         The in game gravity controls are split into X Gravity and Y Gravity. X Gravity controls the horizontal gravitational
+        pull that affects objects while Y Gravity controls the vertical pull. Both of these settings are measured in metres
+        per second per second. If you wish to simulate an earth like gravitational environment then you should set X Gravity
+        to 0 and Y Gravity to 9.8 metres per second per second.</p>
+
+        <img src="demoImages/settings1.png">
+
+        <h3>Element Settings</h3>
+
+        <p class="tutorialParagraph">Element settings will only affect the object that is currently selected when you
+        change a setting. In this tab you can make specific objects static. This means that they will not be affected by
+        any force or collision from other objects. This setting can be used for immovable objects such as walls and
+        platforms.</p>
+
+        <img src="demoImages/settings2.png">
+        </div>
+
+    </div>
+
+<div data-role="page" id="multiplayer" data-theme="a">
+
+    <div data-role="header"><a data-type="button" data-icon="arrow-circle-right" onclick="$('#menuPanel').panel('toggle')"></a></div>
+
+    <div data-role="content" data-theme="b" class="tutorialContent">
+
+        <h1>Creating a Multiplayer Game</h1>
+
         <p class="tutorialParagraph">To create a multiplayer game you will need two components - a game and a server. The server will store all of
             the data such as object positions. The game will then send and receive data from the server which describes
             the position of other players. You can control which data is sent to the server and when by creating
-            events in the game editor. This tutorial will provide you will a sample server and steps on how to establish
+            events in the game editor. This tutorial will provide you with a sample server and steps on how to establish
             contact with this server in order to create a multiplayer game.<br></p>
 
         <p class="tutorialParagraph">First, a server needs to be created to store all of the data and send it to the game when needed. Cloud
@@ -167,7 +271,8 @@ app.listen(process.env.PORT);
         <p class="tutorialParagraph">When a listener has been selected you will be taken to the second event creator screen. The object you wish
             to post to the server should be selected on the left list. You should then select Post Position To Server.
         When asked for the server URL please enter the URL in which your server is located. Most cloud server websites
-            will provide you with this information. Please ensure that there is no forward slash at the end of the URL.</p>
+            will provide you with this information. <b>Please ensure that there is no forward slash at the end of the URL
+        and that the URL is surrounded in inverted commas.</b></p>
 
         <img src="demoImages/eventCreator2.png">
 
@@ -191,8 +296,20 @@ app.listen(process.env.PORT);
     </div>
 </div>
 
+<div data-role="panel" data-position="left" data-display="push" id="menuPanel" data-theme="b">
+    <ul data-role="listview" id="menuList">
+        <li><a href="#newObject">Creating a new object</a></li>
+        <li><a href="#addEvents">Adding events</a></li>
+        <li><a href="#addGroups">Creating groups</a></li>
+        <li><a href="#changeSettings">Changing settings</a></li>
+        <li><a href="#multiplayer">Creating a multiplayer game</a></li>
+    </ul>
+</div>
+
 <script>window.onload = function () {
+    $("#menuPanel").panel();
     $("#menuPanel").panel("open");
+    $("#menuList").listview();
 }
 </script>
 

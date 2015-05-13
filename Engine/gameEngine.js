@@ -1,4 +1,4 @@
-var gameElementsArray = [], canvasArray = [], spriteArray = [],
+var canvasArray = [], spriteArray = [],
     eventsArray = [], pressedKeysArray = [], releasedKeysArray = [], destroyArray = [], controlArray = [], gamepadArray = [],
     controlReleasedArray = [];
 var exampleCanvas, backgroundCanvas, physicsCanvas, gamepadConnected = false;
@@ -9,13 +9,13 @@ var physicsEnabled = true, engineStarted = false;
 
 var FPS = {average: [], iterations: 0, recording: false, frameCounter: 0};
 
-/** Creates a new in-game element which can be altered programatically
+/** Creates a new in-game canvas element
  *
- * @param DOMElement
- * @param x
- * @param y
- * @param width
- * @param height
+ * @param DOMElement - The canvas to be loaded
+ * @param x - The canvas' X coordinate
+ * @param y - The canvas' Y coordinate
+ * @param width - The canvas' width
+ * @param height - The canvas' height
  * @constructor
  */
 
@@ -51,6 +51,11 @@ window.onload = function () {
 
 };
 
+/**Records the FPS over 30 seconds and displays in the console. Used for testing purposes
+ *
+ * @param repeat - Set to true if the recording should continue after first display
+ */
+
 FPS.recordFPS = function (repeat) {
 
     this.recording = true;
@@ -77,8 +82,6 @@ FPS.recordFPS = function (repeat) {
  */
 
 var startEngine = function () {
-
-    createMouseJoint();
 
     engineStarted = true;
 
@@ -154,7 +157,7 @@ function physicsLoop() {
 
 /** Load all required images
  *
- * @returns {boolean}
+ * @returns {boolean} - Returns true if all images are loaded
  */
 
 function imagesLoaded() {
@@ -190,6 +193,11 @@ function imagesLoaded() {
     }
 }
 
+/** Start the game engine when all game images have finished loading
+ *
+ * @param images - Array of loaded images
+ */
+
 function finishedImageLoad(images) {
 
     for (var i = 0; i < images.length; i++) {
@@ -207,7 +215,7 @@ function finishedImageLoad(images) {
 
 /** Execute all associated functions when a particular event happens
  *
- * @param listeningFunction
+ * @param listeningFunction - Function that has just been executed
  */
 
 function listen(listeningFunction) {
@@ -223,9 +231,9 @@ function listen(listeningFunction) {
 
 /** Add an event to an in game object. This event will execute a given function when certain criteria is satisfied (e.g. a mouse click)
  *
- * @param targetFunction
- * @param listener
- * @param parameterArray
+ * @param targetFunction - Function to execute
+ * @param listener - Execute target function when this function is called
+ * @param parameterArray - Array of parameters to pass into target function
  */
 
 Body.prototype.addEvent = function (targetFunction, listener, parameterArray) {
@@ -267,13 +275,11 @@ Body.prototype.addEvent = function (targetFunction, listener, parameterArray) {
 
 };
 
-//TO DO: Support for shift, enter etc.
-
 /** Add an event that is trigger when a keyboard key is pressed
  *
- * @param key
- * @param targetFunction
- * @param parameterArray
+ * @param key - Execute the target function when this key is pressed
+ * @param targetFunction - Function to execute
+ * @param parameterArray - Array of parameters to pass into target function
  */
 
 Body.prototype.addKeyDownEvent = function (key, targetFunction, parameterArray) {
@@ -286,14 +292,20 @@ Body.prototype.addKeyDownEvent = function (key, targetFunction, parameterArray) 
 
 /** Add an event that is triggered when a keyboard key is released
  *
- * @param key
- * @param targetFunction
- * @param parameterArray
+ * @param key - Execute the target function when this key is released
+ * @param targetFunction - Function to execute
+ * @param parameterArray - Array of parameters to pass into target function
  */
 
 Body.prototype.addKeyUpEvent = function (key, targetFunction, parameterArray) {
     controlReleasedArray.push(addKey.apply(this, [key, targetFunction, parameterArray, controlArray]));
 };
+
+/** Add an event that is called upon a collision between two objects
+ *
+ * @param targetFunction - Function to execute upon collision
+ * @param parameterArray - Array of parameters to pass into target function
+ */
 
 Body.prototype.addCollisionEvent = function (targetFunction, parameterArray) {
 
@@ -316,8 +328,8 @@ Body.prototype.addCollisionEvent = function (targetFunction, parameterArray) {
 
 /** Check if a given object is currently within the bounds of the canvas
  *
- * @param targetCanvas
- * @returns {boolean}
+ * @param targetCanvas - Canvas in which the object is situated
+ * @returns {boolean} - True if the object is in bounds
  */
 
 Body.prototype.inBounds = function (targetCanvas) {

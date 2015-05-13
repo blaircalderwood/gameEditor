@@ -1,6 +1,6 @@
 /** Save mouse coordinates every time it is moved
  *
- * @param e
+ * @param e - Contains mouse data
  */
 
 function mouseMoveListener(e) {
@@ -19,7 +19,7 @@ function mouseMoveListener(e) {
 
 /** Check for clicked elements each time the mouse is pressed
  *
- * @param e
+ * @param e - Contains mouse data
  */
 
 function mouseDownListener(e) {
@@ -98,7 +98,7 @@ function removeRightMenu() {
 
 /** Drop any dragging elements when the mouse button is released
  *
- * @param e
+ * @param e - Contains mouse data
  */
 
 function mouseUpListener(e) {
@@ -112,9 +112,9 @@ function mouseUpListener(e) {
 
 }
 
-/** Drag an element on screen
+/** Check if element is being dragged
  *
- * @returns {boolean}
+ * @returns {boolean} - True if element is being dragged
  */
 
 function dragging() {

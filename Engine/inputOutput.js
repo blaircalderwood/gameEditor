@@ -1,14 +1,25 @@
 var buttonMapping = ["A", "B", "X", "Y", "LB", "RB", "LT", "RT", "back", "start", "L analogue down", "R analogue down",
     "D Up", "D down", "D left", "D right"];
 
+/** Check if gamepad is connected
+ *
+ */
+
 window.addEventListener("gamepadconnected", function (e) {
     gamepadConnected = true;
-    //console.log(navigator.getGamepads(0));
 });
+
+/** Check if gamepad is disconnected
+ *
+ */
 
 window.addEventListener("gamepaddisconnected", function (e) {
     gamepadConnected = false;
 });
+
+/** Check which gamepad keys are being pressed
+ *
+ */
 
 function checkGamepadKeys() {
 
@@ -27,6 +38,13 @@ function checkGamepadKeys() {
 
 }
 
+/** Add an event which executes when a gamepad button is pressed
+ *
+ * @param button - Button that will execute event when pressed
+ * @param targetFunction - Event to be executed
+ * @param parameterArray - Array of parameters to be passed into target function
+ */
+
 Body.prototype.addGamepadEvent = function (button, targetFunction, parameterArray) {
 
     gamepadArray.push(addKey.apply(this, [button, targetFunction, parameterArray, gamepadArray]));
@@ -37,7 +55,7 @@ Body.prototype.addGamepadEvent = function (button, targetFunction, parameterArra
 
 /** Called every time the mouse is moved
  *
- * @param e
+ * @param e - Contains mouse data
  */
 
 var mouseMoveListener = function (e) {
@@ -52,11 +70,21 @@ var mouseMoveListener = function (e) {
 
 };
 
+/**Check if the mouse has been clicked
+ *
+ * @param e - Contains mouse data
+ */
+
 var mouseClick = function(e){
 
     listen(mouseClick);
 
 };
+
+/**Check if the mouse has been released
+ *
+ * @param e - Contains mouse data
+ */
 
 var mouseRelease = function(e){
 
@@ -64,26 +92,24 @@ var mouseRelease = function(e){
 
 };
 
+/**Check if the mouse has been pressed
+ *
+ * @param e - Contains mouse data
+ */
+
 var mousePressed = function(e){
 
     listen(mousePressed);
 
 };
 
-function createMouseJoint() {
-
-    var e = Event;
-
-
-}
-
 /** Add a keyboard key for later event trigger purposes
  *
- * @param key
- * @param targetFunction
- * @param parameterArray
- * @param keyArray
- * @returns {{}}
+ * @param key - Key to be checked
+ * @param targetFunction - Function to be executed on key press
+ * @param parameterArray - Array of parameters to be passed into target function
+ * @param keyArray - Array of keys (either keyboard keys or gamepad buttons)
+ * @returns {{}} - Key with all relevant data attached
  */
 
 function addKey(key, targetFunction, parameterArray, keyArray) {
@@ -121,7 +147,7 @@ function addKey(key, targetFunction, parameterArray, keyArray) {
 
 /** When a key is pressed push it to an array for later event testing
  *
- * @param e
+ * @param e - Contains keyboard data
  */
 
 document.onkeydown = function (e) {
@@ -130,16 +156,19 @@ document.onkeydown = function (e) {
         pressedKeysArray.push(e.keyCode);
     }
 
+    listen(anyKeyDown);
+
 };
 
 /** Remove key from event testing array when is it released
  *
- * @param e
+ * @param e - Contains keyboard data
  */
 
 document.onkeyup = function (e) {
     pressedKeysArray.splice(pressedKeysArray.indexOf(e.keyCode), 1);
     releasedKeysArray.push(e.keyCode);
+    listen(anyKeyUp);
 };
 
 /** Check which keys are currently being pressed
@@ -161,10 +190,14 @@ function checkReleasedKeys() {
 
 }
 
+function anyKeyDown(){}
+
+function anyKeyUp(){}
+
 /** Check which keys are currently pressed or have just been released against the list of keys with events attached to them.
  *
- * @param actualKeys
- * @param keysToCheck
+ * @param actualKeys - Keys that are currently being pressed
+ * @param keysToCheck - Keys that have events attached to them
  */
 
 function checkKeys(actualKeys, keysToCheck) {

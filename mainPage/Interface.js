@@ -18,7 +18,9 @@ var backgroundCanvas, mainCanvas,
     keyboard = {
         events: [], elementName: "Keyboard", listenerEvents: [
             {elementName: "Key Down", targetFunction: "keyDown", parameters: [{label: "Key", inputType: "keyList"}]},
-            {elementName: "Key Up", targetFunction: "keyUp", parameters: [{label: "Key", inputType: "keyList"}]}
+            {elementName: "Key Up", targetFunction: "keyUp", parameters: [{label: "Key", inputType: "keyList"}]},
+            {elementName: "Any Key Down", targetFunction: "anyKeyDown"},
+            {elementName: "Any Key Up", targetFunction: "anyKeyUp"}
         ]
     },
     gamepad = {
@@ -50,13 +52,13 @@ var compileText = "";
 
 /** Creates a new rectangle on the canvas - usually to surround and highlight an element
  *
- * @param x
- * @param y
- * @param width
- * @param height
- * @param targetCanvas
- * @param colour
- * @param type
+ * @param x - X coordinate of rectangle
+ * @param y - Y coordinate of rectangle
+ * @param width - Width of rectangle
+ * @param height - Height of rectangle
+ * @param targetCanvas - Canvas where rectangle will be drawn
+ * @param colour - Colour of rectangle
+ * @param type - Type of rectangle
  * @constructor
  */
 
@@ -112,6 +114,10 @@ function loadInterface() {
 
 }
 
+/** Show the world settings list
+ *
+ */
+
 function showWorldSettings() {
 
     $("#worldSettingsButton").addClass('ui-btn-active');
@@ -120,12 +126,20 @@ function showWorldSettings() {
 
 }
 
+/** Show the element settings list
+ *
+ */
+
 function showElementSettings() {
 
     $("#elementSettings").show();
     $("#worldSettings").hide();
 
 }
+
+/** Show the list of elements
+ *
+ */
 
 function showElementsList() {
 
@@ -136,6 +150,10 @@ function showElementsList() {
 
 }
 
+/** Show the list of groups
+ *
+ */
+
 function showGroupsList() {
 
     var tempGroups = canvasGroups.slice();
@@ -143,6 +161,10 @@ function showGroupsList() {
     generalFunctions.createList(tempGroups, $("#elementList"));
 
 }
+
+/** Change the type of element to either static or dynamic
+ *
+ */
 
 function changeType() {
 
@@ -184,8 +206,8 @@ function showEditMenu() {
 
 /** Shows the corresponding file, edit or window menu upon click of the relevant button
  *
- * @param menu
- * @param menuButton
+ * @param menu - List of menu items
+ * @param menuButton - Menu button that has been pressed e.g. file
  */
 
 function createMenu(menu, menuButton) {
@@ -207,7 +229,12 @@ function createMenu(menu, menuButton) {
 
 }
 
-function showTopMenu(menuFunction, menuID) {
+/** Show the file, edit and window menu
+ *
+ * @param menuFunction - Function to execute if button is pressed
+ */
+
+function showTopMenu(menuFunction) {
 
     if (!menuShown) {
         menuFunction();
@@ -217,6 +244,10 @@ function showTopMenu(menuFunction, menuID) {
     }
 
 }
+
+/** Remove the file, edit and window menu
+ *
+ */
 
 function removeTopMenu() {
 
@@ -273,8 +304,6 @@ function loadBehaviours() {
     plusImage.src = "../Images/plusImage.png"
 
 }
-
-//General Functions
 
 /** Redraw the screen every frame
  *
@@ -346,7 +375,7 @@ function clearCanvases() {
 
 /** Show window containing additional functionality e.g. Sprite Editor
  *
- * @param newShownWindow
+ * @param newShownWindow - Either Sprite Editor or Event Creation System
  */
 
 function showWidget(newShownWindow) {
@@ -411,12 +440,22 @@ function showDrawPage() {
 
 }
 
+/** Delete highlighted element if delete button is pressed
+ *
+ * @param e - Contains keyboard data
+ */
+
 function checkShortcuts(e) {
 
     if (e.keyCode == 46 && selectedElNo >= 0) {
         canvasElements[selectedElNo].deleteElement();
     }
 }
+
+/** Add an element to an element group
+ *
+ * @param item - Element to add
+ */
 
 function addToGroup(item) {
 
@@ -426,6 +465,11 @@ function addToGroup(item) {
 
     console.log(canvasGroups);
 }
+
+/** Create a new group and display it in the groups list
+ *
+ * @param JQMListElement - Groups list DOM element
+ */
 
 function createGroupsList(JQMListElement) {
 
@@ -468,6 +512,15 @@ function createGroupsList(JQMListElement) {
 
 }
 
+/** Create a list of selectable items using given data
+ *
+ * @param newHTML - Current HTML to be added to DOM
+ * @param parameterItem - Item to be added to list
+ * @param i - Array value of item
+ * @param z - Second array value of item
+ * @returns {string} - New HTML
+ */
+
 function createSelectList(newHTML, parameterItem, i, z) {
     newHTML += "<select id='" + i + "collapsibles" + z + "'>";
 
@@ -476,6 +529,13 @@ function createSelectList(newHTML, parameterItem, i, z) {
     newHTML += "</select>";
     return newHTML;
 }
+
+/** Create a list of collapsible items using given data
+ *
+ * @param newHTML - Current HTML to be added to DOM
+ * @param parameterItem - Collapsible item to be added to list
+ * @returns {*} - New HTML
+ */
 
 function createHTMLList(newHTML, parameterItem) {
 
@@ -487,6 +547,12 @@ function createHTMLList(newHTML, parameterItem) {
     return newHTML;
 
 }
+
+/** Fill a list with every element in the game
+ *
+ * @param groups - If true groups will also be displayed in list
+ * @returns {Array} - List of all canvas element
+ */
 
 function fillCanvasElements(groups) {
 
@@ -506,51 +572,23 @@ function fillCanvasElements(groups) {
 
 }
 
+/** Fill a list with all keys to create keyboard listeners
+ *
+ * @returns {string[]} - List of all keyboard keys that can be used
+ */
+
 function fillKeys() {
     return ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
         "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 }
 
+/** Create a list of gamepad buttons to create gamepad listeners
+ *
+ * @returns {string[]} - List of all gamepad buttons that can be used
+ */
+
 function fillButtons(){
     return ["A", "B", "X", "Y", "LB", "RB", "LT", "RT", "back", "start", "L analogue down", "R analogue down",
         "D Up", "D down", "D left", "D right"];
-}
-
-function insertList(target) {
-
-    var collapsibleInput;
-
-    collapsibleInput = document.createElement("select");
-    if (target.inputList) {
-
-        for (var i = 0; i < target.inputList.length; i++) {
-
-            var option = document.createElement("option");
-            option.innerHTML = option.value = option.title = target.inputList[i];
-            collapsibleInput.appendChild(option);
-        }
-    }
-
-    return collapsibleInput;
-
-}
-
-function insertElementsList() {
-
-    var target = fillCanvasElements();
-    var collapsibleInput;
-
-    collapsibleInput = document.createElement("select");
-
-    for (var i = 0; i < target.length; i++) {
-
-        var option = document.createElement("option");
-        option.innerHTML = option.title = target[i];
-        option.value = "spriteArray[" + i + "]";
-        collapsibleInput.appendChild(option);
-    }
-
-    return collapsibleInput;
-
 }

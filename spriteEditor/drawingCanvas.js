@@ -5,6 +5,10 @@ var selected = {down: "", move: "", up: ""};
 var savedX, savedY = 0;
 var undoQueue = [], redoQueue = [], canvasElements = [];
 
+/** Prepare the canvas for a new drawing
+ *
+ */
+
 function canvasLoad() {
 
     drawingCanvas = document.getElementById("drawingCanvas");
@@ -35,7 +39,9 @@ function canvasLoad() {
 
 }
 
-//Change to more efficient method if possible
+/** Erase the drawing when Sprite Editor window is closed
+ *
+ */
 
 function setEraseTimer(){
 
@@ -50,11 +56,19 @@ function setEraseTimer(){
 
 }
 
+/** Clear the canvas area
+ *
+ */
+
 function eraseDrawing() {
 
     context.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
 
 }
+
+/** Change the canvas size
+ *
+ */
 
 function setCanvasSize() {
 
@@ -63,6 +77,10 @@ function setCanvasSize() {
     contentDiv.height = $(window).outerHeight();
 
 }
+
+/** Change the canvas position
+ *
+ */
 
 function setCanvasPos() {
 
@@ -75,6 +93,10 @@ function setCanvasPos() {
 
 }
 
+/** Set the values of the dimension input boxes on page load
+ *
+ */
+
 function changeDimensionsValues() {
 
     $("#dimensionsPickerWidth").val(drawingCanvas.width);
@@ -82,6 +104,10 @@ function changeDimensionsValues() {
 
 
 }
+
+/** Change the dimensions of any loaded image to fit the canvas
+ *
+ */
 
 function changeDimensions() {
 
@@ -94,6 +120,14 @@ function changeDimensions() {
     context.putImageData(currentImg, (drawingCanvas.width / 2) - (currentImg.width / 2), (drawingCanvas.height / 2) - (currentImg.height / 2));
 
 }
+
+/** Execute a set of functions related to a tool e.g. Create Rectangle
+ *
+ * @param down - Function to execute when mouse is down
+ * @param move - Function to execute when mouse is moving
+ * @param up - Function to execute when mouse is released
+ * @constructor
+ */
 
 function Selected(down, move, up) {
 
@@ -114,6 +148,10 @@ function Selected(down, move, up) {
 
 }
 
+/** Enable mouse dragging
+ *
+ */
+
 function dragEnabled() {
 
     selected = new Selected();
@@ -121,6 +159,10 @@ function dragEnabled() {
     isDragEnabled = true;
 
 }
+
+/** Paint directly onto the canvas
+ *
+ */
 
 function paint() {
 
@@ -131,6 +173,10 @@ function paint() {
 
 }
 
+/** Set mouse values to show that mouse button is down
+ *
+ */
+
 function putMouseDown() {
 
     prevTouched = false;
@@ -138,6 +184,11 @@ function putMouseDown() {
     if (selected.down)selected.down();
 
 }
+
+/** Execute appropriate functions when mouse is moved
+ *
+ * @param e - Contains mouse data
+ */
 
 function mouseMove(e) {
 
@@ -181,6 +232,10 @@ function mouseMove(e) {
 
 }
 
+/** Execute all tool functions related to mouse movement
+ *
+ */
+
 function checkAndMove() {
 
     if (mouseDown && selected.move) {
@@ -188,6 +243,10 @@ function checkAndMove() {
     }
 
 }
+
+/** Execute all tool functions related to mouse release
+ *
+ */
 
 function mouseUp() {
 
@@ -199,6 +258,10 @@ function mouseUp() {
 
 }
 
+/** Change the colour currently being drawn onto the canvas
+ *
+ */
+
 function changeColour() {
 
     var colourPicker = document.getElementById("colourPicker");
@@ -206,10 +269,18 @@ function changeColour() {
 
 }
 
+/** Change the width of the line being drawn onto the canvas
+ *
+ */
+
 function lineChange() {
     context.lineWidth = document.getElementById("lineWidthPicker").value;
     console.log(context.lineWidth);
 }
+
+/** Save the mouse coordinates for later use
+ *
+ */
 
 function saveCoords() {
 
@@ -217,6 +288,10 @@ function saveCoords() {
     savedY = mouse.y;
 
 }
+
+/** Show a shape preview before mouse is release to show user where newly drawn shape will be positioned
+ *
+ */
 
 function previewShape() {
 
@@ -235,6 +310,10 @@ function previewShape() {
 
 }
 
+/** Draw rectangle
+ *
+ */
+
 function rectUp() {
 
     context.beginPath();
@@ -242,6 +321,10 @@ function rectUp() {
     context.stroke();
 
 }
+
+/** Draw circle
+ *
+ */
 
 function circUp() {
 
@@ -256,58 +339,9 @@ function circUp() {
 
 }
 
-function selectItem() {
-
-    var tempRect, tempX, tempY, targetElement;
-
-    mouseDown = true;
-
-    for (var i = 0; i < canvasElements.length; i++) {
-
-        targetElement = canvasElements[i];
-
-        tempRect = drawingCanvas.getBoundingClientRect();
-        tempX = e.pageX - tempRect.left;
-        tempY = e.pageY - tempRect.top;
-
-        if (tempX >= targetElement.x && tempX <= (targetElement.x + targetElement.width) &&
-            tempY >= targetElement.y && tempY <= (targetElement.x + targetElement.height)) {
-
-            clickedElement = targetElement;
-
-        }
-        else {
-            targetElement.unHighlight();
-        }
-
-    }
-
-}
-
-function dragElement() {
-
-    if (clickedElement) {
-        clickedElement.x += mouse.x - mouse.oldX;
-        clickedElement.y += mouse.y - mouse.oldY;
-
-        mouse.oldX = mouse.x;
-        mouse.oldY = mouse.y;
-
-        if (clickedElement.highlightRect >= 0) {
-            clickedElement.unHighlight();
-        }
-
-        clickedElement.highlight();
-
-    }
-
-}
-
-function dropElement() {
-
-    clickedElement = "";
-
-}
+/** Highlight any drawn elements
+ *
+ */
 
 function highlight() {
 
@@ -322,6 +356,10 @@ function highlight() {
 
 }
 
+/** Create a new undo point for easy mistake rectification
+ *
+ */
+
 function saveContext() {
 
     undoQueue.push(context.getImageData(0, 0, drawingCanvas.width, drawingCanvas.height));
@@ -334,6 +372,12 @@ function saveContext() {
 
 }
 
+/** Undo previous action
+ *
+ * @param popQueue - Array containing previously carried out actions
+ * @param pushQueue - Array containing previously undid actions
+ */
+
 function undo(popQueue, pushQueue) {
 
     if (popQueue.length > 0) {
@@ -341,38 +385,39 @@ function undo(popQueue, pushQueue) {
         var doStuff = popQueue.pop();
         pushQueue.push(doStuff);
         context.putImageData(doStuff, 0, 0);
-        console.log(popQueue);
 
     }
 
 }
 
+/** Save the new drawing to local storage
+ *
+ */
+
 function saveDrawing() {
     sessionStorage.setItem('image', drawingCanvas.toDataURL("image/png"));
 }
 
-function removeActiveClass(button, e) {
-
-    $("#navbarStuff").removeClass("ui-btn-active");
-    e.preventDefault();
-    console.log(button);
-
-}
+/** Upload any images the user selects to the web page
+ *
+ * @param target - Uploaded file
+ */
 
 function fileUpload(target) {
 
     var files = target.files[0];
 
-    console.log(files);
     fileRead = new FileReader();
     fileRead.readAsDataURL(files);
     fileRead.onload = showImage;
 
 }
 
-function showImage() {
+/** Show any newly uploaded images on the drawing canvas
+ *
+ */
 
-    console.log(fileRead.result);
+function showImage() {
 
     var tempImage = new Image();
     tempImage.src = fileRead.result;

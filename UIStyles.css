@@ -140,7 +140,7 @@
     padding: 0 !important;
 }
 
-.ui-listview {
+.interfaceList {
     margin: 0 !important;
     padding: 0 !important;
 }
@@ -148,4 +148,10 @@
 .tutorialParagraph{
 
     text-align: justify;
+}
+
+.tutorialContent {
+
+    margin-left: 3%;
+    margin-right: 3%;
 }

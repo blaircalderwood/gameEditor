@@ -25,6 +25,10 @@ function loadCanvasDrawing() {
 
 }
 
+/** Rename a canvas element or group
+ *
+ */
+
 function renameSprite(){
 
     var renameDialog = $("#renameDialog");
@@ -45,6 +49,10 @@ function renameSprite(){
     })
 
 }
+
+/** Add a new group of canvas elements
+ *
+ */
 
 function addNewGroup(){
 
@@ -71,6 +79,11 @@ function addNewGroup(){
     })
 
 }
+
+/** Change group name to new name
+ *
+ * @param groupName - New group name
+ */
 
 function setGroupName(groupName){
 

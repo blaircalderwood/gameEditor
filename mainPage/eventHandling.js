@@ -2,11 +2,11 @@ var compileText = "";
 
 /** Show events that can act as listeners in order to carry out a certain task
  *
- * @param array
- * @param onClickFunction
- * @param showGenerics
- * @param showGroups
- * @returns {Array}
+ * @param array - Array of listener events
+ * @param onClickFunction - Function to execute when element is pressed
+ * @param showGenerics - True if list should contain mouse, keyboard, gamepad and system objects
+ * @param showGroups - True if list should contain element groups
+ * @returns {Array} - List of listeners ready for on screen display
  */
 
 function eventElementsList(array, onClickFunction, showGenerics, showGroups) {
@@ -48,6 +48,11 @@ function eventElementsList(array, onClickFunction, showGenerics, showGroups) {
 
 }
 
+/** Returns a list of mouse, keyboard, gamepad and system objects
+ *
+ * @returns {Array} - Array list
+ */
+
 function genericsArrayNames() {
 
     var targetList = [];
@@ -55,6 +60,10 @@ function genericsArrayNames() {
     return targetList;
 
 }
+
+/** Shows the Event Creation System window with a list of elements
+ *
+ */
 
 function showListenerElements() {
 
@@ -64,12 +73,20 @@ function showListenerElements() {
 
 }
 
+/** Shows the list of tasks assigned to elements
+ *
+ */
+
 function showListenerTasks() {
 
     eventCompiler.listenerElement = this;
     generalFunctions.createList(eventElementsList(this.listenerEvents, showExecutorElements, false, false), $("#addEventTask"));
 
 }
+
+/** Shows the list of elements that have executors assigned to them
+ *
+ */
 
 function showExecutorElements() {
 
@@ -80,6 +97,10 @@ function showExecutorElements() {
 
 }
 
+/** Shows the list of tasks assigned to executor elements
+ *
+ */
+
 function showExecutorTasks() {
 
     eventCompiler.targetElement = this;
@@ -87,6 +108,11 @@ function showExecutorTasks() {
     generalFunctions.createList(eventElementsList(this.executorEvents, compileGroupEvent, false, false), $("#addEventTask"));
 
 }
+
+/** Show the newly create event in the Main Screen's event list
+ *
+ * @param newEventString - Description of new event
+ */
 
 function updateEventList(newEventString) {
 
@@ -96,6 +122,12 @@ function updateEventList(newEventString) {
 
 }
 
+/** Loop through groups to create collision events for all elements
+ *
+ * @param thisObject - Grouped object
+ * @param collidingObject - Object that has collided with group object
+ */
+
 function canvasGroupLoop(thisObject, collidingObject){
 
   for(var i = 0; i < canvasGroups[collidingObject].elements.length; i ++){
@@ -104,6 +136,10 @@ function canvasGroupLoop(thisObject, collidingObject){
       compileEvent.apply(thisObject);
   }
 }
+
+/** Create events for all elements in a group
+ *
+ */
 
 function compileGroupEvent() {
 
@@ -163,6 +199,10 @@ function compileGroupEvent() {
 
 }
 
+/** Create the Add Event code that will be read and executed by the game engine
+ *
+ */
+
 function compileEvent() {
 
     var genericsNames = genericsArrayNames();
@@ -184,8 +224,6 @@ function compileEvent() {
 
     var newEvent = "spriteArray[" + executorIndex + "].";
 
-    console.log(eventCompiler.eventListener);
-
     function checkObject(f, j) {
 
         if (canvasElements[f].elementName == eventCompiler.eventListener.parametersDetails[0][j]) {
@@ -201,7 +239,6 @@ function compileEvent() {
         for (var f = 0; f < canvasElements.length; f++) {
             console.log(eventCompiler.eventListener.parametersDetails[0].elementName);
             if(Array.isArray(eventCompiler.eventListener.parametersDetails[0])){
-                console.log("CHECKCHECK");
                 for(var j = 0; j < eventCompiler.eventListener.parametersDetails[0].length; j ++){
 
                     checkObject.call(this, f, j);
@@ -214,7 +251,7 @@ function compileEvent() {
         console.log(newEvent);
     }
 
-    else if (eventCompiler.listenerElement.elementName == "Keyboard") {
+    else if (eventCompiler.listenerElement.engineFunction == "keyDown" || eventCompiler.listenerElement.engineFunction == "keyUp") {
         newEvent += "addKeyDownEvent('" + eventCompiler.eventListener.parametersDetails[0] + "','" + this.engineFunction + "'";
     }
 

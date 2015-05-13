@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: drawingCanvas.js</title>
+
+    <script src="../scripts/prettify/prettify.js"> </script>
+    <script src="../scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="../styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="../styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: drawingCanvas.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>var context, drawingCanvas, clickedElement, fileRead;
+var mouseDown = false, prevTouched = false, isDragEnabled = false;
+var mouse = {};
+var selected = {down: "", move: "", up: ""};
+var savedX, savedY = 0;
+var undoQueue = [], redoQueue = [], canvasElements = [];
+
+/** Prepare the canvas for a new drawing
+ *
+ */
+
+function canvasLoad() {
+
+    drawingCanvas = document.getElementById("drawingCanvas");
+    context = drawingCanvas.getContext("2d");
+
+    context.fillStyle = 'blue';
+
+    setEraseTimer();
+
+    setCanvasPos();
+
+    $(window).on('resize', setCanvasPos);
+
+    changeDimensionsValues();
+
+    $("#lineWidthPicker").bind('change', lineChange);
+    changeColour();
+
+    saveContext();
+
+    selected = new Selected(paint, paint);
+
+    drawingCanvas.addEventListener('touchstart', putMouseDown);
+    drawingCanvas.addEventListener('touchmove', function () {
+        mouseMove(event)
+    });
+    drawingCanvas.addEventListener('touchend', mouseUp);
+
+}
+
+/** Erase the drawing when Sprite Editor window is closed
+ *
+ */
+
+function setEraseTimer(){
+
+    var eraseTimer = setInterval(function () {
+
+        if (sessionStorage.image == undefined) {
+            eraseDrawing();
+            canvasLoad();
+        }
+
+    }, 2000);
+
+}
+
+/** Clear the canvas area
+ *
+ */
+
+function eraseDrawing() {
+
+    context.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+
+}
+
+/** Change the canvas size
+ *
+ */
+
+function setCanvasSize() {
+
+    var contentDiv = $("#contentDiv");
+    contentDiv.width = $(window).outerWidth();
+    contentDiv.height = $(window).outerHeight();
+
+}
+
+/** Change the canvas position
+ *
+ */
+
+function setCanvasPos() {
+
+    var contentDiv = $("#contentDiv");
+    var headerHeight = $(".ui-header").hasClass("ui-header-fixed") ? $(".ui-header").outerHeight() - 1 : $(".ui-header").outerHeight();
+    var drawSize = (($("#drawingPage").outerHeight() + headerHeight) / 2) - (drawingCanvas.height / 2);
+
+    contentDiv.css('left', 50 + '%');
+    contentDiv.css('top', drawSize + 'px');
+
+}
+
+/** Set the values of the dimension input boxes on page load
+ *
+ */
+
+function changeDimensionsValues() {
+
+    $("#dimensionsPickerWidth").val(drawingCanvas.width);
+    $("#dimensionsPickerHeight").val(drawingCanvas.height);
+
+
+}
+
+/** Change the dimensions of any loaded image to fit the canvas
+ *
+ */
+
+function changeDimensions() {
+
+    var currentImg = context.getImageData(0, 0, drawingCanvas.width, drawingCanvas.height);
+
+    drawingCanvas.width = $("#dimensionsPickerWidth").val();
+    drawingCanvas.height = $("#dimensionsPickerHeight").val();
+
+    setCanvasPos();
+    context.putImageData(currentImg, (drawingCanvas.width / 2) - (currentImg.width / 2), (drawingCanvas.height / 2) - (currentImg.height / 2));
+
+}
+
+/** Execute a set of functions related to a tool e.g. Create Rectangle
+ *
+ * @param down - Function to execute when mouse is down
+ * @param move - Function to execute when mouse is moving
+ * @param up - Function to execute when mouse is released
+ * @constructor
+ */
+
+function Selected(down, move, up) {
+
+    var contentDiv = $('#contentDiv');
+
+    if (isDragEnabled) {
+        contentDiv.draggable("disable");
+    }
+
+    if (down)this.down = down;
+    else this.down = "";
+
+    if (move)this.move = move;
+    else this.move = "";
+
+    if (up)this.up = up;
+    else this.up = "";
+
+}
+
+/** Enable mouse dragging
+ *
+ */
+
+function dragEnabled() {
+
+    selected = new Selected();
+    $("#contentDiv").draggable();
+    isDragEnabled = true;
+
+}
+
+/** Paint directly onto the canvas
+ *
+ */
+
+function paint() {
+
+    context.beginPath();
+    context.moveTo(mouse.oldX, mouse.oldY);
+    context.lineTo(mouse.x, mouse.y);
+    context.stroke();
+
+}
+
+/** Set mouse values to show that mouse button is down
+ *
+ */
+
+function putMouseDown() {
+
+    prevTouched = false;
+    mouseDown = true;
+    if (selected.down)selected.down();
+
+}
+
+/** Execute appropriate functions when mouse is moved
+ *
+ * @param e - Contains mouse data
+ */
+
+function mouseMove(e) {
+
+    if (e.touches) {
+
+        if (prevTouched) {
+
+            mouse.oldX = mouse.x;
+            mouse.oldY = mouse.y;
+
+            mouse.x = e.touches[0].clientX - drawingCanvas.getBoundingClientRect().left;
+            mouse.y = e.touches[0].clientY - drawingCanvas.getBoundingClientRect().top;
+
+        }
+
+        else {
+
+            mouse.oldX = mouse.x = e.touches[0].clientX - drawingCanvas.getBoundingClientRect().left;
+            mouse.oldY = mouse.y = e.touches[0].clientY - drawingCanvas.getBoundingClientRect().top;
+            saveCoords();
+            prevTouched = true;
+
+        }
+
+        checkAndMove();
+    }
+
+    else if (e.pageX) {
+
+        mouse.oldX = mouse.x;
+        mouse.oldY = mouse.y;
+
+        mouse.x = e.pageX - drawingCanvas.getBoundingClientRect().left;
+        mouse.y = e.pageY - drawingCanvas.getBoundingClientRect().top;
+
+        checkAndMove();
+    }
+    else if (e.touches.length &lt; 0) {
+        mouseUp();
+    }
+
+}
+
+/** Execute all tool functions related to mouse movement
+ *
+ */
+
+function checkAndMove() {
+
+    if (mouseDown &amp;&amp; selected.move) {
+        selected.move();
+    }
+
+}
+
+/** Execute all tool functions related to mouse release
+ *
+ */
+
+function mouseUp() {
+
+    mouseDown = false;
+
+    if (selected.up)selected.up();
+
+    saveContext();
+
+}
+
+/** Change the colour currently being drawn onto the canvas
+ *
+ */
+
+function changeColour() {
+
+    var colourPicker = document.getElementById("colourPicker");
+    context.strokeStyle = context.fillStyle = "#" + colourPicker.color;
+
+}
+
+/** Change the width of the line being drawn onto the canvas
+ *
+ */
+
+function lineChange() {
+    context.lineWidth = document.getElementById("lineWidthPicker").value;
+    console.log(context.lineWidth);
+}
+
+/** Save the mouse coordinates for later use
+ *
+ */
+
+function saveCoords() {
+
+    savedX = mouse.x;
+    savedY = mouse.y;
+
+}
+
+/** Show a shape preview before mouse is release to show user where newly drawn shape will be positioned
+ *
+ */
+
+function previewShape() {
+
+    if (undoQueue.length > 0) {
+        context.putImageData(undoQueue[undoQueue.length - 1], 0, 0);
+        this.up()
+    }
+    else {
+
+        var oldFill = context.fillStyle;
+        context.fillStyle = 'white';
+        context.fillRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+        context.fillStyle = oldFill;
+        this.up();
+    }
+
+}
+
+/** Draw rectangle
+ *
+ */
+
+function rectUp() {
+
+    context.beginPath();
+    context.fillRect(savedX, savedY, (mouse.x - savedX), (mouse.y - savedY));
+    context.stroke();
+
+}
+
+/** Draw circle
+ *
+ */
+
+function circUp() {
+
+    var x = (mouse.x - savedX);
+    var y = mouse.y - savedY;
+    var distance = Math.sqrt((x * x) + (y * y)) / 2;
+    context.beginPath();
+
+    context.arc(savedX + distance, savedY + distance, distance, 0, 360);
+
+    context.fill();
+
+}
+
+/** Highlight any drawn elements
+ *
+ */
+
+function highlight() {
+
+    if (clickedElement) {
+        context.fillStyle = 'blue';
+        context.strokeRect(drawingCanvas.width + 100, drawingCanvas.height + 100, clickedElement.width, clickedElement.height);
+
+        canvasRects.push(new CanvasRectangle(this.x, this.y, this.width, this.height, this.targetCanvas, 'blue', 'stroke'));
+        this.highlightRect = canvasRects.length - 1;
+
+    }
+
+}
+
+/** Create a new undo point for easy mistake rectification
+ *
+ */
+
+function saveContext() {
+
+    undoQueue.push(context.getImageData(0, 0, drawingCanvas.width, drawingCanvas.height));
+
+    if (redoQueue.length > 0) {
+        redoQueue = [];
+    }
+
+    saveDrawing();
+
+}
+
+/** Undo previous action
+ *
+ * @param popQueue - Array containing previously carried out actions
+ * @param pushQueue - Array containing previously undid actions
+ */
+
+function undo(popQueue, pushQueue) {
+
+    if (popQueue.length > 0) {
+
+        var doStuff = popQueue.pop();
+        pushQueue.push(doStuff);
+        context.putImageData(doStuff, 0, 0);
+
+    }
+
+}
+
+/** Save the new drawing to local storage
+ *
+ */
+
+function saveDrawing() {
+    sessionStorage.setItem('image', drawingCanvas.toDataURL("image/png"));
+}
+
+/** Upload any images the user selects to the web page
+ *
+ * @param target - Uploaded file
+ */
+
+function fileUpload(target) {
+
+    var files = target.files[0];
+
+    fileRead = new FileReader();
+    fileRead.readAsDataURL(files);
+    fileRead.onload = showImage;
+
+}
+
+/** Show any newly uploaded images on the drawing canvas
+ *
+ */
+
+function showImage() {
+
+    var tempImage = new Image();
+    tempImage.src = fileRead.result;
+
+    context.drawImage(tempImage, 0, 0, drawingCanvas.width, drawingCanvas.height);
+
+    saveContext();
+
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Selected.html">Selected</a></li></ul><h3>Global</h3><ul><li><a href="global.html#canvasLoad">canvasLoad</a></li><li><a href="global.html#changeColour">changeColour</a></li><li><a href="global.html#changeDimensions">changeDimensions</a></li><li><a href="global.html#changeDimensionsValues">changeDimensionsValues</a></li><li><a href="global.html#checkAndMove">checkAndMove</a></li><li><a href="global.html#circUp">circUp</a></li><li><a href="global.html#dragEnabled">dragEnabled</a></li><li><a href="global.html#eraseDrawing">eraseDrawing</a></li><li><a href="global.html#fileUpload">fileUpload</a></li><li><a href="global.html#highlight">highlight</a></li><li><a href="global.html#lineChange">lineChange</a></li><li><a href="global.html#mouseMove">mouseMove</a></li><li><a href="global.html#mouseUp">mouseUp</a></li><li><a href="global.html#paint">paint</a></li><li><a href="global.html#previewShape">previewShape</a></li><li><a href="global.html#putMouseDown">putMouseDown</a></li><li><a href="global.html#rectUp">rectUp</a></li><li><a href="global.html#saveContext">saveContext</a></li><li><a href="global.html#saveCoords">saveCoords</a></li><li><a href="global.html#saveDrawing">saveDrawing</a></li><li><a href="global.html#setCanvasPos">setCanvasPos</a></li><li><a href="global.html#setCanvasSize">setCanvasSize</a></li><li><a href="global.html#setEraseTimer">setEraseTimer</a></li><li><a href="global.html#showImage">showImage</a></li><li><a href="global.html#undo">undo</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta3</a> on Wed May 13 2015 10:59:08 GMT+0100 (GMT Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="../scripts/linenumber.js"> </script>
+</body>
+</html>

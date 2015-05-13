@@ -55,9 +55,6 @@
             <a data-role="button" id="redoButton"
                onclick="undo(redoQueue, undoQueue)" data-icon="arrow-circle-right">Redo</a>
 
-            <a data-role="button" id="saveButton"
-               onclick="saveDrawing()" data-icon="save">Save</a>
-
             <a data-role="button" id="uploadButton"
                data-icon="folder" onclick="$('#imageUpload').click()">Upload Image</a>
 
@@ -72,12 +69,6 @@
 
             <a data-role="button" id="circleButton"
                onclick="selected = new Selected(saveCoords, previewShape, circUp)" data-icon="circle">Circle</a>
-
-            <a data-role="button" id="textButton"
-               onclick="selected = new Selected()" data-icon="font">Text</a>
-
-            <a data-role="button" id="lineButton"
-               onclick="selected = new Selected()" data-icon="minus">Line</a>
 
         </div>
     </div>

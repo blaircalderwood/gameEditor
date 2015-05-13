@@ -1,5 +1,5 @@
 var spriteExecutors = [
-    {elementName: "Rotate", engineFunction: "rotate"},
+    {elementName: "Stop", engineFunction: "stop"},
     {elementName: "Move Left", engineFunction: "moveLeft", parameters: [
         {label: "Speed (m/s)", inputType: "number"}
     ]},
@@ -39,7 +39,22 @@ var spriteEvents = [
     ]}
 ];
 
-//Canvas Element Prototypes
+/** Create a new canvas element
+ *
+ * @param x - X coordinate of new element
+ * @param y - Y coordinate of new element
+ * @param width - Width of new element
+ * @param height - Height of new element
+ * @param targetCanvas - Canvas to draw new element to
+ * @param image - Image of new element
+ * @param elementName - Name of new element
+ * @param draggable - Set to true if object can be dragged around screen
+ * @param selectable - Set to true if object is selectable
+ * @param behaviours - Behaviours of new element
+ * @param events - Events of new element
+ * @constructor
+ */
+
 function CanvasElement(x, y, width, height, targetCanvas, image, elementName, draggable, selectable, behaviours, events) {
 
     this.x = x;
@@ -61,6 +76,13 @@ function CanvasElement(x, y, width, height, targetCanvas, image, elementName, dr
 
 }
 
+/** Create new element group
+ *
+ * @param groupName - Name of new group
+ * @param elements - Elements contained in new group
+ * @constructor
+ */
+
 function CanvasGroup(groupName, elements){
 
     this.elementName = groupName;
@@ -70,6 +92,10 @@ function CanvasGroup(groupName, elements){
     this.addedEvents = [];
 
 }
+
+/**Drag an element around the Creation Canvas
+ *
+ */
 
 CanvasElement.prototype.dragElement = function () {
 
@@ -87,16 +113,25 @@ CanvasElement.prototype.dragElement = function () {
 
 };
 
+/** Drop an element when dragging is complete
+ *
+ */
+
 CanvasElement.prototype.dropElement = function () {
 
     if (!dragging()) {
         this.elementClicked();
     }
 
-    if (canvasRects.length > 0)this.showBehaviourBar(this.behaviours);
-    else hideBehaviourBar();
+    //Behaviour bar not fully implemented
+    /*if (canvasRects.length > 0)this.showBehaviourBar(this.behaviours);
+    else hideBehaviourBar();*/
 
 };
+
+/** Highlight an element when clicked
+ *
+ */
 
 CanvasElement.prototype.elementClicked = function () {
 
@@ -112,12 +147,21 @@ CanvasElement.prototype.elementClicked = function () {
     }
 };
 
+/** Show the context menu when screen is right clicked
+ *
+ * @param e - Contains mouse data
+ */
+
 elementRightClicked = function (e) {
 
     rightMenu.style.top = mouse.y;
     rightMenu.style.left = mouse.x;
 
 };
+
+/** Draw a rectangle around an element to highlight it
+ *
+ */
 
 CanvasElement.prototype.highlight = function () {
 
@@ -131,17 +175,9 @@ CanvasElement.prototype.highlight = function () {
 
 };
 
-function unHighlightElements() {
-
-    hideBehaviourBar();
-
-    for (var i = 0; i < canvasElements.length; i++) {
-        canvasElements[i].unHighlight();
-    }
-
-    showWorldSettings();
-
-}
+/** Delete any rectangle around an element to unhighlight it
+ *
+ */
 
 CanvasElement.prototype.unHighlight = function () {
 
@@ -159,12 +195,20 @@ CanvasElement.prototype.unHighlight = function () {
 
 };
 
+/** Show the behaviour bar
+ *
+ */
+
 CanvasElement.prototype.showBehaviourBar = function () {
 
     $("#behaviourDiv").show().animate({bottom: 0});
     $("#addBehaviourButton").bind('click', this.showAddBehaviour);
 
 };
+
+/** Show the add behaviour screen
+ *
+ */
 
 CanvasElement.prototype.showAddBehaviour = function(){
 
@@ -175,10 +219,18 @@ CanvasElement.prototype.showAddBehaviour = function(){
 
 };
 
+/** Hide the behaviour bar
+ *
+ */
+
 function hideBehaviourBar() {
     $("#addBehaviourDiv").hide();
     $("#behaviourDiv").animate({bottom: '-25%'});
 }
+
+/** Delete an element
+ *
+ */
 
 CanvasElement.prototype.deleteElement = function () {
 

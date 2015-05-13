@@ -1,5 +1,14 @@
 var generalFunctions = {};
 
+/** Create list of any given array of elements
+ *
+ * @param array - Array to display in list
+ * @param JQMListElement - DOM element to display list within
+ * @param callback - Function executed when list creation is complete
+ * @param callbackParamArray - Parameters to pass into callback function
+ * @returns {*} - List element containing array
+ */
+
 generalFunctions.createList = function (array, JQMListElement, callback, callbackParamArray) {
 
     JQMListElement.empty();
@@ -61,7 +70,6 @@ generalFunctions.createList = function (array, JQMListElement, callback, callbac
             }
 
             collapsibles = array[i].parameters.length;
-            console.log(collapsibles);
             $(listItem).append(newHTML);
             newHTML += "<a data-role='button' id = '" + i + "Submit'>Submit</a>";
 
@@ -80,7 +88,6 @@ generalFunctions.createList = function (array, JQMListElement, callback, callbac
                         parametersDetails[y] = newParam.val();
                     }
                     array[i].parametersDetails = parametersDetails;
-                    console.log(array[i]);
                     if (array[i].elementClicked)array[i].elementClicked();
                     else console.log("Create List - Element does not have clicked function");
 
@@ -101,6 +108,11 @@ generalFunctions.createList = function (array, JQMListElement, callback, callbac
 
 };
 
+/** Refresh any list element to ensure it has been displayed correctly
+ *
+ * @param list - List element
+ */
+
 function refreshList(list) {
 
     if (list.hasClass('ui-listview')) {
@@ -111,6 +123,13 @@ function refreshList(list) {
     }
 
 }
+
+/** Load a set of images into the DOM
+ *
+ * @param callback - Function to execute when image load is complete
+ * @param callbackParamArray - Parameters to pass into callback function
+ * @param images - Array of images to load into DOM
+ */
 
 generalFunctions.loadImages = function (callback, callbackParamArray, images) {
 
@@ -158,9 +177,14 @@ generalFunctions.getAjax = function(url, callback){
 
 };
 
+/** Execute any given callback and pass in the relevant parameter array
+ *
+ * @param callback - Function to execute
+ * @param callbackParamArray - Parameters to pass
+ */
+
 function execCallback(callback, callbackParamArray) {
 
-    console.log(callbackParamArray);
     if (callbackParamArray)callback.apply(this, callbackParamArray);
     else callback();
 
@@ -170,7 +194,7 @@ function execCallback(callback, callbackParamArray) {
 
 /** Returns an ASCII value when given a keyboard key
  *
- * @returns {number}
+ * @returns {number} - ASCII value
  */
 
 String.prototype.toASCII = function () {
@@ -181,9 +205,9 @@ String.prototype.toASCII = function () {
 
 /** Returns the tangent between two objects
  *
- * @param object1
- * @param object2
- * @returns {number}
+ * @param object1 - First object used to calculate tangent
+ * @param object2 - Second object used to calculate tangent
+ * @returns {number} - Tangent between objects
  */
 
 function tanAngle(object1, object2) {
